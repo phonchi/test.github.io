@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-hant">
+<head>
+  <link href='//fonts.googleapis.com/css?family=Lato:300,700,300italic' rel='stylesheet' type='text/css'>
+  <link href=//fonts.googleapis.com/css?family=Crimson+Text:400,400italic,600,600italic' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="//blog.liang2.tw/theme/css/style.min.css">
+  <link rel="stylesheet" type="text/css" href="//blog.liang2.tw/theme/css/pygments.min.css">
+  <link rel="stylesheet" type="text/css" href="//blog.liang2.tw/theme/css/font-awesome.min.css">
+  <!-- Justfont webfont -->
+  <!-- Local development -->
+  <!-- <script src="//s3-ap-northeast-1.amazonaws.com/justfont-user-script/jf-35439.js"></script> -->
+  <!-- Proudction version v4.9.4 -->
+  <script src="//blog.liang2.tw/theme/js/justfont_v4.9.4.js" type="text/javascript" charset="utf-8"></script>
+  <link href="//blog.liang2.tw/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Liang2's blog Atom">
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
+<meta name="author" content="Liang2" />
+<meta name="description" content="選擇 Python 作為第一個深入學習的語言有很多好處。他的語法跟英文相似、用互動式的方式來操作，方便以邊試邊學、內建的標準函式庫功能豐富、第三方套件，幾乎能用 Python 完成各種事情。" />
+<meta name="keywords" content="zh, labcoding, python">
+<meta property="og:site_name" content="Liang2's blog"/>
+<meta property="og:title" content="Coding 初學指南－Python"/>
+<meta property="og:description" content="選擇 Python 作為第一個深入學習的語言有很多好處。他的語法跟英文相似、用互動式的方式來操作，方便以邊試邊學、內建的標準函式庫功能豐富、第三方套件，幾乎能用 Python 完成各種事情。"/>
+<meta property="og:locale" content="zh_TW"/>
+<meta property="og:url" content="//blog.liang2.tw/posts/2016/01/lab-coding-python/"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2016-01-21 22:50:00+08:00"/>
+<meta property="article:modified_time" content="2016-01-21 22:50:00+08:00"/>
+<meta property="article:author" content="//blog.liang2.tw/author/liang2.html">
+<meta property="article:section" content="Coding"/>
+<meta property="article:tag" content="zh"/>
+<meta property="article:tag" content="labcoding"/>
+<meta property="article:tag" content="python"/>
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@ccwang002">
+<meta name="twitter:title" content="Coding 初學指南－Python">
+<meta name="twitter:description" content="選擇 Python 作為第一個深入學習的語言有很多好處。他的語法跟英文相似、用互動式的方式來操作，方便以邊試邊學、內建的標準函式庫功能豐富、第三方套件，幾乎能用 Python 完成各種事情。">
+  <title>Coding 初學指南－Python &ndash; Liang2's blog</title>
+</head>
+<body>
+  <aside>
+    <div>
+      <a href="//blog.liang2.tw">
+        <img src="//blog.liang2.tw/pics/headpic.jpg" alt="Liang2's Blog" title="Liang2's Blog">
+      </a>
+      <h1><a href="//blog.liang2.tw">Liang2's Blog</a></h1>
+      <p>Code / Stat / Bioinfo</p>
+      <nav>
+        <ul class="list">
+          <li><a href="//blog.liang2.tw/about-me/#about-me">About&nbsp;me</a></li>
+          <li><a href="//blog.liang2.tw/talks/#talks">Talks</a></li>
+          <li><a href="//blog.liang2.tw/research/#research">Research</a></li>
+          <li><a href="//blog.liang2.tw/projects/#projects">Projects</a></li>
+        </ul>
+      </nav>
+      <ul class="social">
+        <li><a class="sc-twitter" href="https://twitter.com/ccwang002" target="_blank"><i class="fa fa-twitter"></i></a></li>
+        <li><a class="sc-facebook" href="https://www.facebook.com/lbwang.2" target="_blank"><i class="fa fa-facebook"></i></a></li>
+        <li><a class="sc-github" href="https://github.com/ccwang002" target="_blank"><i class="fa fa-github"></i></a></li>
+        <li><a class="sc-bitbucket" href="https://bitbucket.org/ccwang002" target="_blank"><i class="fa fa-bitbucket"></i></a></li>
+        <li><a class="sc-envelope-o" href="mailto:me+blog@liang2.tw" target="_blank"><i class="fa fa-envelope-o"></i></a></li>
+        <li><a class="sc-linkedin" href="http://tw.linkedin.com/in/liangbowang/" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+      </ul>
+    </div>
+  </aside>
+  <main>
+    <nav>
+      <a href="//blog.liang2.tw">Home</a>
+      <a href="/archives.html">Archives</a>
+      <a href="/categories.html">Categories</a>
+      <a href="/tags.html">Tags</a>
+      <a href="//blog.liang2.tw/feeds/all.atom.xml">Atom</a>
+    </nav>
+
+<article>
+  <header>
+    <h1 id="lab-coding-python">Coding&nbsp;初學指南－Python</h1>
+    <p>Posted on Jan 21, 2016
+      in <a href="//blog.liang2.tw/category/coding.html">Coding</a>
+    </p>
+  </header>
+  <div>
+    <blockquote>
+<p>Python&nbsp;是一種物件導向、直譯式的電腦程式語言，具有近二十年的發展歷史。它包含了一組功能完備的標準庫，能夠輕鬆完成很多常見的任務。</p>
+<p>(From <a href="https://zh.wikipedia.org/wiki/Python">Wikipedia</a>)</p>
+</blockquote>
+<p>選擇 Python 作為第一個深入學習的語言有很多好處。他的語法跟英文相似，比起其他語言經常用到 <code>;{}()</code> 來控制語法不同的段落，Python&nbsp;主要用的是空白與縮排。</p>
+<p>Python 能用互動式的方式（read–eval–print loop, <span class="caps">REPL</span>）來操作，以邊試邊做的方法來開發很適合初學者。</p>
+<p>內建的標準庫（standard library）功能很豐富，在網路、文字處理、檔案處理、甚至 <span class="caps">GUI</span> 介面都能用它完成。除此之外，它的第三方套件也很多，在 Linux 上很好安裝，這樣幾乎能用 Python&nbsp;完成各種事情。</p>
+<div class="toc">
+<ul>
+<li><a href="#_1">聽說系列</a><ul>
+<li><a href="#python">聽說 Python&nbsp;跑很慢，是不是不能用來計算/分析/大檔案？</a></li>
+<li><a href="#python-2-python-3">Python 2 還是 Python&nbsp;3，聽我朋友說…比較好？</a></li>
+</ul>
+</li>
+<li><a href="#_2">相關資源</a><ul>
+<li><a href="#introducing-python-python">Introducing Python（精通&nbsp;Python）</a></li>
+<li><a href="#python_1">Python&nbsp;程式設計入門</a></li>
+<li><a href="#python-3-2ed">精通 Python 3 程式設計&nbsp;2ed</a></li>
+<li><a href="#python_2">Python&nbsp;官網</a></li>
+<li><a href="#learning-python-5ed">Learning Python&nbsp;5ed</a></li>
+<li><a href="#python-cookbook-3edpython-3ed">Python Cookbook 3ed（Python 的錦囊妙計&nbsp;3ed）</a></li>
+<li><a href="#python_3">深入淺出&nbsp;Python</a></li>
+<li><a href="#moocs">MOOCs</a></li>
+</ul>
+</li>
+<li><a href="#_3">學習目標</a></li>
+</ul>
+</div>
+<h2 id="_1">聽說系列</h2>
+<p>（需要接觸過 Python&nbsp;之後才能理解）</p>
+<h3 id="python">聽說 Python&nbsp;跑很慢，是不是不能用來計算/分析/大檔案？</h3>
+<p>Python 的確執行效率比編譯式的語言差（例：C/C++、Java），但這很可能不是你程式跑得慢的主因，所以也不代表 Python&nbsp;不能處理計算量高的工作。</p>
+<p>碰到程式跑得比想像中慢的時候，有幾個步驟：</p>
+<ol>
+<li>到底是哪幾行程式跑得慢？</li>
+<li>這是最佳的演算法嗎？</li>
+<li>這是最有效率的 Python&nbsp;語法嗎？</li>
+</ol>
+<p>如果用到了最後一步情況還是沒有改善的話，就可以開始把那些部份用其他語言改寫，例如：C。Python 能很容易跟 C 語言的結合。而且常見的 C 語言加速，其實都有 Python 套件能支援了，例如 Numpy，所以大部份的時間，都能在不使用 Python&nbsp;以外的語言完成高量計算。</p>
+<blockquote>
+<p>我在實習時候，也常碰到需要優化的問題。用 Python 我能很輕鬆（一天內）把工作分配到 4 台主機 64 cores 上跑，也許方法不有效率，但比起我花幾天把 Python 改寫成 C/C++，實作更精密有效的算法（還要是 multithread），仔細處理可能的 corner case，平行化之後本來三四天的計算時間我 2&nbsp;個小時就能收工。</p>
+<p>更重要的是，這個實驗就只跑個兩次。</p>
+</blockquote>
+<p>比起計算時間，開發時間對工程師而言是更加寶貴的。尤其在實驗室，最關心的是這個方法行不行得通，程式跑得慢有很多解決的方式，例如平行化。重點在解決問題，需要用多一點的資源其實不是很重要。</p>
+<p>如果問我 Python 還是 Matlab 比較快？這邊有正經的 <a href="http://www.pyzo.org/python_vs_matlab.html">Python vs Matlab</a>。一開始選 Python 慢的話有<a href="http://wiki.scipy.org/PerformancePython">很多條路可以走</a>，但 Matlab 呢？&nbsp;meh</p>
+<p>所以 Python 跑得快不快？它單打獨鬥有極限，但它有很多快樂夥伴。O&rsquo;Reilly 有本 <a href="http://shop.oreilly.com/product/0636920028963.do">High Performance Python</a>&nbsp;值得一看。</p>
+<h3 id="python-2-python-3">Python 2 還是 Python&nbsp;3，聽我朋友說…比較好？</h3>
+<p>隨著時間流逝，每過一天我都可以更確信的說<strong>「請學 Python 3」</strong>。現在有在用 Python 2 多半也是用 2.7 版本，要把 3.3+ 的程式碼改回 2.7&nbsp;也不難。</p>
+<h2 id="_2">相關資源</h2>
+<p>連同前幾章，如果你要在自己電腦上設定 Python 開發環境，可以參考 <a href="http://djangogirlstaipei.herokuapp.com/tutorials/">Djang Girls Taipei Tutorial</a>。另外，<a href="http://wiki.python.org.tw/Python/%E7%AC%AC%E4%B8%80%E6%AC%A1%E7%94%A8%E5%B0%B1%E4%B8%8A%E6%89%8B">Python Taiwan Wiki</a> 有更完整的 Python&nbsp;學習資源列表。</p>
+<h3 id="introducing-python-python">Introducing Python（精通&nbsp;Python）</h3>
+<p>O&rsquo;Reilly Python 系列的書都寫得很好。這本是比較新出的，好處是它針對初學者，而且比較薄能在短時間看完。建議閱讀 Chp1 到 Chp7 ，以及 Chp8 File Input/Output&nbsp;部份。</p>
+<p>可以在 O&rsquo;Reilly 的線上商店買電子版拿到 <span class="caps">PDF</span> 與 Kindle&nbsp;版本。</p>
+<ul>
+<li><a href="http://shop.oreilly.com/product/0636920028659.do">英文書</a></li>
+<li><a href="http://www.tenlong.com.tw/items/9863477311?item_id=1007464">中文實體書</a></li>
+</ul>
+<h3 id="python_1">Python&nbsp;程式設計入門</h3>
+<p>2015 四月由<a href="http://yehnan.blogspot.tw/2015/03/python_30.html">葉難</a>出的中文書，針對初學者，並有列出 Python 2.7、3.3、3.4&nbsp;不同版本間的差異。</p>
+<ul>
+<li><a href="http://www.tenlong.com.tw/items/9864340050">中文實體書</a></li>
+</ul>
+<h3 id="python-3-2ed">精通 Python 3 程式設計&nbsp;2ed</h3>
+<p>另一本 Python&nbsp;中文入門書，比深入淺出難一點但比較像常規的教科書。</p>
+<ul>
+<li><a href="http://www.tenlong.com.tw/items/9862760702">中文實體書</a></li>
+</ul>
+<h3 id="python_2">Python&nbsp;官網</h3>
+<p>Python 的官網一方面是用來查語言特性之外，還能用來學習怎麼使用 stdlib。除外還有一個簡潔的&nbsp;Tutorial，可以供初學者參考，適合有學過其他語言的人。</p>
+<blockquote>
+<p>Keep this under your&nbsp;pillow.</p>
+</blockquote>
+<ul>
+<li><a href="https://docs.python.org/3/">連結</a></li>
+<li><a href="http://www.pythondoc.com/">簡中翻譯</a></li>
+<li>繁中翻譯<a href="https://github.com/python-doc-tw/python-doc-tw">請拭目以待</a>&nbsp;:)</li>
+</ul>
+<h3 id="learning-python-5ed">Learning Python&nbsp;5ed</h3>
+<p>雖然名稱看起來很像是 Python 的入門書，但它的篇幅已經來到 1200 頁，實在無法推薦給初學者。但它把 Python 語言特性說的很清楚，同時考慮到 Python 2 和 3&nbsp;版本。</p>
+<p>我當初看的是這一本 3ed 中文版（現已絕版），那時還沒有考慮 Python&nbsp;3。</p>
+<ul>
+<li><a href="http://shop.oreilly.com/product/0636920028154.do">英文書</a></li>
+</ul>
+<h3 id="python-cookbook-3edpython-3ed">Python Cookbook 3ed（Python 的錦囊妙計&nbsp;3ed）</h3>
+<p>這本不是入門書但很適合深入了解 Python，並讓自己的程式碼寫得更 <strong>Pythonic</strong>。裡面介紹了很多寫法慣例 idioms，同時也有中文版。非常值得在未來比較懂 Python&nbsp;時買來看。</p>
+<ul>
+<li><a href="http://shop.oreilly.com/product/0636920027072.do">英文書</a></li>
+<li><a href="http://www.tenlong.com.tw/items/9863470686">中文實體書</a></li>
+</ul>
+<h3 id="python_3">深入淺出&nbsp;Python</h3>
+<p>O&rsquo;Reilly Head First&nbsp;系列都是給初學者的書，這本有中文翻譯本，內容圖文並茂活潑。不過不是每個人都喜歡這種嘻嘻哈哈的介紹方式。</p>
+<ul>
+<li><a href="http://www.tenlong.com.tw/items/9862763485">中文實體書</a></li>
+</ul>
+<h3 id="moocs">MOOCs</h3>
+<p>很多人都有試過的線上課程，可能有中文字幕。缺點教的是 Python 2.7。而且我試了幾堂的經驗，並不是教授 idiomatic Python，也就是裡面教的寫法不一定是 Python&nbsp;使用者平常使用並推薦的語法。</p>
+<ul>
+<li>Codecademy Python Track <a href="http://www.codecademy.com/en/tracks/python">http://www.codecademy.com/en/tracks/python</a></li>
+<li>Coursera: An Introduction to Interactive Programming in Python <a href="https://www.coursera.org/course/interactivepython">https://www.coursera.org/course/interactivepython</a></li>
+</ul>
+<h2 id="_3">學習目標</h2>
+<ol>
+<li>打開自己 Linux 裡的 Python3，跟著學習用的參考資料動手操作。用 <span class="caps">REPL</span> 以及運行腳本兩種方法來執行 Python&nbsp;程式。</li>
+<li>
+<p>學習使用 pip 和 pyvenv (virtualenv) 來管理 Python&nbsp;套件與環境。</p>
+<ul>
+<li>Hint: Python 官網是你的好夥伴。你可以在<a href="https://docs.python.org/3/installing/">這裡</a>和<a href="https://docs.python.org/3/using/scripts.html#scripts-pyvenv">這裡</a>找到兩者的教學。</li>
+</ul>
+</li>
+<li>
+<p><a href="http://rg3.github.io/youtube-dl/">youtube-dl</a> 是一個用來下載 Youtube、Crunchyroll 等各大影音串流網站影片的工具。除了用 Linux 的套件管理工具安裝它，它其實是個用 Python 寫成的套件。為了避免跟 Linux 系統環境相衝，請開一個 Python 虛擬環境，並在裡面用 pip&nbsp;安裝它。</p>
+<ul>
+<li>Note: youtube-dl 除了單純做下載串流檔之外，還支援轉檔、封裝、後製等影像處理，這需要 libav 或 ffmpeg 任一影像處理套件。在 Debian 系列的 Linux 上 libav&nbsp;會好裝一點。</li>
+</ul>
+</li>
+<li>
+<p>用 Python 解決一些實驗室會碰到的 Bioinfo 問題。有個網站 Rosalind 出了一系列的題目，我選了一些讓各位練習，請參考<a href="#file-a1_python_bioinfo-md">附錄 1</a>。</p>
+</li>
+</ol>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="//blog.liang2.tw/tag/zh.html">zh</a>
+      <a href="//blog.liang2.tw/tag/labcoding.html">labcoding</a>
+      <a href="//blog.liang2.tw/tag/python.html">python</a>
+    </p>
+  </div>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'liang2';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</article>
+
+    <footer>
+<p>
+  &copy; Liang2 2015 - This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>
+</p>
+<p>Built using <a href="http://getpelican.com" target="_blank">Pelican</a> - based on <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a></p><p>
+  <a rel="license"
+     href="http://creativecommons.org/licenses/by/4.0/"
+     target="_blank">
+    <img alt="Creative Commons License"
+         title="Creative Commons License"
+         style="border-width:0"
+         src="https://i.creativecommons.org/l/by/4.0/80x15.png"
+         width="80"
+         height="15"/>
+  </a>
+</p>    </footer>
+  </main>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "name": "Coding&nbsp;初學指南－Python",
+  "headline": "Coding&nbsp;初學指南－Python",
+  "datePublished": "2016-01-21 22:50:00+08:00",
+  "dateModified": "",
+  "author": {
+    "@type": "Person",
+    "name": "Liang2",
+    "url": "//blog.liang2.tw/author/liang2.html"
+  },
+  "image": "//blog.liang2.tw/pics/headpic.jpg",
+  "url": "//blog.liang2.tw/posts/2016/01/lab-coding-python/",
+  "description": "選擇 Python 作為第一個深入學習的語言有很多好處。他的語法跟英文相似、用互動式的方式來操作，方便以邊試邊學、內建的標準函式庫功能豐富、第三方套件，幾乎能用 Python 完成各種事情。"
+}
+</script></body>
+</html>

@@ -3,26 +3,31 @@
 <head>
   <link href='//fonts.googleapis.com/css?family=Lato:300,700,300italic' rel='stylesheet' type='text/css'>
   <link href=//fonts.googleapis.com/css?family=Crimson+Text:400,400italic,600,600italic' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" type="text/css" href="http://blog.liang2.tw/theme/css/style.min.css">
-  <link rel="stylesheet" type="text/css" href="http://blog.liang2.tw/theme/css/pygments.min.css">
-  <link rel="stylesheet" type="text/css" href="http://blog.liang2.tw/theme/css/font-awesome.min.css">
-  <link href="http://blog.liang2.tw/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Liang2's blog Atom">
+  <link rel="stylesheet" type="text/css" href="//blog.liang2.tw/theme/css/style.min.css">
+  <link rel="stylesheet" type="text/css" href="//blog.liang2.tw/theme/css/pygments.min.css">
+  <link rel="stylesheet" type="text/css" href="//blog.liang2.tw/theme/css/font-awesome.min.css">
+  <!-- Justfont webfont -->
+  <!-- Local development -->
+  <!-- <script src="//s3-ap-northeast-1.amazonaws.com/justfont-user-script/jf-35439.js"></script> -->
+  <!-- Proudction version v4.9.4 -->
+  <script src="//blog.liang2.tw/theme/js/justfont_v4.9.4.js" type="text/javascript" charset="utf-8"></script>
+  <link href="//blog.liang2.tw/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Liang2's blog Atom">
 
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="" />
 <meta name="author" content="Liang2" />
-<meta name="description" content="為了實驗室的專題生而寫。 目標其實是 Django + Django ORM + PostgreSQL，不過一次接觸太多會有反效果，先來比較簡單的。所以這邊可能講的不是 best practice，但用的是最少（底層）的知識與工具。一開始讓太多套件（像 ..." />
+<meta name="description" content="為了實驗室的專題生而寫。 目標其實是 Django + Django ORM + PostgreSQL，不過一次接觸太多會有反效果，先來比較簡單的。所以這邊可能講的不是 best practice，但用的是最少（底層）的知識與工具。一開始讓太多套件（像 SQLAlchemy）做掉了細節部份，反而不太能掌握到重要的概念以及為什麼需要這些套件。 本篇文章非常長，應該沒辦法幾分鐘內讀完。對象是初學者學習簡單網站架設。 這個專案的目標：因為大家 ..." />
 <meta name="keywords" content="zh, flask, sqlite, jinja2, python">
 <meta property="og:site_name" content="Liang2's blog"/>
 <meta property="og:title" content="用 Flask 與 SQLite 架抽籤網站"/>
-<meta property="og:description" content="為了實驗室的專題生而寫。 目標其實是 Django + Django ORM + PostgreSQL，不過一次接觸太多會有反效果，先來比較簡單的。所以這邊可能講的不是 best practice，但用的是最少（底層）的知識與工具。一開始讓太多套件（像 ..."/>
+<meta property="og:description" content="為了實驗室的專題生而寫。 目標其實是 Django + Django ORM + PostgreSQL，不過一次接觸太多會有反效果，先來比較簡單的。所以這邊可能講的不是 best practice，但用的是最少（底層）的知識與工具。一開始讓太多套件（像 SQLAlchemy）做掉了細節部份，反而不太能掌握到重要的概念以及為什麼需要這些套件。 本篇文章非常長，應該沒辦法幾分鐘內讀完。對象是初學者學習簡單網站架設。 這個專案的目標：因為大家 ..."/>
 <meta property="og:locale" content="zh_TW"/>
-<meta property="og:url" content="http://blog.liang2.tw/posts/2015/09/flask-draw-member/"/>
+<meta property="og:url" content="//blog.liang2.tw/posts/2015/09/flask-draw-member/"/>
 <meta property="og:type" content="article"/>
 <meta property="article:published_time" content="2015-09-28 12:00:00+08:00"/>
 <meta property="article:modified_time" content="2015-09-28 12:00:00+08:00"/>
-<meta property="article:author" content="http://blog.liang2.tw/author/liang2.html">
+<meta property="article:author" content="//blog.liang2.tw/author/liang2.html">
 <meta property="article:section" content="Coding"/>
 <meta property="article:tag" content="zh"/>
 <meta property="article:tag" content="flask"/>
@@ -32,23 +37,23 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@ccwang002">
 <meta name="twitter:title" content="用 Flask 與 SQLite 架抽籤網站">
-<meta name="twitter:description" content="為了實驗室的專題生而寫。 目標其實是 Django + Django ORM + PostgreSQL，不過一次接觸太多會有反效果，先來比較簡單的。所以這邊可能講的不是 best practice，但用的是最少（底層）的知識與工具。一開始讓太多套件（像 ...">
+<meta name="twitter:description" content="為了實驗室的專題生而寫。 目標其實是 Django + Django ORM + PostgreSQL，不過一次接觸太多會有反效果，先來比較簡單的。所以這邊可能講的不是 best practice，但用的是最少（底層）的知識與工具。一開始讓太多套件（像 SQLAlchemy）做掉了細節部份，反而不太能掌握到重要的概念以及為什麼需要這些套件。 本篇文章非常長，應該沒辦法幾分鐘內讀完。對象是初學者學習簡單網站架設。 這個專案的目標：因為大家 ...">
   <title>用 Flask 與 SQLite 架抽籤網站 &ndash; Liang2's blog</title>
 </head>
 <body>
   <aside>
     <div>
-      <a href="http://blog.liang2.tw">
-        <img src="http://blog.liang2.tw/pics/headpic.jpg" alt="Liang2's Blog" title="Liang2's Blog">
+      <a href="//blog.liang2.tw">
+        <img src="//blog.liang2.tw/pics/headpic.jpg" alt="Liang2's Blog" title="Liang2's Blog">
       </a>
-      <h1><a href="http://blog.liang2.tw">Liang2's Blog</a></h1>
+      <h1><a href="//blog.liang2.tw">Liang2's Blog</a></h1>
       <p>Code / Stat / Bioinfo</p>
       <nav>
         <ul class="list">
-          <li><a href="http://blog.liang2.tw/about-me/#about-me">About&nbsp;me</a></li>
-          <li><a href="http://blog.liang2.tw/talks/#talks">Talks</a></li>
-          <li><a href="http://blog.liang2.tw/research/#research">Research</a></li>
-          <li><a href="http://blog.liang2.tw/projects/#projects">Projects</a></li>
+          <li><a href="//blog.liang2.tw/about-me/#about-me">About&nbsp;me</a></li>
+          <li><a href="//blog.liang2.tw/talks/#talks">Talks</a></li>
+          <li><a href="//blog.liang2.tw/research/#research">Research</a></li>
+          <li><a href="//blog.liang2.tw/projects/#projects">Projects</a></li>
         </ul>
       </nav>
       <ul class="social">
@@ -56,25 +61,25 @@
         <li><a class="sc-facebook" href="https://www.facebook.com/lbwang.2" target="_blank"><i class="fa fa-facebook"></i></a></li>
         <li><a class="sc-github" href="https://github.com/ccwang002" target="_blank"><i class="fa fa-github"></i></a></li>
         <li><a class="sc-bitbucket" href="https://bitbucket.org/ccwang002" target="_blank"><i class="fa fa-bitbucket"></i></a></li>
-        <li><a class="sc-envelope-o" href="mailto:ccwang002@gmail.com" target="_blank"><i class="fa fa-envelope-o"></i></a></li>
+        <li><a class="sc-envelope-o" href="mailto:me+blog@liang2.tw" target="_blank"><i class="fa fa-envelope-o"></i></a></li>
         <li><a class="sc-linkedin" href="http://tw.linkedin.com/in/liangbowang/" target="_blank"><i class="fa fa-linkedin"></i></a></li>
       </ul>
     </div>
   </aside>
   <main>
     <nav>
-      <a href="http://blog.liang2.tw">Home</a>
+      <a href="//blog.liang2.tw">Home</a>
       <a href="/archives.html">Archives</a>
       <a href="/categories.html">Categories</a>
       <a href="/tags.html">Tags</a>
-      <a href="http://blog.liang2.tw/feeds/all.atom.xml">Atom</a>
+      <a href="//blog.liang2.tw/feeds/all.atom.xml">Atom</a>
     </nav>
 
 <article>
   <header>
     <h1 id="flask-draw-member">用 Flask 與 SQLite&nbsp;架抽籤網站</h1>
     <p>Posted on Sep 28, 2015
-      in <a href="http://blog.liang2.tw/category/coding.html">Coding</a>
+      in <a href="//blog.liang2.tw/category/coding.html">Coding</a>
     </p>
   </header>
   <div>
@@ -521,7 +526,9 @@
 
 
 <p>這只是個單純的首頁，有個標題，還有個功能列，但暫時都沒有功能。我們修改一下 <code>draw_member.py</code> 裡定義的 index&nbsp;讓：</p>
-<div class="highlight"><pre><span class="nd">@app.route</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">render_template</span>
+
+<span class="nd">@app.route</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
     <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s">&#39;index.html&#39;</span><span class="p">)</span>
 </pre></div>
@@ -530,7 +537,7 @@
 <p>馬上來執行看看，用一樣的方式。不過之前執行的那個可能沒有結束，記得一個 port 只能有一個服務，所以要不是用舊的（Flask 很聰明，在 <code>debug=True</code> 時知道檔案被更新時就會用新的），要不是就關掉再重開一個新的。</p>
 <p>打開瀏覽器訪問 <a href="http://localhost:5000">http://localhost:5000</a>&nbsp;應該會出現底下的畫面。</p>
 <div class="figure align-center">
-  <img src="http://blog.liang2.tw/posts/2015/09/flask-draw-member/pics/flask_helloworld.png"/>
+  <img src="//blog.liang2.tw/posts/2015/09/flask-draw-member/pics/flask_helloworld.png"/>
   <p class="caption">Flask Hello&nbsp;World</p>
 </div>
 
@@ -611,13 +618,13 @@
 <h4 id="demo">Demo</h4>
 <p>重新整理首頁，可以看到多了一個表單（廢話）。Flask 的 web server 很聰明，不用重新啟動它，會自動看到檔案有更新做 reload。可以回去比對一下自己寫在 <code>index.html</code> 裡 <span class="caps">HTML</span>&nbsp;在瀏覽器上呈現的對應關係。</p>
 <div class="figure align-center">
-  <img src="http://blog.liang2.tw/posts/2015/09/flask-draw-member/pics/flask_index_form.png"/>
+  <img src="//blog.liang2.tw/posts/2015/09/flask-draw-member/pics/flask_index_form.png"/>
   <p class="caption">新的首頁，多了一個表單</p>
 </div>
 
 <p>按下 Submit 之後就會跳到抽籤結果（注意 <span class="caps">URL</span>&nbsp;的變化）</p>
 <div class="figure align-center">
-  <img src="http://blog.liang2.tw/posts/2015/09/flask-draw-member/pics/flask_draw_result.png"/>
+  <img src="//blog.liang2.tw/posts/2015/09/flask-draw-member/pics/flask_draw_result.png"/>
   <p class="caption">抽籤結果</p>
 </div>
 
@@ -701,7 +708,7 @@
 <p>改寫好的 draw 使用 template <code>templates/draw.html</code>，並在 <code>render_template</code> 時把變數的值都放進去。</p>
 <p>這時候才重新抽籤可以看到新的 template&nbsp;的輸出結果，功能表也出現了。</p>
 <div class="figure align-center">
-  <img src="http://blog.liang2.tw/posts/2015/09/flask-draw-member/pics/flask_new_draw_result.png"/>
+  <img src="//blog.liang2.tw/posts/2015/09/flask-draw-member/pics/flask_new_draw_result.png"/>
 </div>
 
 <h3 id="_5">歷史記錄</h3>
@@ -773,7 +780,7 @@
 
 <p>Flask 用的 Jinja2 template 功能很多，現在各位已經比較理解 server 的運作了，可以去閱讀一下 <a href="http://jinja.pocoo.org/docs/dev/templates/">Jinja2 官網文件</a>看完整的使用方式。</p>
 <div class="figure align-center">
-  <img src="http://blog.liang2.tw/posts/2015/09/flask-draw-member/pics/flask_history.png"/>
+  <img src="//blog.liang2.tw/posts/2015/09/flask-draw-member/pics/flask_history.png"/>
 </div>
 
 <h4 id="datetime">時間處理用&nbsp;datetime</h4>
@@ -811,7 +818,7 @@
 
 <p>可以看到 for loop 不再使用 0, 1, 2 去拿每筆歷史各欄位的值，而是用欄位名稱，相當於 <code>history['name']</code>。這樣的做法比較好，因為用數字一下就忘了，隨便調整一下 view 的內容順序就不一定是這樣了；單獨讀 template&nbsp;也能懂每個欄位的意思。</p>
 <div class="figure align-center">
-  <img src="http://blog.liang2.tw/posts/2015/09/flask-draw-member/pics/flask_history_zh.png"/>
+  <img src="//blog.liang2.tw/posts/2015/09/flask-draw-member/pics/flask_history_zh.png"/>
 </div>
 
 <h3 id="whats-next">What&rsquo;s&nbsp;Next</h3>
@@ -925,11 +932,11 @@
   </div>
   <div class="tag-cloud">
     <p>
-      <a href="http://blog.liang2.tw/tag/zh.html">zh</a>
-      <a href="http://blog.liang2.tw/tag/flask.html">flask</a>
-      <a href="http://blog.liang2.tw/tag/sqlite.html">sqlite</a>
-      <a href="http://blog.liang2.tw/tag/jinja2.html">jinja2</a>
-      <a href="http://blog.liang2.tw/tag/python.html">python</a>
+      <a href="//blog.liang2.tw/tag/zh.html">zh</a>
+      <a href="//blog.liang2.tw/tag/flask.html">flask</a>
+      <a href="//blog.liang2.tw/tag/sqlite.html">sqlite</a>
+      <a href="//blog.liang2.tw/tag/jinja2.html">jinja2</a>
+      <a href="//blog.liang2.tw/tag/python.html">python</a>
     </p>
   </div>
 <div id="disqus_thread"></div>
@@ -961,8 +968,6 @@
   </a>
 </p>    </footer>
   </main>
-  <!-- Justfont webfont -->
-  <script src="//s3-ap-northeast-1.amazonaws.com/justfont-user-script/jf-35439.js"></script>
 <script type="application/ld+json">
 {
   "@context": "http://schema.org",
@@ -974,11 +979,11 @@
   "author": {
     "@type": "Person",
     "name": "Liang2",
-    "url": "http://blog.liang2.tw/author/liang2.html"
+    "url": "//blog.liang2.tw/author/liang2.html"
   },
-  "image": "http://blog.liang2.tw/pics/headpic.jpg",
-  "url": "http://blog.liang2.tw/posts/2015/09/flask-draw-member/",
-  "description": "為了實驗室的專題生而寫。 目標其實是 Django + Django ORM + PostgreSQL，不過一次接觸太多會有反效果，先來比較簡單的。所以這邊可能講的不是 best practice，但用的是最少（底層）的知識與工具。一開始讓太多套件（像 ..."
+  "image": "//blog.liang2.tw/pics/headpic.jpg",
+  "url": "//blog.liang2.tw/posts/2015/09/flask-draw-member/",
+  "description": "為了實驗室的專題生而寫。 目標其實是 Django + Django ORM + PostgreSQL，不過一次接觸太多會有反效果，先來比較簡單的。所以這邊可能講的不是 best practice，但用的是最少（底層）的知識與工具。一開始讓太多套件（像 SQLAlchemy）做掉了細節部份，反而不太能掌握到重要的概念以及為什麼需要這些套件。 本篇文章非常長，應該沒辦法幾分鐘內讀完。對象是初學者學習簡單網站架設。 這個專案的目標：因為大家 ..."
 }
 </script></body>
 </html>
