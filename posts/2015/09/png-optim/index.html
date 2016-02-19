@@ -141,13 +141,13 @@
 (<a href="https://github.com/google/zopfli">Zopfli Readme</a>)</p>
 </blockquote>
 <p>這個 <a href="https://github.com/google/zopfli/blob/master/README.zopflipng">Zopflipng</a> 也是同個 repo&nbsp;維護。自己編譯簡單，</p>
-<div class="highlight"><pre>git clone https://github.com/google/zopfli.git
+<div class="highlight"><pre><span></span>git clone https://github.com/google/zopfli.git
 make zopflipng
 </pre></div>
 
 
 <p>如果要一口氣壓縮一堆 <span class="caps">PNG</span>，可以這樣使用：</p>
-<div class="highlight"><pre>zopflipng --lossy_transparent --prefix *.png
+<div class="highlight"><pre><span></span>zopflipng --lossy_transparent --prefix *.png
 </pre></div>
 
 
@@ -155,7 +155,7 @@ make zopflipng
 <p><span class="caps">PS</span> 剛好今天早上看到 Google 又出了另一個壓縮演算法 <a href="https://github.com/google/brotli">Brotli</a>，但這個與 deflate 不相容，應該不能用在 <span class="caps">PNG</span>&nbsp;上面。</p>
 <h3 id="pngquant">pngquant</h3>
 <p>想要有損的 <span class="caps">PNG</span> 可以用 <a href="https://pngquant.org/">pngquant</a>。看官網有特別強調在透明度的資訊會被保留，並能像 <span class="caps">JPEG</span> 一樣設定 quality。一般 quality&nbsp;容許越低壓縮比都會越高。</p>
-<div class="highlight"><pre>pngquant -f --ext=.png --quality=70-85 --skip-if-larger *.png
+<div class="highlight"><pre><span></span>pngquant -f --ext=.png --quality=70-85 --skip-if-larger *.png
 </pre></div>
 
 

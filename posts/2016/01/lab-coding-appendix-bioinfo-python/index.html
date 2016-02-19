@@ -126,7 +126,7 @@
 <p><em>You should implement by yourself before looking my solution. Also I didn&rsquo;t see their official solution so my solution can differ a lot from&nbsp;theirs.</em></p>
 <p>Intuitively, we need to implement a <span class="caps">FASTA</span> file parser. <span class="caps">FASTA</span> contains a series of sequence reads with unique <span class="caps">ID</span>. From a object-oriented viewpoint, we create classes <code>Read</code> for reads and <code>Fasta</code> for fasta&nbsp;files.</p>
 <p><code>Read</code> is easy to design and&nbsp;understand,</p>
-<div class="highlight"><pre><span class="k">class</span> <span class="nc">Read</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Read</span><span class="p">:</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">seq</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">id</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">seq</span> <span class="o">=</span> <span class="n">seq</span>
@@ -134,28 +134,28 @@
 
 
 <p>Since we need to compute their <span class="caps">GC</span> content, add a method for <code>Read</code>.</p>
-<div class="highlight"><pre><span class="k">class</span> <span class="nc">Read</span><span class="p">:</span>
-    <span class="c"># ... skipped</span>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Read</span><span class="p">:</span>
+    <span class="c1"># ... skipped</span>
     <span class="k">def</span> <span class="nf">gc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Compute the GC content (in %) of the read.&quot;&quot;&quot;</span>
-        <span class="c"># put the logic here (think of problem Q DNA)</span>
+        <span class="c1"># put the logic here (think of problem Q DNA)</span>
         <span class="n">gc_percent</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">seq</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">gc_percent</span>
 </pre></div>
 
 
 <p>Then we have to implement the <span class="caps">FASTA</span> parser, which reads all read entries and converts them through <code>Read</code>. In real world we are dealing with <code>myfasta.fa</code>-like files, but here the input is&nbsp;string.</p>
-<div class="highlight"><pre><span class="k">class</span> <span class="nc">Fasta</span><span class="p">:</span>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Fasta</span><span class="p">:</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">raw_str</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Parse a FASTA formated string.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">raw_str</span> <span class="o">=</span> <span class="n">raw_str</span>
-        <span class="c"># convert string into structured reads.</span>
+        <span class="c1"># convert string into structured reads.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">reads</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parse</span><span class="p">())</span>
 
     <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Parse the string and yield read in Read class.&quot;&quot;&quot;</span>
-        <span class="c"># though we have no idea right now, the code structure</span>
-        <span class="c"># should be something like the following.</span>
+        <span class="c1"># though we have no idea right now, the code structure</span>
+        <span class="c1"># should be something like the following.</span>
         <span class="n">raw_lines</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">raw_str</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">raw_lines</span><span class="p">:</span>
             <span class="k">yield</span> <span class="n">Read</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
@@ -165,7 +165,7 @@
 <p>Here I use <code>yield Read(...)</code>, which may be unfamiliar for Python beginners. It turns <code>parse(self)</code> function as a generator. Generator makes you focus on the incoming data. Once data is parsed and converted, the result is immediated thrown out by <code>yield</code>. We don&rsquo;t care about how to collect all the results. In our case, we catch all the results into a list by <code>list(...)</code>.</p>
 <p>So how should we read <span class="caps">FASTA</span> file? A simple rule in this case is that every read consists by two continuous row. Also, the first row will always be the first read&nbsp;id.</p>
 <p>All we need is read two lines at the same time. Here <a href="https://docs.python.org/3/library/functions.html#zip">a Pythonic idiom</a> is introduced. The following code read two non-overlapping&nbsp;lines,</p>
-<div class="highlight"><pre><span class="k">for</span> <span class="n">first_line</span><span class="p">,</span> <span class="n">second_line</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="nb">iter</span><span class="p">(</span><span class="n">raw_lines</span><span class="p">)]</span><span class="o">*</span><span class="mi">2</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">first_line</span><span class="p">,</span> <span class="n">second_line</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="nb">iter</span><span class="p">(</span><span class="n">raw_lines</span><span class="p">)]</span><span class="o">*</span><span class="mi">2</span><span class="p">):</span>
     <span class="k">yield</span> <span class="n">Read</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">first_line</span><span class="p">,</span> <span class="n">seq</span><span class="o">=</span><span class="n">second_line</span><span class="p">)</span>
 </pre></div>
 
@@ -173,12 +173,12 @@
 <p>By <code>zip(*[iter(s)]*n)</code> magic, we are very close to implement a full parser. You could find a lot of <a href="http://stackoverflow.com/a/2233247">explanations</a> for this&nbsp;magic. </p>
 <p>Read id line percedes with a <code>&gt;</code> sign, so we could use something like <code>first_line[1:]</code> or <code>first_line[len('&gt;'):]</code> for&nbsp;explicity.</p>
 <p>Then sorting the <span class="caps">GC</span>% of reads in a <span class="caps">FASTA</span> file is&nbsp;easy.</p>
-<div class="highlight"><pre><span class="n">fasta</span> <span class="o">=</span> <span class="n">Fasta</span><span class="p">(</span><span class="s">&#39;...&#39;</span><span class="p">)</span>
-<span class="n">sorted_reads</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">fasta</span><span class="o">.</span><span class="n">reads</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">r</span><span class="p">:</span> <span class="n">r</span><span class="o">.</span><span class="n">gc</span><span class="p">())</span>  <span class="c"># note 1</span>
-<span class="n">top_gc_read</span> <span class="o">=</span> <span class="n">sorted_reads</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c"># note 2</span>
+<div class="highlight"><pre><span></span><span class="n">fasta</span> <span class="o">=</span> <span class="n">Fasta</span><span class="p">(</span><span class="s1">&#39;...&#39;</span><span class="p">)</span>
+<span class="n">sorted_reads</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">fasta</span><span class="o">.</span><span class="n">reads</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">r</span><span class="p">:</span> <span class="n">r</span><span class="o">.</span><span class="n">gc</span><span class="p">())</span>  <span class="c1"># note 1</span>
+<span class="n">top_gc_read</span> <span class="o">=</span> <span class="n">sorted_reads</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># note 2</span>
 <span class="k">print</span><span class="p">(</span>
-    <span class="s">&#39;&gt;{0:s}</span><span class="se">\n</span><span class="s">&#39;</span>
-    <span class="s">&#39;{1:.6f}&#39;</span>  <span class="c"># note 3, 4</span>
+    <span class="s1">&#39;&gt;{0:s}</span><span class="se">\n</span><span class="s1">&#39;</span>
+    <span class="s1">&#39;{1:.6f}&#39;</span>  <span class="c1"># note 3, 4</span>
     <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">top_gc_read</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">top_gc_read</span><span class="o">.</span><span class="n">gc</span><span class="p">())</span>
 <span class="p">)</span>
 </pre></div>

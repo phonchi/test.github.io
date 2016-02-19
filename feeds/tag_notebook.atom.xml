@@ -11,12 +11,12 @@
 &lt;/div&gt;
 &lt;h3 id="jupyter-notebook"&gt;Jupyter&amp;nbsp;Notebook&lt;/h3&gt;
 &lt;p&gt;用 Python&amp;nbsp;裝十分簡單，&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="gp"&gt;$&lt;/span&gt; pip install jupyter
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp"&gt;$&lt;/span&gt; pip install jupyter
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Jupyter 預設走 web 介面，會跑一個 tornado server 預設在 &lt;a href="http://localhost:8888"&gt;http://localhost:8888&lt;/a&gt;&amp;nbsp;上。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="gp"&gt;$&lt;/span&gt; jupyter notebook
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp"&gt;$&lt;/span&gt; jupyter notebook
 &lt;span class="go"&gt;[I 23:50:58.449 NotebookApp] Serving notebooks from local directory: /Users/liang&lt;/span&gt;
 &lt;span class="go"&gt;[I 23:50:58.449 NotebookApp] 0 active kernels&lt;/span&gt;
 &lt;span class="go"&gt;[I 23:50:58.450 NotebookApp] The IPython Notebook is running at: http://localhost:8888/&lt;/span&gt;
@@ -40,9 +40,9 @@
 &lt;p&gt;&lt;span class="caps"&gt;EDIT&lt;/span&gt;: 2016-01-11 &lt;a href="https://blog.jupyter.org/2016/01/08/notebook-4-1-release/"&gt;Jupyter Notebook 4.1&lt;/a&gt; 已釋出，設定路徑預設都在 &lt;code&gt;~/.jupyter&lt;/code&gt; 底下。&lt;/p&gt;
 &lt;p&gt;今天重點是換主題嘛。趕快來做吧。&lt;/p&gt;
 &lt;p&gt;可以透過 &lt;code&gt;jupyter --config-dir&lt;/code&gt; 或 &lt;code&gt;jupyter --paths&lt;/code&gt; 找到設定檔應該放的位置。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="gp"&gt;$&lt;/span&gt; jupyter --config-dir
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp"&gt;$&lt;/span&gt; jupyter --config-dir
 &lt;span class="go"&gt;~/.jupyter&lt;/span&gt;
-&lt;span class="gp"&gt;$&lt;/span&gt; jupyter notebook --generate-config  &lt;span class="c"&gt;# 建立 Notebook 設定檔&lt;/span&gt;
+&lt;span class="gp"&gt;$&lt;/span&gt; jupyter notebook --generate-config  &lt;span class="c1"&gt;# 建立 Notebook 設定檔&lt;/span&gt;
 &lt;span class="go"&gt;Writing default config to: ~/.jupyter/jupyter_notebook_config.py&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
@@ -50,7 +50,7 @@
 &lt;p&gt;如果只是改主題，不需要更動 Notebook&amp;nbsp;設定檔。&lt;/p&gt;
 &lt;p&gt;目前自己使用的主題來自 &lt;a href="https://github.com/dunovank/jupyter-themes"&gt;dunovank&lt;/a&gt;，他有收集了至少深淺兩色，應該足夠使用了。&lt;span class="caps"&gt;CSS&lt;/span&gt; 從別人的基礎上來調整也相對簡單，我自己有&lt;a href="https://github.com/ccwang002/dotfiles/tree/master/ipy_profile/ipython3"&gt;改寫了一點&lt;/a&gt;（忘了改什麼)。dunovank 有寫個安裝 theme 的套件，不過不用也沒關係，只要準備好 &lt;span class="caps"&gt;CSS&lt;/span&gt; 就能用。我用 Grade3&amp;nbsp;這個主題來示範。&lt;/p&gt;
 &lt;p&gt;把 &lt;code&gt;custom.css&lt;/code&gt; 放到 &lt;code&gt;~/.jupyter/static/custom.css&lt;/code&gt;。設定的目錄長得如下：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="gp"&gt;$&lt;/span&gt; tree ~/.jupyter -F -L 3
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp"&gt;$&lt;/span&gt; tree ~/.jupyter -F -L 3
 &lt;span class="go"&gt;~/.jupyter&lt;/span&gt;
 &lt;span class="go"&gt;├── custom/&lt;/span&gt;
 &lt;span class="go"&gt;│   └── custom.css -&amp;gt; /path/to/custom_light.css&lt;/span&gt;

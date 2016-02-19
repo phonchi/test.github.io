@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom"><title>Liang2's blog</title><link href="//blog.liang2.tw/" rel="alternate"></link><link href="//blog.liang2.tw/feeds/tag_seqtk.atom.xml" rel="self"></link><id>//blog.liang2.tw/</id><updated>2015-09-27T14:11:00+08:00</updated><entry><title>FASTA/Q sequence processing toolkit — seqtk</title><link href="//blog.liang2.tw/posts/2015/09/seqtk/" rel="alternate"></link><updated>2015-09-27T14:11:00+08:00</updated><author><name>Liang2</name></author><id>tag:blog.liang2.tw,2015-09-27:posts/2015/09/seqtk/</id><summary type="html">&lt;p&gt;This is the first post of the series of my common &lt;span class="caps"&gt;NGS&lt;/span&gt; processing workflows and&amp;nbsp;notes.&lt;/p&gt;
 &lt;p&gt;Some of the most common operation in sequence processing is &lt;span class="caps"&gt;FASTQ&lt;/span&gt; → &lt;span class="caps"&gt;FASTA&lt;/span&gt; conversion. Tons of conversion scripts using either sed or awk can be found by search. For&amp;nbsp;example,&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# FASTQ to FASTA&lt;/span&gt;
-&lt;span class="c"&gt;# Assume every read record takes exactly 4 line&lt;/span&gt;
-&lt;span class="c"&gt;# Ref: http://stackoverflow.com/a/10359425&lt;/span&gt;
-&lt;span class="nv"&gt;$ &lt;/span&gt;sed -n &lt;span class="s1"&gt;&amp;#39;1~4s/^@/&amp;gt;/p;2~4p&amp;#39;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# FASTQ to FASTA&lt;/span&gt;
+&lt;span class="c1"&gt;# Assume every read record takes exactly 4 line&lt;/span&gt;
+&lt;span class="c1"&gt;# Ref: http://stackoverflow.com/a/10359425&lt;/span&gt;
+$ sed -n &lt;span class="s1"&gt;&amp;#39;1~4s/^@/&amp;gt;/p;2~4p&amp;#39;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;The assumption of 4 lines per read usually holds for recent &lt;span class="caps"&gt;NGS&lt;/span&gt; sequencing data, so not a big&amp;nbsp;deal.&lt;/p&gt;
 &lt;p&gt;In many case the sequence is gzip&amp;rsquo;d. It is still a piece of cake when combining with pipe&amp;nbsp;editing,&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;gzcat myseq.fq.gz &lt;span class="p"&gt;|&lt;/span&gt; sed -n &lt;span class="s1"&gt;&amp;#39;1~4s/^@/&amp;gt;/p;2~4p&amp;#39;&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; gzip &amp;gt; myseq.fa.gz
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;gzcat myseq.fq.gz &lt;span class="p"&gt;|&lt;/span&gt; sed -n &lt;span class="s1"&gt;&amp;#39;1~4s/^@/&amp;gt;/p;2~4p&amp;#39;&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; gzip &amp;gt; myseq.fa.gz
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -18,9 +18,9 @@
 &lt;h3 id="seqtk"&gt;Seqtk&lt;/h3&gt;
 &lt;p&gt;So &lt;a href="https://github.com/lh3/seqtk"&gt;seqtk&lt;/a&gt; comes into rescue. It is written in C and &lt;span class="caps"&gt;MIT&lt;/span&gt; licensed. &lt;a href="https://www.biostars.org/p/85929/#86082"&gt;A quick comparison&lt;/a&gt; shows it is generally faster than other &lt;span class="caps"&gt;UNIX&lt;/span&gt;-based solutions, let alone implementations based on scripting&amp;nbsp;languages.&lt;/p&gt;
 &lt;p&gt;Seqtk bundles many other operations, but I&amp;rsquo;ll just mention those I frequently&amp;nbsp;use.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$seqtk&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$seqtk
 
-Usage:   seqtk &amp;lt;&lt;span class="nb"&gt;command&lt;/span&gt;&amp;gt; &amp;lt;arguments&amp;gt;
+Usage:   seqtk &amp;lt;command&amp;gt; &amp;lt;arguments&amp;gt;
 Version: 1.0-r77-dirty
 
 Command: seq       common transformation of FASTA/Q
@@ -44,35 +44,35 @@ Command: seq       common transformation of FASTA/Q
 
 &lt;h3 id="fastq-fasta"&gt;&lt;span class="caps"&gt;FASTQ&lt;/span&gt; → &lt;span class="caps"&gt;FASTA&lt;/span&gt;&lt;/h3&gt;
 &lt;p&gt;Read (gzip&amp;rsquo;d) &lt;span class="caps"&gt;FASTQ&lt;/span&gt; and write out as &lt;span class="caps"&gt;FASTA&lt;/span&gt;,&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;seqtk seq -A in.fq&lt;span class="o"&gt;[&lt;/span&gt;.gz&lt;span class="o"&gt;]&lt;/span&gt; &amp;gt; out.fa
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ seqtk seq -A in.fq&lt;span class="o"&gt;[&lt;/span&gt;.gz&lt;span class="o"&gt;]&lt;/span&gt; &amp;gt; out.fa
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;To make the output gzip&amp;rsquo;d again, piped with&amp;nbsp;gzip,&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;seqtk seq -A in.fq&lt;span class="o"&gt;[&lt;/span&gt;.gz&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; gzip &amp;gt; out.fa.gz
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ seqtk seq -A in.fq&lt;span class="o"&gt;[&lt;/span&gt;.gz&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; gzip &amp;gt; out.fa.gz
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h3 id="reverse-complement"&gt;Reverse&amp;nbsp;complement&lt;/h3&gt;
 &lt;p&gt;If one wants to debug the R2 reads of pair-end sequencing (second read on forward strand), since they contain reverse complement sequence of the insert &lt;span class="caps"&gt;DNA&lt;/span&gt;, one needs to reverse complement R2 reads again to debug directly by bare human&amp;nbsp;eyes.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;seqtk seq -r R2.fq &amp;gt; R2_rc.fq
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ seqtk seq -r R2.fq &amp;gt; R2_rc.fq
 
-&lt;span class="nv"&gt;$ &lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;&amp;gt; Example R2 seq&lt;/span&gt;
+$ &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;&amp;gt; Example R2 seq&lt;/span&gt;
 &lt;span class="s1"&gt;  GCATTGGTGGTTCAGTGGTAGAATTCT&amp;#39;&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; seqtk seq -r
-&lt;span class="c"&gt;# &amp;gt; Example R2 seq&lt;/span&gt;
-&lt;span class="c"&gt;# AGAATTCTACCACTGAACCACCAATGC&lt;/span&gt;
+&lt;span class="c1"&gt;# &amp;gt; Example R2 seq&lt;/span&gt;
+&lt;span class="c1"&gt;# AGAATTCTACCACTGAACCACCAATGC&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h3 id="quality-check"&gt;Quality&amp;nbsp;check&lt;/h3&gt;
 &lt;p&gt;To be honest, &lt;a href="http://www.bioinformatics.babraham.ac.uk/projects/fastqc/"&gt;FastQC&lt;/a&gt; is more frequently used for quality check because it generates &lt;a href="http://www.bioinformatics.babraham.ac.uk/projects/fastqc/good_sequence_short_fastqc.html"&gt;reports with beautiful figures&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;But for a detail report on each read position, one should consider &lt;code&gt;seqtk fqchk&lt;/code&gt;.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;seqtk fqchk myseq.fq&lt;span class="o"&gt;[&lt;/span&gt;.gz&lt;span class="o"&gt;]&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ seqtk fqchk myseq.fq&lt;span class="o"&gt;[&lt;/span&gt;.gz&lt;span class="o"&gt;]&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;By default it sets &lt;code&gt;-q 20&lt;/code&gt;. This quality threshold determines the threshold of counting a base as low or high quality, shown as &lt;code&gt;%low&lt;/code&gt; and &lt;code&gt;%high&lt;/code&gt; per read position. In the default case, quality score higher than 20 will be treated as high quality&amp;nbsp;bases.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;min_len: 10; max_len: 174; avg_len: 28.92; 37 distinct quality values
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;min_len: 10; max_len: 174; avg_len: 28.92; 37 distinct quality values
 POS #bases    %A   %C   %G   %T   %N  avgQ errQ %low %high
 ALL 236344886 17.0 22.5 31.3 29.2 0.0 39.9 37.6 0.1  99.9
 1   8172342   8.9  12.4 57.0 21.7 0.0 39.6 29.0 0.5  99.5

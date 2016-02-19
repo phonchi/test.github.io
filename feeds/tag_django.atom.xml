@@ -42,7 +42,7 @@
 &lt;p&gt;先簡介一下 &lt;a href="https://docs.python.org/3/"&gt;CPython Documentation&lt;/a&gt;（下稱 pydoc）的架構和翻譯方式。pydoc 是標準的 &lt;a href="http://www.sphinx-doc.org/en/stable/"&gt;Sphinx&lt;/a&gt; 文件，因此翻譯使用 Sphinx 自帶的 &lt;a href="http://www.sphinx-doc.org/en/stable/intl.html"&gt;internationalization&lt;/a&gt; (i18n or intl)&amp;nbsp;功能把文件的內容轉換到別的語言上。&lt;/p&gt;
 &lt;p&gt;如同 Django 等專案，i18n 都是透過 gettext，Sphinx 會按照 rst 檔案輸出同檔名的 po 檔。rst 檔案中的每個文字段落會對應到 po 檔一個 entry，不相干的程式碼範例等段落會被跳過。輸出的 po 檔放在對應的路徑例如 &lt;code&gt;locale/&amp;lt;lang&amp;gt;/LC_MESSAGES/xxx.po&lt;/code&gt;。&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://en.wikipedia.org/wiki/Gettext"&gt;po 檔的格式&lt;/a&gt;很簡單，跳過有的沒的&amp;nbsp;header，實質內容長這樣：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kd"&gt;#: ../../tutorial/appetite.rst:50&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kd"&gt;#: ../../tutorial/appetite.rst:50&lt;/span&gt;
 &lt;span class="nv"&gt;msgid&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;&amp;quot;&lt;/span&gt;
 &lt;span class="s"&gt;&amp;quot;Python enables programs to be written compactly and readably.  Programs &amp;quot;&lt;/span&gt;
 &lt;span class="s"&gt;&amp;quot;written in Python are typically much shorter than equivalent C,  C++, or &amp;quot;&lt;/span&gt;
@@ -81,9 +81,9 @@
 &lt;h4 id="sphinx_1"&gt;Sphinx&amp;nbsp;文件&lt;/h4&gt;
 &lt;p&gt;在 Sphinx 文件部份不想搞太複雜，就在每一頁加上一個自己的專屬連結，打這個網址就會加入一個更新該頁面的 task 到 autobuild server&lt;sup id="fnref:build-link"&gt;&lt;a class="footnote-ref" href="#fn:build-link" rel="footnote"&gt;3&lt;/a&gt;&lt;/sup&gt;。&lt;/p&gt;
 &lt;p&gt;在 autobuild 時加入專屬連結只要修改 Sphinx doc template 即可。Sphinx 在 build doc 時可以透過 &lt;a href="http://www.sphinx-doc.org/en/stable/man/sphinx-build.html#options"&gt;&lt;code&gt;-A &amp;lt;name=value&amp;gt;&lt;/code&gt;&lt;/a&gt; 增加 Jinja2 template 的變數，就可控制 template render&amp;nbsp;行為：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;{# &amp;lt;cpython-src&amp;gt;/Doc/tools/templates/layout.html #}&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c"&gt;{# &amp;lt;cpython-src&amp;gt;/Doc/tools/templates/layout.html #}&lt;/span&gt;
 &lt;span class="cp"&gt;{%&lt;/span&gt;- &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="nv"&gt;autobuildi18n&lt;/span&gt; &lt;span class="cp"&gt;%}&lt;/span&gt;
-&lt;span class="nt"&gt;&amp;lt;a&lt;/span&gt; &lt;span class="na"&gt;href=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;/_build/update/?source_path=&lt;/span&gt;&lt;span class="cp"&gt;{{&lt;/span&gt; &lt;span class="nv"&gt;pagename&lt;/span&gt; &lt;span class="cp"&gt;}}&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;Update Translation&lt;span class="nt"&gt;&amp;lt;/a&amp;gt;&lt;/span&gt;
+&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;a&lt;/span&gt; &lt;span class="na"&gt;href&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;/_build/update/?source_path=&lt;/span&gt;&lt;span class="cp"&gt;{{&lt;/span&gt; &lt;span class="nv"&gt;pagename&lt;/span&gt; &lt;span class="cp"&gt;}}&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;Update Translation&lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;a&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
 &lt;span class="cp"&gt;{%&lt;/span&gt;- &lt;span class="k"&gt;endif&lt;/span&gt; &lt;span class="cp"&gt;%}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
@@ -104,7 +104,7 @@
 &lt;/ul&gt;
 &lt;p&gt;扣掉不支援 Python 3 的套件&lt;sup id="fnref:python3"&gt;&lt;a class="footnote-ref" href="#fn:python3" rel="footnote"&gt;4&lt;/a&gt;&lt;/sup&gt;後，就剩 django-celery、django-&lt;span class="caps"&gt;RQ&lt;/span&gt;、django-Q 可以選。這裡面最紅也最老牌的是 django-celery ，它與 &lt;a href="http://www.celeryproject.org/"&gt;Celery&lt;/a&gt; 整合，功能完整且穩定，我用過也覺得十分不錯，缺點是功能太多有點複雜，加上不同 message queue 時會有很多設定要調整，需要一段時間上手。一般 Celery 常見的搭配使用 &lt;a href="https://www.rabbitmq.com/"&gt;Rabbit-&lt;span class="caps"&gt;MQ&lt;/span&gt;&lt;/a&gt; 和 &lt;a href="http://redis.io/"&gt;Redis&lt;/a&gt;，的確在 task 很多時有必要，但我們這個 build doc 一天可能才十幾次，在不隔離 build doc 環境的情況同時間的 worker 只能有一個，不會有效能上的問題。因此我傾向只要使用與 Django 同一個 database 就好，不要再有額外非 Python 的 dependency，讓 local&amp;nbsp;開發簡單一點。&lt;/p&gt;
 &lt;p&gt;最後選擇 &lt;a href="https://django-q.readthedocs.org/"&gt;django-Q&lt;/a&gt;。雖然很新但作者維護得很勤，worker 可以只用 Python 內建的 multiprocessing 完成。功能簡單卻完整，包含 monitor，跟 django-admin 整合，還可以排程。所以要啟動 django-Q 的&amp;nbsp;cluster，只要多一個 &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;python manage.py qcluster
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;python manage.py qcluster
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -129,7 +129,7 @@
 &lt;p&gt;我的 code 裡用到了 &lt;a href="https://docs.python.org/3/library/subprocess.html#subprocess.run"&gt;&lt;code&gt;subprocess.run&lt;/code&gt;&lt;/a&gt;，這是 Python 3.5+ 才有的 &lt;span class="caps"&gt;API&lt;/span&gt;。但 Jessie 只有 Python 3.4，但我覺得很好用一點都不想改寫成相容舊版的&amp;nbsp;code。&lt;/p&gt;
 &lt;p&gt;因此需要安裝 Debian testing channel 上最新的 Python 3.5。這樣其實有安全上的疑慮，因為只有 stable channel 才有 security support，但自己編譯的問題更大，所以像 &lt;a href="https://github.com/yyuu/pyenv"&gt;pyenv&lt;/a&gt; 這種多 Python&amp;nbsp;版本的工具不在考慮內。&lt;/p&gt;
 &lt;p&gt;於是用 &lt;a href="https://wiki.debian.org/AptPreferences"&gt;Apt-Pinning&lt;/a&gt; 只讓 Python 3.5 相關的套件安裝 testing 的版本。首先把 testing channel 加到 &lt;code&gt;/etc/apt/source.list&lt;/code&gt;&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;deb&lt;/span&gt; &lt;span class="s"&gt;http://cloudfront.debian.net/debian&lt;/span&gt; &lt;span class="kp"&gt;testing&lt;/span&gt; &lt;span class="kp"&gt;main&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;deb&lt;/span&gt; &lt;span class="s"&gt;http://cloudfront.debian.net/debian&lt;/span&gt; &lt;span class="kp"&gt;testing&lt;/span&gt; &lt;span class="kp"&gt;main&lt;/span&gt;
 &lt;span class="k"&gt;deb-src&lt;/span&gt; &lt;span class="s"&gt;http://cloudfront.debian.net/debian&lt;/span&gt; &lt;span class="kp"&gt;testing&lt;/span&gt; &lt;span class="kp"&gt;main&lt;/span&gt;
 &lt;span class="k"&gt;deb&lt;/span&gt; &lt;span class="s"&gt;http://security.debian.org/&lt;/span&gt; &lt;span class="kp"&gt;testing/updates&lt;/span&gt; &lt;span class="kp"&gt;main&lt;/span&gt;
 &lt;span class="k"&gt;deb-src&lt;/span&gt; &lt;span class="s"&gt;http://security.debian.org/&lt;/span&gt; &lt;span class="kp"&gt;testing/updates&lt;/span&gt; &lt;span class="kp"&gt;main&lt;/span&gt;
@@ -137,7 +137,7 @@
 
 
 &lt;p&gt;然後修改 &lt;code&gt;/etc/apt/preferences&lt;/code&gt; 確定我們不會不小心裝到 testing 相關的套件，並把 Python 3.5 相關的套件設定權限 &amp;gt;= 990&amp;nbsp;讓它們能被自動安裝。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;# Specify * rules first so later package-specfic rules can override them
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# Specify * rules first so later package-specfic rules can override them
 Package: *
 Pin: release a=testing
 Pin-Priority: -10
@@ -149,8 +149,8 @@ Pin-Priority: 990
 
 
 &lt;p&gt;可以用 &lt;code&gt;sudo apt-cache policy &amp;lt;pkg-name&amp;gt;&lt;/code&gt; 檢查目前的規則會裝到哪個版本。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;sudo apt-get update 
-&lt;span class="nv"&gt;$ &lt;/span&gt;sudo apt-get install python3.5 python3.5-venv python3.5-dev
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo apt-get update 
+$ sudo apt-get install python3.5 python3.5-venv python3.5-dev
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -162,24 +162,24 @@ Pin-Priority: 990
 &lt;p&gt;因為 Amazon &lt;span class="caps"&gt;EBS&lt;/span&gt; &lt;span class="caps"&gt;SSD&lt;/span&gt; I/O 數不會另外收錢（應該吧？），就建 swap file&amp;nbsp;在主硬碟裡。&lt;/p&gt;
 &lt;p&gt;Swap 設定的教學很多，這邊就參考 &lt;a href="https://wiki.archlinux.org/index.php/swap"&gt;Arch Wiki&lt;/a&gt; 上的做法，我選擇放在 &lt;code&gt;/var/swap.1&lt;/code&gt;。大小設定為 &lt;span class="caps"&gt;RAM&lt;/span&gt; 的 2 倍，即 &lt;span class="caps"&gt;1GB&lt;/span&gt;。&lt;/p&gt;
 &lt;p&gt;首先把這個檔案建出來，權限改為&amp;nbsp;600。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;sudo /bin/dd &lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/dev/zero &lt;span class="nv"&gt;of&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/var/swap.1 &lt;span class="nv"&gt;bs&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;1M &lt;span class="nv"&gt;count&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;1024
-&lt;span class="c"&gt;# or faster with fallocate&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sudo /bin/dd &lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/dev/zero &lt;span class="nv"&gt;of&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/var/swap.1 &lt;span class="nv"&gt;bs&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;1M &lt;span class="nv"&gt;count&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;1024
+&lt;span class="c1"&gt;# or faster with fallocate&lt;/span&gt;
 sudo fallocate -l 1G /var/swap.1
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;sudo chmod &lt;span class="m"&gt;600&lt;/span&gt; /var/swap.1
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sudo chmod &lt;span class="m"&gt;600&lt;/span&gt; /var/swap.1
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;再來把這個檔案改成 swap&amp;nbsp;格式並啟用它，&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;sudo /sbin/mkswap /var/swap.1
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sudo /sbin/mkswap /var/swap.1
 sudo /sbin/swapon /var/swap.1
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;修改 fstab 讓每次開機都有這個 swap&amp;nbsp;設定，&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;# /etc/fstab
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# /etc/fstab
 /var/swap.1 none swap defaults 0 0
 &lt;/pre&gt;&lt;/div&gt;
 
@@ -189,7 +189,7 @@ sudo /sbin/swapon /var/swap.1
 &lt;p&gt;再來是 code 的同步與更新。autobuild server 只要更新 source code，但 cpython-tw source 需要定時 commit 新的翻譯，因此 deploy server 會有修改 git repo&amp;nbsp;的權限。&lt;/p&gt;
 &lt;p&gt;不應該使用自己的 &lt;span class="caps"&gt;SSH&lt;/span&gt; key，deploy server 上應該有專屬的 deploy key，其中 cpython-tw 的 deploy key 有寫入權限（即可以&amp;nbsp;commit）。&lt;/p&gt;
 &lt;p&gt;查了一下，要讓不同 git repo 使用不同的 &lt;span class="caps"&gt;SSH&lt;/span&gt; key 也不複雜。以這邊的例子，先修改 &lt;code&gt;~/.ssh/config&lt;/code&gt; 加入兩個新的 host，使用不同的 &lt;span class="caps"&gt;SSH&lt;/span&gt;&amp;nbsp;key：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;Host github-pydoc_autobuild
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;Host github-pydoc_autobuild
   HostName github.com
   User git
   IdentityFile /home/pydoc/.ssh/id_rsa.pydoc_autobuild
@@ -202,13 +202,13 @@ Host github-cpython_tw
 
 
 &lt;p&gt;建立對應的 &lt;span class="caps"&gt;SSH&lt;/span&gt;&amp;nbsp;keypair，&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;ssh-keygen -t rsa -f ~/.ssh/id_rsa.pydoc_autobuild
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;ssh-keygen -t rsa -f ~/.ssh/id_rsa.pydoc_autobuild
 ssh-keygen -t rsa -f ~/.ssh/id_rsa.cpython_tw
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;把兩個 repo 的 &lt;span class="caps"&gt;URL&lt;/span&gt; host&amp;nbsp;換掉，&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;git remote set-url origin git@github-pydoc_autobuild:python-doc-tw/pydoc_autobuild.git
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;git remote set-url origin git@github-pydoc_autobuild:python-doc-tw/pydoc_autobuild.git
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -222,7 +222,7 @@ ssh-keygen -t rsa -f ~/.ssh/id_rsa.cpython_tw
 &lt;p&gt;我們先假設 uWSGI 這段沒問題，首先設定 nginx 本身。由於 static files 在 nginx 就直接導到對應的檔案，不會經過 uWSGI ，所以設定好 nginx 之後 pydoc&amp;nbsp;文件本身就上線了。用這個來測試設定的正確性。&lt;/p&gt;
 &lt;p&gt;對本網站而言，/static 導到 Django staticfiles；/3/、/3.5/ 導到 pydoc build &lt;span class="caps"&gt;HTML&lt;/span&gt; 的路徑；其餘路徑再交給 Django 處理。其中，/3.5/* 的連結將重新導向到 /3/*&amp;nbsp;上。&lt;/p&gt;
 &lt;p&gt;整理上述的需求，寫個 nginx 設定檔在 &lt;code&gt;/etc/nginx/sites-available/pydoc_autobuild.conf&lt;/code&gt;：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;# Upstream Django setting; the socket nginx connects to&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# Upstream Django setting; the socket nginx connects to&lt;/span&gt;
 &lt;span class="k"&gt;upstream&lt;/span&gt; &lt;span class="s"&gt;django&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="kn"&gt;server&lt;/span&gt; &lt;span class="s"&gt;unix:///var/run/django/pydoc_autobuild.sock&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
@@ -261,7 +261,7 @@ ssh-keygen -t rsa -f ~/.ssh/id_rsa.cpython_tw
 
 
 &lt;p&gt;再把檔案 soft link 到 &lt;code&gt;/etc/nginx/sites-enabled/&lt;/code&gt;，更新 nginx&amp;nbsp;設定：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nb"&gt;cd&lt;/span&gt; /etc/nginx/sites-available/
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nb"&gt;cd&lt;/span&gt; /etc/nginx/sites-available/
 sudo ln -s pydoc_autobuild.conf ../sites-enabled/
 sudo systemctl reload nginx
 &lt;/pre&gt;&lt;/div&gt;
@@ -270,17 +270,17 @@ sudo systemctl reload nginx
 &lt;p&gt;確定 pydoc 上線就可以專心處理 uWSGI&amp;nbsp;了。&lt;/p&gt;
 &lt;h4 id="uwsgi"&gt;uWSGI&amp;nbsp;設定&lt;/h4&gt;
 &lt;p&gt;uWSGI 在 &lt;span class="caps"&gt;VENV&lt;/span&gt; 外也要裝，我覺得還是用 pip 比較簡單，雖然這樣就要自己注意 uWSGI&amp;nbsp;的版本更新了：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;sudo python3.5 -m pip install uwsgi
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sudo python3.5 -m pip install uwsgi
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;把 uWSGI 設定存成 &lt;code&gt;pydoc_autobuild_uwsgi.ini&lt;/code&gt; 並且在測試時，都使用：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;sudo uwsgi --ini pydoc_autobuild_uwsgi.ini
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sudo uwsgi --ini pydoc_autobuild_uwsgi.ini
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;模擬實際上的執行方式，這樣之後改用 systemd&amp;nbsp;執行才不會又丟一堆權限的問題。設定檔的內容：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;[uwsgi]&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;[uwsgi]&lt;/span&gt;
 &lt;span class="na"&gt;chdir&lt;/span&gt;        &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;/path/to/code/pydoc_autobuild&lt;/span&gt;
 &lt;span class="c1"&gt;# Django&amp;#39;s wsgi file&lt;/span&gt;
 &lt;span class="na"&gt;module&lt;/span&gt;       &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;pydoc_autobuild.wsgi:application&lt;/span&gt;
@@ -306,13 +306,13 @@ sudo systemctl reload nginx
 
 &lt;p&gt;權限上的設定可能要花點時間處理一下，nginx 使用 www-data/www-data 的身份執行，socket 要確定 nginx 能讀寫，但我的 code 放在 pydoc 使用者路徑下，用 www-data 可能會有權限的問題。建議把 uid、gid&amp;nbsp;都設定好。&lt;/p&gt;
 &lt;p&gt;過程中，搭配 nginx 的錯誤訊息比較好&amp;nbsp;debug：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;sudo less +F /var/log/nginx/error.log
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sudo less +F /var/log/nginx/error.log
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;成功後，再用 uWSGI 的 Emperor mode，把設定檔丟到一個路徑底下（該路徑稱為 vassals）。uWSGI 在 Emperor mode 時會自動把 vassals&amp;nbsp;路徑內所有設定檔都讀進來並執行。&lt;/p&gt;
 &lt;p&gt;這裡 vassals 路徑使用 &lt;code&gt;/etc/uwsgi/vassals/&lt;/code&gt;。因為有設&amp;nbsp;uid、gid，跑的時候就不用再設了：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;sudo uwsgi --emperor /etc/uwsgi/vassals
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sudo uwsgi --emperor /etc/uwsgi/vassals
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -321,7 +321,7 @@ sudo systemctl reload nginx
 &lt;p&gt;Autobuild server 包含兩個部份：Django Server 與 Django-Q cluster。所以寫成 systemd service&amp;nbsp;時會有兩個服務。&lt;/p&gt;
 &lt;p&gt;Debian system service 放在 &lt;code&gt;/etc/systemd/system/&lt;/code&gt; 底下，因此建立 &lt;code&gt;uwsgi.service&lt;/code&gt; 和 &lt;code&gt;qcluster.service&lt;/code&gt; 分別管理 uWSGI Emperor mode 和 Django-Q&amp;nbsp;cluster。&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;uwsgi.service&lt;/code&gt; 參考 uWSGI 官網 &lt;a href="http://uwsgi-docs.readthedocs.org/en/latest/Systemd.html"&gt;&lt;em&gt;Django and Systemd&lt;/em&gt;&lt;/a&gt;&amp;nbsp;一文的設定：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;[Unit]&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;[Unit]&lt;/span&gt;
 &lt;span class="na"&gt;Description&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;uWSGI Emperor&lt;/span&gt;
 &lt;span class="na"&gt;After&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;syslog.target&lt;/span&gt;
 
@@ -340,7 +340,7 @@ sudo systemctl reload nginx
 
 
 &lt;p&gt;&lt;code&gt;qcluster.service&lt;/code&gt; 算是自己硬寫模擬 &lt;code&gt;python manage.py qcluster&lt;/code&gt; 行為。因此環境變數都要設定好（當然用絕對路徑就沒問題了，我只是覺得這樣 build log 內的執行檔路徑都很長會很醜&amp;nbsp;xd）&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;[Unit]&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;[Unit]&lt;/span&gt;
 &lt;span class="na"&gt;Description&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;Django-Q Cluster for site pydoc_autobuild&lt;/span&gt;
 &lt;span class="na"&gt;After&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;syslog.target&lt;/span&gt;
 &lt;span class="na"&gt;Wants&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;uwsgi.service&lt;/span&gt;
@@ -366,20 +366,20 @@ sudo systemctl reload nginx
 
 &lt;p&gt;這樣的設定檔應該不是 systemd 的慣例，我還在想是不是應該要改寫到 user service&amp;nbsp;去（但我不會）。&lt;/p&gt;
 &lt;p&gt;加入到 systemd 之後管理就很簡單，啟動這兩個&amp;nbsp;service：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;sudo systemctl enable uwsgi
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sudo systemctl enable uwsgi
 sudo systemctl enable qcluster
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;查看他們的狀態：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;sudo systemctl status uwsgi
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sudo systemctl status uwsgi
 sudo systemctl status qcluster
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;查看它們的 log 也變得很簡單，因為有把它們的 stderr 抓起來。systemd 好處是 rotation 等等都會幫你注意，看 log&amp;nbsp;的功能也很多。&lt;/p&gt;
 &lt;p&gt;例如要查最近一小時 uWSGI 的連線記錄，並在有新連線時持續更新&amp;nbsp;log：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;sudo journalctl -xef -u uwsgi --since &amp;#39;1 hour ago&amp;#39;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sudo journalctl -xef -u uwsgi --since &amp;#39;1 hour ago&amp;#39;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -415,7 +415,7 @@ sudo systemctl status qcluster
 &lt;/ul&gt;
 &lt;p&gt;內建的帳號功能應該很實用，安全性也很好。所以一般來說都不會去改它。&lt;/p&gt;
 &lt;p&gt;如果只是想要幫 User 加個 profile，例如生日、來自哪個星球等欄位，也不需要改寫 User。參考官網 &lt;a href="https://docs.djangoproject.com/en/1.8/topics/auth/customizing/#extending-the-existing-user-model"&gt;Extending the existing User model&lt;/a&gt;，只需要建一個 one-to-one relationship 指到 User&amp;nbsp;就好了：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.conf&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;settings&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.conf&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;settings&lt;/span&gt;
 
 &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;UserProfile&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Model&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
     &lt;span class="n"&gt;user&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;OneToOneField&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;settings&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AUTH_USER_MODEL&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -480,18 +480,18 @@ sudo systemctl status qcluster
 &lt;/div&gt;
 &lt;h3 id="django"&gt;Django&amp;nbsp;初始設定&lt;/h3&gt;
 &lt;p&gt;一樣開一個 Python&amp;nbsp;虛擬環境（這時候就是它的好處了，能把不同專案的套件隔離）。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;pip install django pytz ipython pyyaml
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;pip install django pytz ipython pyyaml
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;&lt;a href="http://pythonhosted.org/pytz/"&gt;pytz&lt;/a&gt; 在&lt;a href="../../09/datetime-sqlite"&gt;前一篇&lt;/a&gt;已經介紹過，是處理時區的套件。&lt;a href="http://ipython.org/"&gt;IPython&lt;/a&gt; 全名是 Interactive Python，同樣是 Python shell 但提供了很多附加功能，最常用的應該是自動補完。&lt;a href="http://pyyaml.org/"&gt;PyYAML&lt;/a&gt; 用來處理 &lt;span class="caps"&gt;YAML&lt;/span&gt; 物件，可裝可不裝，不裝之後的例子就用 &lt;span class="caps"&gt;JSON&lt;/span&gt;&amp;nbsp;即可。&lt;/p&gt;
 &lt;p&gt;我們的專案根目錄是 &lt;code&gt;demo_django_draw_member&lt;/code&gt;。因為 Django 的設定很多，先在這目錄下用 &lt;a href="https://docs.djangoproject.com/en/1.8/ref/contrib/admin/"&gt;django-admin&lt;/a&gt; 把基本的架構建起來。我們建了一個名為 &lt;code&gt;draw_site&lt;/code&gt; 的專案（Project）。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;(&lt;/span&gt;VENV&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="nv"&gt;$ &lt;/span&gt;django-admin startproject draw_site
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;VENV&lt;span class="o"&gt;)&lt;/span&gt; $ django-admin startproject draw_site
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;執行完之後應該會多出一堆檔案，結構如下。注意到有兩層 &lt;code&gt;draw_site&lt;/code&gt;。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;demo_django_draw_member/
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;demo_django_draw_member/
 └── draw_site/
     ├── draw_site/
     │   ├── __init__.py
@@ -512,7 +512,7 @@ sudo systemctl status qcluster
 &lt;p&gt;一個 Django 由一個 project 和很多個 apps 所組成。每個 app 就專注在網站的某個功能上，各自包著各自需要的 database schema、template、view&amp;nbsp;logics。這樣的好處是同樣的功能就不用重寫，同時在很大的網站時這樣的結構有助於管理運作的邏輯。&lt;/p&gt;
 &lt;h4 id="django-server"&gt;Django&amp;nbsp;server&lt;/h4&gt;
 &lt;p&gt;先把 Django&amp;nbsp;跑起來看看吧。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="gp"&gt;$&lt;/span&gt; python manage.py runserver
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp"&gt;$&lt;/span&gt; python manage.py runserver
 &lt;span class="go"&gt;...&lt;/span&gt;
 &lt;span class="go"&gt;Django version 1.8.5, using settings &amp;#39;draw_site.settings&amp;#39;&lt;/span&gt;
 &lt;span class="go"&gt;Starting development server at http://127.0.0.1:8000/&lt;/span&gt;
@@ -527,11 +527,11 @@ sudo systemctl status qcluster
 &lt;p&gt;這是 Django 內建在什麼 &lt;span class="caps"&gt;URL&lt;/span&gt; 都沒設定時的歡迎畫面。看到這個至少表示基本的 settings 正常。Django 跟 Flask 一樣，內建的 server 會在 source code 有改變的時候&amp;nbsp;reload，所以一直開著跑也可以。&lt;/p&gt;
 &lt;h4 id="django-app"&gt;第一個 Django&amp;nbsp;app&lt;/h4&gt;
 &lt;p&gt;我們的網站只會用到一個 app，把它建出來取名為 &lt;code&gt;draw_member&lt;/code&gt;。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;python manage.py startapp draw_member
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;python manage.py startapp draw_member
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;demo_django_draw_member/
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;demo_django_draw_member/
 └── draw_site/
     ├── draw_member/
     │   ├── __init__.py
@@ -548,16 +548,16 @@ sudo systemctl status qcluster
 
 &lt;p&gt;可以看到 app 與 project&amp;nbsp;的架構是不一樣的。&lt;/p&gt;
 &lt;p&gt;要把這個新的 app 加到 project 裡，修改 &lt;code&gt;draw_site/settings.py&lt;/code&gt;。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# draw_site/settings.py&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# draw_site/settings.py&lt;/span&gt;
 
 &lt;span class="n"&gt;INSTALLED_APPS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;
-    &lt;span class="s"&gt;&amp;#39;draw_member&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;    &lt;span class="c"&gt;# 加這一行&lt;/span&gt;
-    &lt;span class="s"&gt;&amp;#39;django.contrib.admin&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-    &lt;span class="s"&gt;&amp;#39;django.contrib.auth&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-    &lt;span class="s"&gt;&amp;#39;django.contrib.contenttypes&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-    &lt;span class="s"&gt;&amp;#39;django.contrib.sessions&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-    &lt;span class="s"&gt;&amp;#39;django.contrib.messages&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-    &lt;span class="s"&gt;&amp;#39;django.contrib.staticfiles&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;&amp;#39;draw_member&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;    &lt;span class="c1"&gt;# 加這一行&lt;/span&gt;
+    &lt;span class="s1"&gt;&amp;#39;django.contrib.admin&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;&amp;#39;django.contrib.auth&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;&amp;#39;django.contrib.contenttypes&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;&amp;#39;django.contrib.sessions&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;&amp;#39;django.contrib.messages&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;&amp;#39;django.contrib.staticfiles&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
 &lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
@@ -565,21 +565,21 @@ sudo systemctl status qcluster
 &lt;p&gt;預設其實裝了很多&amp;nbsp;app。暫時不理他們是什麼。&lt;/p&gt;
 &lt;h4 id="django-settings"&gt;Django&amp;nbsp;settings&lt;/h4&gt;
 &lt;p&gt;先簡單介紹一下 &lt;code&gt;draw_site/settings.py&lt;/code&gt;。除了剛剛用到&amp;nbsp;INSTALLED_APPS，講幾個跟這邊比較有關的參數。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# Database&lt;/span&gt;
-&lt;span class="c"&gt;# https://docs.djangoproject.com/en/1.8/ref/settings/#databases&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# Database&lt;/span&gt;
+&lt;span class="c1"&gt;# https://docs.djangoproject.com/en/1.8/ref/settings/#databases&lt;/span&gt;
 
 &lt;span class="n"&gt;DATABASES&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="s"&gt;&amp;#39;default&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-        &lt;span class="s"&gt;&amp;#39;ENGINE&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;django.db.backends.sqlite3&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-        &lt;span class="s"&gt;&amp;#39;NAME&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;join&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;BASE_DIR&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;db.sqlite3&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+    &lt;span class="s1"&gt;&amp;#39;default&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="s1"&gt;&amp;#39;ENGINE&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;django.db.backends.sqlite3&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="s1"&gt;&amp;#39;NAME&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;join&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;BASE_DIR&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;db.sqlite3&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
     &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
 
-&lt;span class="c"&gt;# Internationalization&lt;/span&gt;
-&lt;span class="c"&gt;# https://docs.djangoproject.com/en/1.8/topics/i18n/&lt;/span&gt;
+&lt;span class="c1"&gt;# Internationalization&lt;/span&gt;
+&lt;span class="c1"&gt;# https://docs.djangoproject.com/en/1.8/topics/i18n/&lt;/span&gt;
 
-&lt;span class="n"&gt;LANGUAGE_CODE&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;en-us&amp;#39;&lt;/span&gt;
-&lt;span class="n"&gt;TIME_ZONE&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;UTC&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;LANGUAGE_CODE&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;en-us&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;TIME_ZONE&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;UTC&amp;#39;&lt;/span&gt;
 &lt;span class="n"&gt;USE_TZ&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="bp"&gt;True&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
@@ -591,7 +591,7 @@ sudo systemctl status qcluster
 &lt;p&gt;在之前的例子可以知道，我們會先設計一個資料庫該存什麼東西，整個網站流程會怎麼用這些資料，這些形成 table schema。但是隨著時間，可能網站有新的功能，很難說完全不去更動&amp;nbsp;schema。&lt;/p&gt;
 &lt;p&gt;更動 schema 不是件簡單的事，如果是上 production 的網站，資料庫會有運作以來累積的資料，總不能 schema 改了這些資料就丟掉吧？而且在網站開發的時候，在不同版本的（或不同人開發的）code 就可能有不同的 schema。要怎麼確保 code 與 database 的狀態就要靠&amp;nbsp;migration。&lt;/p&gt;
 &lt;p&gt;……一開始就這麼複雜？好啦我們的例子沒有用到 migration 大多數的功能，只有用它 initiate database。內建的 app 都有自己的 database schema，可以用它把資料庫的 table&amp;nbsp;建出來。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="gp"&gt;$&lt;/span&gt; python manage.py migrate
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp"&gt;$&lt;/span&gt; python manage.py migrate
 &lt;span class="go"&gt;Operations to perform:&lt;/span&gt;
 &lt;span class="go"&gt;  Synchronize unmigrated apps: messages, staticfiles&lt;/span&gt;
 &lt;span class="go"&gt;  Apply all migrations: sessions, auth, contenttypes, admin&lt;/span&gt;
@@ -618,25 +618,25 @@ sudo systemctl status qcluster
 &lt;h3 id="url-dispatcher"&gt;&lt;span class="caps"&gt;URL&lt;/span&gt;&amp;nbsp;dispatcher&lt;/h3&gt;
 &lt;p&gt;我們接下來要改首頁，把 Django 預設的 &lt;code&gt;/&lt;/code&gt; 首頁換成 Hello&amp;nbsp;World。&lt;/p&gt;
 &lt;p&gt;Flask &lt;span class="caps"&gt;URL&lt;/span&gt; routing 是直接用 decorator 寫在 view function&amp;nbsp;上面。幫大家回顧一下：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nd"&gt;@app&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;route&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;/&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nd"&gt;@app&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;route&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;/&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;index&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
-    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;&amp;lt;p&amp;gt;Hello World!&amp;lt;/p&amp;gt;&amp;quot;&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&amp;lt;p&amp;gt;Hello World!&amp;lt;/p&amp;gt;&amp;quot;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Django 的 view 和 &lt;span class="caps"&gt;URL&lt;/span&gt; 是分開的，首先是&amp;nbsp;view：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# draw_member/views.py&lt;/span&gt;
-&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.shortcuts&lt;/span&gt; &lt;span class="k"&gt;import&lt;/span&gt; &lt;span class="n"&gt;render&lt;/span&gt;  &lt;span class="c"&gt;# 先暫時留著&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# draw_member/views.py&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.shortcuts&lt;/span&gt; &lt;span class="k"&gt;import&lt;/span&gt; &lt;span class="n"&gt;render&lt;/span&gt;  &lt;span class="c1"&gt;# 先暫時留著&lt;/span&gt;
 &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.http&lt;/span&gt; &lt;span class="k"&gt;import&lt;/span&gt; &lt;span class="n"&gt;HttpResponse&lt;/span&gt;
 
 &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;home&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;HttpResponse&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&amp;lt;p&amp;gt;Hello World!&amp;lt;/p&amp;gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;HttpResponse&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&amp;lt;p&amp;gt;Hello World!&amp;lt;/p&amp;gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;結構上大同小異（也因為有 &lt;a href="http://wsgi.org/"&gt;&lt;span class="caps"&gt;WSGI&lt;/span&gt;&lt;/a&gt;&amp;nbsp;規範的關係啦）。&lt;/p&gt;
 &lt;p&gt;再來是 &lt;span class="caps"&gt;URL&lt;/span&gt; 設定。我們先把 &lt;span class="caps"&gt;URL&lt;/span&gt; 加在 project 設定。這邊可能覺得設定有點分散比較怪，等一下再把它放到 app&amp;nbsp;裡面。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# draw_site/urls.py&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# draw_site/urls.py&lt;/span&gt;
 &lt;span class="sd"&gt;&amp;quot;&amp;quot;&amp;quot;draw_site URL Configuration&lt;/span&gt;
 
 &lt;span class="sd"&gt;The `urlpatterns` list routes URLs to views. For more information please see:&lt;/span&gt;
@@ -648,41 +648,41 @@ sudo systemctl status qcluster
 &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;draw_member.views&lt;/span&gt; &lt;span class="k"&gt;import&lt;/span&gt; &lt;span class="n"&gt;home&lt;/span&gt;
 
 &lt;span class="n"&gt;urlpatterns&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
-    &lt;span class="n"&gt;url&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;r&amp;#39;^$&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;home&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;home&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
-    &lt;span class="n"&gt;url&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;r&amp;#39;^admin/&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;include&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;admin&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;site&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;urls&lt;/span&gt;&lt;span class="p"&gt;)),&lt;/span&gt;
+    &lt;span class="n"&gt;url&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;r&amp;#39;^$&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;home&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;home&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+    &lt;span class="n"&gt;url&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;r&amp;#39;^admin/&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;include&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;admin&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;site&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;urls&lt;/span&gt;&lt;span class="p"&gt;)),&lt;/span&gt;
 &lt;span class="p"&gt;]&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;概念也很簡單，把要的 view function 從 app import 進來（所以 app 目錄是個 Python module，底下會 &lt;code&gt;__init__.py&lt;/code&gt;），給一個 regex 表示的路徑，後面放上處理 function 以及一個 optional 的名字，這個名字就代表了這個 &lt;span class="caps"&gt;URL&lt;/span&gt;&amp;nbsp;路徑，之後可以反查。&lt;/p&gt;
 &lt;p&gt;測一下確認設定都是正確的。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="gp"&gt;$&lt;/span&gt; curl -XGET &lt;span class="s2"&gt;&amp;quot;localhost:8000&amp;quot;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp"&gt;$&lt;/span&gt; curl -XGET &lt;span class="s2"&gt;&amp;quot;localhost:8000&amp;quot;&lt;/span&gt;
 &lt;span class="go"&gt;&amp;lt;p&amp;gt;Hello World!&amp;lt;/p&amp;gt;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;再看一下 &lt;code&gt;draw_site/urls.py&lt;/code&gt;，可以看到 Django 預設放了個 &lt;code&gt;/admin&lt;/code&gt; 後面用的是 &lt;code&gt;include(app.urls)&lt;/code&gt;，表示這一整包只要是 admin/ 開頭的 &lt;span class="caps"&gt;URL&lt;/span&gt; 都交給 admin.site.urls 去處理路徑。這樣方便 app 在不同網站中重覆利用，因為可能放的路徑都不一樣，但一個 app 內的 &lt;span class="caps"&gt;URL&lt;/span&gt;&amp;nbsp;處理會有一致性。&lt;/p&gt;
 &lt;p&gt;馬上來改寫一下。首先在 app &lt;strong&gt;draw_member&lt;/strong&gt; 底下加一個 &lt;code&gt;urls.py&lt;/code&gt;。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# draw_member/urls.py&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# draw_member/urls.py&lt;/span&gt;
 &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.conf.urls&lt;/span&gt; &lt;span class="k"&gt;import&lt;/span&gt; &lt;span class="n"&gt;include&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;url&lt;/span&gt;
-&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;.views&lt;/span&gt; &lt;span class="k"&gt;import&lt;/span&gt; &lt;span class="n"&gt;home&lt;/span&gt;  &lt;span class="c"&gt;# explicit relative import&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;.views&lt;/span&gt; &lt;span class="k"&gt;import&lt;/span&gt; &lt;span class="n"&gt;home&lt;/span&gt;  &lt;span class="c1"&gt;# explicit relative import&lt;/span&gt;
 
 &lt;span class="n"&gt;urlpatterns&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
-    &lt;span class="n"&gt;url&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;r&amp;#39;^$&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;home&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;home&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+    &lt;span class="n"&gt;url&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;r&amp;#39;^$&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;home&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;home&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
 &lt;span class="p"&gt;]&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;基本上格式就是照抄原本就有的。因為放在同個 app 裡面了，import view 時就可以用 explicit relative import（這不是 relative import&amp;nbsp;喔）&lt;/p&gt;
 &lt;p&gt;原本的 urls.py 就改成把 &lt;span class="caps"&gt;URL&lt;/span&gt; 的處理「dispatch」給這個&amp;nbsp;app，改成底下這樣。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# draw_site/urls.py&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# draw_site/urls.py&lt;/span&gt;
 &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.conf.urls&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;include&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;url&lt;/span&gt;
 &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.contrib&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;admin&lt;/span&gt;
 
 
 &lt;span class="n"&gt;urlpatterns&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
-    &lt;span class="n"&gt;url&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;r&amp;#39;^admin/&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;include&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;admin&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;site&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;urls&lt;/span&gt;&lt;span class="p"&gt;)),&lt;/span&gt;
-    &lt;span class="n"&gt;url&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;r&amp;#39;^&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;include&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;draw_member.urls&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)),&lt;/span&gt;
+    &lt;span class="n"&gt;url&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;r&amp;#39;^admin/&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;include&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;admin&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;site&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;urls&lt;/span&gt;&lt;span class="p"&gt;)),&lt;/span&gt;
+    &lt;span class="n"&gt;url&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;r&amp;#39;^&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;include&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;draw_member.urls&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)),&lt;/span&gt;
 &lt;span class="p"&gt;]&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
@@ -710,7 +710,7 @@ sudo systemctl status qcluster
 
 &lt;p&gt;回想一下我們的 schema 設計。改用 &lt;span class="caps"&gt;ORM&lt;/span&gt; 來思考我們就會有成員（Member）以及抽籤歷史（History）兩大 models。&lt;strong&gt;Member&lt;/strong&gt; 記錄了名字與所屬團體；&lt;strong&gt;History&lt;/strong&gt;&amp;nbsp;會記錄時間、這筆抽籤是屬於哪個成員的。&lt;/p&gt;
 &lt;p&gt;在 Django 中，model 定義在 &lt;code&gt;models.py&lt;/code&gt; 裡面，馬上來寫寫看。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# draw_members/models.py&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# draw_members/models.py&lt;/span&gt;
 &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.db&lt;/span&gt; &lt;span class="k"&gt;import&lt;/span&gt; &lt;span class="n"&gt;models&lt;/span&gt;
 &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.utils.timezone&lt;/span&gt; &lt;span class="k"&gt;import&lt;/span&gt; &lt;span class="n"&gt;now&lt;/span&gt;
 
@@ -720,16 +720,16 @@ sudo systemctl status qcluster
     &lt;span class="n"&gt;group_name&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;CharField&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;max_length&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;256&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
     &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;__str__&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;%s of %s&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;group_name&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;&lt;/span&gt;&lt;span class="si"&gt;%s&lt;/span&gt;&lt;span class="s1"&gt; of &lt;/span&gt;&lt;span class="si"&gt;%s&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;group_name&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
 
 &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;History&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Model&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-    &lt;span class="n"&gt;member&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ForeignKey&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Member&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;related_name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;draw_histories&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-    &lt;span class="c"&gt;# now() will return datetime.utcnow()&lt;/span&gt;
+    &lt;span class="n"&gt;member&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ForeignKey&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Member&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;related_name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;draw_histories&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="c1"&gt;# now() will return datetime.utcnow()&lt;/span&gt;
     &lt;span class="n"&gt;time&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;DateTimeField&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;default&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;now&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
     &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;__str__&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;%s at %s&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;member&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;time&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;&lt;/span&gt;&lt;span class="si"&gt;%s&lt;/span&gt;&lt;span class="s1"&gt; at &lt;/span&gt;&lt;span class="si"&gt;%s&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;member&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;time&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -739,7 +739,7 @@ sudo systemctl status qcluster
 &lt;h4 id="migration-the-tracker-of-model-changes"&gt;Migration the tracker of model&amp;nbsp;changes&lt;/h4&gt;
 &lt;p&gt;多說無用，馬上來試一試。&lt;/p&gt;
 &lt;p&gt;……等等，想到 migration 了嗎？每次更動 database model 都要跑 migration，確保 code&amp;nbsp;與資料庫狀態一致。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="gp"&gt;$&lt;/span&gt; python manage.py makemigrations draw_member
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp"&gt;$&lt;/span&gt; python manage.py makemigrations draw_member
 &lt;span class="go"&gt;python manage.py makemigrations draw_member&lt;/span&gt;
 &lt;span class="go"&gt;Migrations for &amp;#39;draw_member&amp;#39;:&lt;/span&gt;
 &lt;span class="go"&gt;  0001_initial.py:&lt;/span&gt;
@@ -750,7 +750,7 @@ sudo systemctl status qcluster
 
 
 &lt;p&gt;可以看到 Django 很聰明的知道我們多定義了兩個 models，裡面有些對應到資料庫的欄位型態。這些資訊會寫在 migration file&amp;nbsp;裡面，&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# draw_member/migrations/0001_initial.py&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# draw_member/migrations/0001_initial.py&lt;/span&gt;
 &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Migration&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;migrations&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Migration&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
 
     &lt;span class="n"&gt;dependencies&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
@@ -758,24 +758,24 @@ sudo systemctl status qcluster
 
     &lt;span class="n"&gt;operations&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
         &lt;span class="n"&gt;migrations&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;CreateModel&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
-            &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;History&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+            &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;History&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
             &lt;span class="n"&gt;fields&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;
-                &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;id&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AutoField&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;serialize&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="k"&gt;False&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;primary_key&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="k"&gt;True&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;verbose_name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;ID&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;auto_created&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="k"&gt;True&lt;/span&gt;&lt;span class="p"&gt;)),&lt;/span&gt;
-                &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;time&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;DateTimeField&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;default&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;django&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;utils&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;timezone&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;now&lt;/span&gt;&lt;span class="p"&gt;)),&lt;/span&gt;
+                &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;id&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AutoField&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;serialize&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;False&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;primary_key&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;True&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;verbose_name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;ID&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;auto_created&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;True&lt;/span&gt;&lt;span class="p"&gt;)),&lt;/span&gt;
+                &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;time&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;DateTimeField&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;default&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;django&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;utils&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;timezone&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;now&lt;/span&gt;&lt;span class="p"&gt;)),&lt;/span&gt;
             &lt;span class="p"&gt;],&lt;/span&gt;
         &lt;span class="p"&gt;),&lt;/span&gt;
         &lt;span class="n"&gt;migrations&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;CreateModel&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
-            &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;Member&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+            &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Member&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
             &lt;span class="n"&gt;fields&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;
-                &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;id&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AutoField&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;serialize&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="k"&gt;False&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;primary_key&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="k"&gt;True&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;verbose_name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;ID&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;auto_created&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="k"&gt;True&lt;/span&gt;&lt;span class="p"&gt;)),&lt;/span&gt;
-                &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;name&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;CharField&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;max_length&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;256&lt;/span&gt;&lt;span class="p"&gt;)),&lt;/span&gt;
-                &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;group_name&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;CharField&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;max_length&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;256&lt;/span&gt;&lt;span class="p"&gt;)),&lt;/span&gt;
+                &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;id&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AutoField&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;serialize&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;False&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;primary_key&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;True&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;verbose_name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;ID&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;auto_created&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;True&lt;/span&gt;&lt;span class="p"&gt;)),&lt;/span&gt;
+                &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;name&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;CharField&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;max_length&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;256&lt;/span&gt;&lt;span class="p"&gt;)),&lt;/span&gt;
+                &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;group_name&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;CharField&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;max_length&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;256&lt;/span&gt;&lt;span class="p"&gt;)),&lt;/span&gt;
             &lt;span class="p"&gt;],&lt;/span&gt;
         &lt;span class="p"&gt;),&lt;/span&gt;
         &lt;span class="n"&gt;migrations&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddField&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
-            &lt;span class="n"&gt;model_name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;history&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-            &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;member&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-            &lt;span class="n"&gt;field&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ForeignKey&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;draw_member.Member&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;related_name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;draw_histories&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+            &lt;span class="n"&gt;model_name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;history&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+            &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;member&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+            &lt;span class="n"&gt;field&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ForeignKey&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;draw_member.Member&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;related_name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;draw_histories&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
         &lt;span class="p"&gt;),&lt;/span&gt;
     &lt;span class="p"&gt;]&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -783,7 +783,7 @@ sudo systemctl status qcluster
 
 &lt;p&gt;注意到 Django &lt;span class="caps"&gt;ORM&lt;/span&gt; 自動幫我們加了 &lt;code&gt;id&lt;/code&gt; 這個 primary key，等等就會用到。Migration 裡面的細節等對 Django&amp;nbsp;更熟了之後就能慢慢了解了。&lt;/p&gt;
 &lt;p&gt;有了新的 migration&amp;nbsp;就要同步資料庫的狀態，&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="gp"&gt;$&lt;/span&gt; python manage.py migrate
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp"&gt;$&lt;/span&gt; python manage.py migrate
 &lt;span class="go"&gt;...&lt;/span&gt;
 &lt;span class="go"&gt;Running migrations:&lt;/span&gt;
 &lt;span class="go"&gt;  Rendering model states... DONE&lt;/span&gt;
@@ -793,23 +793,23 @@ sudo systemctl status qcluster
 
 &lt;h4 id="orm-queries-in-shell"&gt;&lt;span class="caps"&gt;ORM&lt;/span&gt; queries in&amp;nbsp;shell&lt;/h4&gt;
 &lt;p&gt;接下來我們操作一下 &lt;span class="caps"&gt;ORM&lt;/span&gt;。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;python manage.py shell
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ python manage.py shell
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;就會打開一個 Python shell。如果裝了 IPython 就會打開 IPython shell。
 這個與一般的有什麼差別呢？他會帶有 Django project 的設定。如果是從一般的 shell&amp;nbsp;可以先跑以下的指令來達到相同的效果。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="go"&gt;$ DJANGO_SETTINGS_MODULE=&amp;quot;draw_site.settings&amp;quot; python&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="go"&gt;$ DJANGO_SETTINGS_MODULE=&amp;quot;draw_site.settings&amp;quot; python&lt;/span&gt;
 &lt;span class="gp"&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;django&lt;/span&gt;
 &lt;span class="gp"&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class="n"&gt;django&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;setup&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;In&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]:&lt;/span&gt; &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;draw_member.models&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Member&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;History&lt;/span&gt;
-&lt;span class="n"&gt;In&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;]:&lt;/span&gt; &lt;span class="n"&gt;m1&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Member&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;高坂 穂乃果&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;group_name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;μ&amp;#39;s&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="n"&gt;In&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;]:&lt;/span&gt; &lt;span class="n"&gt;m2&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Member&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;平沢 唯&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;group_name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;K-ON!&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;In&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]:&lt;/span&gt; &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;draw_member.models&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Member&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;History&lt;/span&gt;
+&lt;span class="n"&gt;In&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;]:&lt;/span&gt; &lt;span class="n"&gt;m1&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Member&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;高坂 穂乃果&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;group_name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;μ&amp;#39;s&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;In&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;]:&lt;/span&gt; &lt;span class="n"&gt;m2&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Member&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;平沢 唯&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;group_name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;K-ON!&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="n"&gt;In&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;]:&lt;/span&gt; &lt;span class="n"&gt;m1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;m2&lt;/span&gt;
-&lt;span class="n"&gt;Out&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;]:&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;Member&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="err"&gt;高坂&lt;/span&gt; &lt;span class="err"&gt;穂乃果&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="err"&gt;μ&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;s&amp;gt;, &amp;lt;Member: 平沢 唯 of K-ON!&amp;gt;)&lt;/span&gt;
+&lt;span class="n"&gt;Out&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;]:&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;Member&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="err"&gt;高坂&lt;/span&gt; &lt;span class="err"&gt;穂乃果&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="err"&gt;μ&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;s&amp;gt;, &amp;lt;Member: 平沢 唯 of K-ON!&amp;gt;)&lt;/span&gt;
 &lt;span class="n"&gt;In&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;7&lt;/span&gt;&lt;span class="p"&gt;]:&lt;/span&gt; &lt;span class="n"&gt;m1&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;save&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;span class="n"&gt;In&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="p"&gt;]:&lt;/span&gt; &lt;span class="n"&gt;m2&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;save&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;span class="n"&gt;In&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;6&lt;/span&gt;&lt;span class="p"&gt;]:&lt;/span&gt; &lt;span class="n"&gt;h1&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;History&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;member&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;m1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -818,7 +818,7 @@ sudo systemctl status qcluster
 
 
 &lt;p&gt;使用上就把資料當作物件來操作，如同 &lt;span class="caps"&gt;ORM&lt;/span&gt; 字面的意思。注意只有在 &lt;code&gt;.save()&lt;/code&gt; 才真正被存到資料裡。拿沒有存的 object 來操作 database 就會出現&amp;nbsp;exception。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="gp"&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class="n"&gt;h_failed&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;History&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;member&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;Member&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;FF&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;group_name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;f&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp"&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class="n"&gt;h_failed&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;History&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;member&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;Member&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;FF&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;group_name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;f&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
 &lt;span class="gp"&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class="n"&gt;h_failed&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;save&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;span class="gt"&gt;Traceback (most recent call last):&lt;/span&gt;
 &lt;span class="c"&gt;...&lt;/span&gt;
@@ -827,7 +827,7 @@ sudo systemctl status qcluster
 
 
 &lt;p&gt;覺得麻煩的話，用 &lt;code&gt;Model.objects.create()&lt;/code&gt; 就可以一步搞定。正確的存好之後，現在資料庫已經有資料了。我們可以先在 SQLite&amp;nbsp;裡確認。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="go"&gt;-- sqlite3 db.sqlite3&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="go"&gt;-- sqlite3 db.sqlite3&lt;/span&gt;
 &lt;span class="gp"&gt;sqlite&amp;gt; &lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;header&lt;/span&gt; &lt;span class="k"&gt;on&lt;/span&gt;
 &lt;span class="gp"&gt;sqlite&amp;gt; &lt;/span&gt;&lt;span class="k"&gt;SELECT&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="k"&gt;FROM&lt;/span&gt; &lt;span class="n"&gt;draw_member_member&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="go"&gt;id|name|group_name&lt;/span&gt;
@@ -841,7 +841,7 @@ sudo systemctl status qcluster
 
 &lt;p&gt;透過像剛剛 object 的操作，我們也能建出如同手寫 &lt;span class="caps"&gt;SQL&lt;/span&gt; 一樣的資料庫，當然像 &lt;code&gt;id&lt;/code&gt;、&lt;code&gt;member_id&lt;/code&gt; 這些欄位是 &lt;span class="caps"&gt;ORM&lt;/span&gt; engine&amp;nbsp;自動幫我們做出來的，這些可以自訂，不過預設的行為不難理解。&lt;/p&gt;
 &lt;p&gt;要怎麼從 &lt;span class="caps"&gt;ORM&lt;/span&gt; 像剛剛下 &lt;span class="caps"&gt;SQL&lt;/span&gt;&amp;nbsp;一樣撈資料呢？&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="gp"&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;draw_member.models&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Member&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;History&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp"&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;draw_member.models&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Member&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;History&lt;/span&gt;
 &lt;span class="gp"&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class="n"&gt;Member&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;objects&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;all&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;span class="go"&gt;[&amp;lt;Member: 高坂 穂乃果 of μ&amp;#39;s&amp;gt;, &amp;lt;Member: 平沢 唯 of K-ON!&amp;gt;]&lt;/span&gt;
 &lt;span class="gp"&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class="n"&gt;History&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;objects&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;all&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
@@ -851,22 +851,22 @@ sudo systemctl status qcluster
 
 &lt;p&gt;資料透過 &lt;code&gt;Model.objects&lt;/code&gt; 這個 Manager 去查詢，細節就去看 Django 關於 &lt;a href="https://docs.djangoproject.com/en/1.8/topics/db/queries"&gt;Making queries&lt;/a&gt; 的內容吧。查詢資料庫就會回傳 &lt;a href="https://docs.djangoproject.com/en/1.8/ref/models/querysets/#django.db.models.query.QuerySet"&gt;QuerySet&lt;/a&gt;，這並不會真的去「查」資料庫，但先把指令存著等真的要用到值時才去計算，也就是 lazy&amp;nbsp;evaluation。&lt;/p&gt;
 &lt;p&gt;QuerySet 底下就有很多對應到 &lt;span class="caps"&gt;SQL&lt;/span&gt; 指令的查詢，像是拿回所有 objects 的 &lt;code&gt;QuerySet.all()&lt;/code&gt;，前面已經用過了。或者篩選的 &lt;code&gt;QuerySet.filter()&lt;/code&gt;，&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="gp"&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class="n"&gt;Member&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;objects&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;filter&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;group_name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;K-ON!&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp"&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class="n"&gt;Member&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;objects&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;filter&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;group_name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;K-ON!&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="go"&gt;[&amp;lt;Member: 平沢 唯 of K-ON!&amp;gt;]&lt;/span&gt;
-&lt;span class="gp"&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class="n"&gt;Member&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;objects&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;filter&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;group_name__contains&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;!&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="gp"&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class="n"&gt;Member&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;objects&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;filter&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;group_name__contains&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;!&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="go"&gt;[&amp;lt;Member: 平沢 唯 of K-ON!&amp;gt;]&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;其中 &lt;code&gt;&amp;lt;field&amp;gt;__contains&lt;/code&gt; 就是 Django &lt;span class="caps"&gt;ORM&lt;/span&gt; 為了實做像 &lt;span class="caps"&gt;SQL&lt;/span&gt; &lt;code&gt;LIKE&lt;/code&gt; 指令的對應欄位。&lt;/p&gt;
 &lt;p&gt;先講幾個有關的，首先每個 Model 都有個 primary key &lt;code&gt;pk&lt;/code&gt;，預設指到 &lt;code&gt;Model.id&lt;/code&gt; 這個欄位上，另用 &lt;code&gt;QuerySet.get()&lt;/code&gt; 可以拿到單一物件，這時候萬用的 pk&amp;nbsp;就派上用場了。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="gp"&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class="n"&gt;Member&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;objects&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;pk&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp"&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class="n"&gt;Member&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;objects&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;pk&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="go"&gt;&amp;lt;Member: 高坂 穂乃果 of μ&amp;#39;s&amp;gt;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;查 relation&amp;nbsp;也很簡單，&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="gp"&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class="n"&gt;h1&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;History&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;objects&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;pk&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp"&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class="n"&gt;h1&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;History&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;objects&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;pk&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="gp"&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class="n"&gt;h1&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;member&lt;/span&gt;
 &lt;span class="go"&gt;&amp;lt;Member: 高坂 穂乃果 of μ&amp;#39;s&amp;gt;&lt;/span&gt;
 &lt;span class="gp"&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class="n"&gt;h1&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;member&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;
@@ -875,20 +875,20 @@ sudo systemctl status qcluster
 
 
 &lt;p&gt;還記得之前設得 &lt;code&gt;related_name="draw_histories"&lt;/code&gt;，表示我們能從 &lt;strong&gt;Member&lt;/strong&gt;&amp;nbsp;反查回去該人相關的歷史，&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="gp"&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class="n"&gt;m1&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Member&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;objects&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;pk&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp"&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class="n"&gt;m1&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Member&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;objects&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;pk&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="gp"&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class="n"&gt;m1&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;draw_histories&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;all&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;span class="go"&gt;[&amp;lt;History: 高坂 穂乃果 at 2015-10-05 15:17:32.061384+00:00&amp;gt;]&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;最後我們來刪資料，&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="gp"&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class="n"&gt;Member&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;objects&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;all&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;delete&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp"&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class="n"&gt;Member&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;objects&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;all&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;delete&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;span class="gp"&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class="n"&gt;History&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;objects&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;all&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;delete&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;當然一開始我們可以暴力把 &lt;code&gt;db.sqlite3&lt;/code&gt; 整個刪掉再重新 &lt;code&gt;python manage.py migrate&lt;/code&gt; 一次就可以讓 database 對應的 table 都建立好，不過只適用於 SQLite 而已。或者，正確的「清空資料庫」做法是用 &lt;code&gt;flush&lt;/code&gt; 指令，&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="gp"&gt;$&lt;/span&gt; python manage.py flush
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp"&gt;$&lt;/span&gt; python manage.py flush
 &lt;span class="go"&gt;You have requested a flush of the database.&lt;/span&gt;
 &lt;span class="go"&gt;This will IRREVERSIBLY DESTROY all data currently in the &amp;#39;draw_site/db.sqlite3&amp;#39; database,&lt;/span&gt;
 &lt;span class="go"&gt;and return each table to an empty state.&lt;/span&gt;
@@ -902,11 +902,11 @@ sudo systemctl status qcluster
 
 &lt;h4 id="data-in-orm-and-fixtures"&gt;Data in &lt;span class="caps"&gt;ORM&lt;/span&gt; and&amp;nbsp;fixtures&lt;/h4&gt;
 &lt;p&gt;我們把 &lt;code&gt;members.csv&lt;/code&gt; 的資料填到資料庫吧。這邊就不用細說了。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;In&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]:&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;csv&lt;/span&gt;
-&lt;span class="n"&gt;In&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;]:&lt;/span&gt; &lt;span class="k"&gt;with&lt;/span&gt; &lt;span class="nb"&gt;open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;../../draw_member/members.csv&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;newline&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;In&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]:&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;csv&lt;/span&gt;
+&lt;span class="n"&gt;In&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;]:&lt;/span&gt; &lt;span class="k"&gt;with&lt;/span&gt; &lt;span class="nb"&gt;open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;../../draw_member/members.csv&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;newline&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
    &lt;span class="o"&gt;...&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;    &lt;span class="n"&gt;csv_reader&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;csv&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;DictReader&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
    &lt;span class="o"&gt;...&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;    &lt;span class="n"&gt;members&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
-   &lt;span class="o"&gt;...&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;row&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;名字&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="n"&gt;row&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;團體&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+   &lt;span class="o"&gt;...&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;row&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;名字&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="n"&gt;row&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;團體&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
    &lt;span class="o"&gt;...&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;row&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;csv_reader&lt;/span&gt;
    &lt;span class="o"&gt;...&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;    &lt;span class="p"&gt;]&lt;/span&gt;
 &lt;span class="n"&gt;In&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;]:&lt;/span&gt; &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;draw_member.models&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Member&lt;/span&gt;
@@ -920,12 +920,12 @@ sudo systemctl status qcluster
 &lt;p&gt;不過現在有個問題是，之後可能會常常把資料庫砍掉重練，或者要把這些（或很多來源）的資料讀到資料庫，每次都重新讀寫也是可以，但有沒有別的做法能把資料先存起來？&lt;/p&gt;
 &lt;p&gt;這邊就要介紹 &lt;a href="https://docs.djangoproject.com/en/1.8/howto/initial-data/#providing-initial-data-with-fixtures"&gt;Django fixtures&lt;/a&gt; 了。他能把資料庫的資料存成 &lt;span class="caps"&gt;JSON&lt;/span&gt;、&lt;span class="caps"&gt;YAML&lt;/span&gt;（需要 &lt;a href="http://pyyaml.org/"&gt;PyYAML&lt;/a&gt;）等格式。&lt;/p&gt;
 &lt;p&gt;一般 fixtures 是被在 &lt;code&gt;&amp;lt;app&amp;gt;/fixtures/&lt;/code&gt; 目錄底下，記得先把目錄建出來。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;mkdir draw_member/fixtures
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;mkdir draw_member/fixtures
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;根據 database 的內容建立 fixtures 可以使用 &lt;code&gt;dumpdata&lt;/code&gt; 指令：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;python manage.py dumpdata &lt;span class="se"&gt;\&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;python manage.py dumpdata &lt;span class="se"&gt;\&lt;/span&gt;
     --format&lt;span class="o"&gt;=&lt;/span&gt;yaml &lt;span class="se"&gt;\&lt;/span&gt;
     --indent&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;4&lt;/span&gt; &lt;span class="se"&gt;\&lt;/span&gt;
     --output draw_member/fixtures/anime_members.yaml
@@ -933,19 +933,19 @@ sudo systemctl status qcluster
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;# draw_member/fixtures/anime_members.yaml&lt;/span&gt;
-&lt;span class="p-Indicator"&gt;-&lt;/span&gt;   &lt;span class="l-Scalar-Plain"&gt;fields&lt;/span&gt;&lt;span class="p-Indicator"&gt;:&lt;/span&gt; &lt;span class="p-Indicator"&gt;{&lt;/span&gt;&lt;span class="nv"&gt;group_name&lt;/span&gt;&lt;span class="p-Indicator"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="se"&gt;\u03BC&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;s&amp;quot;&lt;/span&gt;&lt;span class="p-Indicator"&gt;,&lt;/span&gt; &lt;span class="nv"&gt;name&lt;/span&gt;&lt;span class="p-Indicator"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="se"&gt;\u9AD8\u5742&lt;/span&gt;&lt;span class="nv"&gt; &lt;/span&gt;&lt;span class="se"&gt;\u7A42\u4E43\u679C&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p-Indicator"&gt;}&lt;/span&gt;
-    &lt;span class="l-Scalar-Plain"&gt;model&lt;/span&gt;&lt;span class="p-Indicator"&gt;:&lt;/span&gt; &lt;span class="l-Scalar-Plain"&gt;draw_member.member&lt;/span&gt;
-    &lt;span class="l-Scalar-Plain"&gt;pk&lt;/span&gt;&lt;span class="p-Indicator"&gt;:&lt;/span&gt; &lt;span class="l-Scalar-Plain"&gt;1&lt;/span&gt;
-&lt;span class="p-Indicator"&gt;-&lt;/span&gt;   &lt;span class="l-Scalar-Plain"&gt;fields&lt;/span&gt;&lt;span class="p-Indicator"&gt;:&lt;/span&gt; &lt;span class="p-Indicator"&gt;{&lt;/span&gt;&lt;span class="nv"&gt;group_name&lt;/span&gt;&lt;span class="p-Indicator"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="se"&gt;\u03BC&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;s&amp;quot;&lt;/span&gt;&lt;span class="p-Indicator"&gt;,&lt;/span&gt; &lt;span class="nv"&gt;name&lt;/span&gt;&lt;span class="p-Indicator"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="se"&gt;\u7D62\u702C&lt;/span&gt;&lt;span class="nv"&gt; &lt;/span&gt;&lt;span class="se"&gt;\u7D75\u91CC&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p-Indicator"&gt;}&lt;/span&gt;
-    &lt;span class="l-Scalar-Plain"&gt;model&lt;/span&gt;&lt;span class="p-Indicator"&gt;:&lt;/span&gt; &lt;span class="l-Scalar-Plain"&gt;draw_member.member&lt;/span&gt;
-    &lt;span class="l-Scalar-Plain"&gt;pk&lt;/span&gt;&lt;span class="p-Indicator"&gt;:&lt;/span&gt; &lt;span class="l-Scalar-Plain"&gt;2&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# draw_member/fixtures/anime_members.yaml&lt;/span&gt;
+&lt;span class="p p-Indicator"&gt;-&lt;/span&gt;   &lt;span class="l l-Scalar l-Scalar-Plain"&gt;fields&lt;/span&gt;&lt;span class="p p-Indicator"&gt;:&lt;/span&gt; &lt;span class="p p-Indicator"&gt;{&lt;/span&gt;&lt;span class="nv"&gt;group_name&lt;/span&gt;&lt;span class="p p-Indicator"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="se"&gt;\u03BC&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;s&amp;quot;&lt;/span&gt;&lt;span class="p p-Indicator"&gt;,&lt;/span&gt; &lt;span class="nv"&gt;name&lt;/span&gt;&lt;span class="p p-Indicator"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="se"&gt;\u9AD8\u5742&lt;/span&gt;&lt;span class="nv"&gt; &lt;/span&gt;&lt;span class="se"&gt;\u7A42\u4E43\u679C&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p p-Indicator"&gt;}&lt;/span&gt;
+    &lt;span class="l l-Scalar l-Scalar-Plain"&gt;model&lt;/span&gt;&lt;span class="p p-Indicator"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;draw_member.member&lt;/span&gt;
+    &lt;span class="l l-Scalar l-Scalar-Plain"&gt;pk&lt;/span&gt;&lt;span class="p p-Indicator"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;1&lt;/span&gt;
+&lt;span class="p p-Indicator"&gt;-&lt;/span&gt;   &lt;span class="l l-Scalar l-Scalar-Plain"&gt;fields&lt;/span&gt;&lt;span class="p p-Indicator"&gt;:&lt;/span&gt; &lt;span class="p p-Indicator"&gt;{&lt;/span&gt;&lt;span class="nv"&gt;group_name&lt;/span&gt;&lt;span class="p p-Indicator"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="se"&gt;\u03BC&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;s&amp;quot;&lt;/span&gt;&lt;span class="p p-Indicator"&gt;,&lt;/span&gt; &lt;span class="nv"&gt;name&lt;/span&gt;&lt;span class="p p-Indicator"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="se"&gt;\u7D62\u702C&lt;/span&gt;&lt;span class="nv"&gt; &lt;/span&gt;&lt;span class="se"&gt;\u7D75\u91CC&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p p-Indicator"&gt;}&lt;/span&gt;
+    &lt;span class="l l-Scalar l-Scalar-Plain"&gt;model&lt;/span&gt;&lt;span class="p p-Indicator"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;draw_member.member&lt;/span&gt;
+    &lt;span class="l l-Scalar l-Scalar-Plain"&gt;pk&lt;/span&gt;&lt;span class="p p-Indicator"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;2&lt;/span&gt;
 &lt;span class="c1"&gt;# ...&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;用 &lt;span class="caps"&gt;JSON&lt;/span&gt; 輸出也可以，改成 &lt;code&gt;--format=json&lt;/code&gt; 就可以了&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="p"&gt;[&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
   &lt;span class="nt"&gt;&amp;quot;model&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;draw_member.member&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
   &lt;span class="nt"&gt;&amp;quot;pk&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
@@ -958,7 +958,7 @@ sudo systemctl status qcluster
 
 
 &lt;p&gt;我們可以用 &lt;code&gt;python manage.py flush&lt;/code&gt; 把資料庫清掉，模擬資料的讀入。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="gp"&gt;$&lt;/span&gt; python manage.py loaddata anime_members.yaml
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp"&gt;$&lt;/span&gt; python manage.py loaddata anime_members.yaml
 &lt;span class="go"&gt;Installed 14 object(s) from 1 fixture(s)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
@@ -966,7 +966,7 @@ sudo systemctl status qcluster
 &lt;p&gt;這樣資料的存取就介紹得差不多了。更多的細節可以參考&lt;a href="https://docs.djangoproject.com/en/1.8/#the-model-layer"&gt;官網 model layer&lt;/a&gt;&amp;nbsp;的說明。&lt;/p&gt;
 &lt;h3 id="django-template"&gt;Django&amp;nbsp;Template&lt;/h3&gt;
 &lt;p&gt;在進行下去之前，先確認我們的目錄結構是一樣的。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;demo_django_draw_member/
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;demo_django_draw_member/
 └── draw_site/
     ├── db.sqlite3
     ├── draw_member/
@@ -992,85 +992,85 @@ sudo systemctl status qcluster
 
 
 &lt;p&gt;Django 的 template 預設是放在 &lt;code&gt;&amp;lt;app&amp;gt;/templates/&lt;/code&gt; 底下。不過為了在跨 app 時不要衝到名字，我們會多包一層 app&amp;nbsp;為名的資料夾。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;mkdir -p draw_member/templates/draw_member
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;mkdir -p draw_member/templates/draw_member
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;它跟 Flask 用的 Jinja2 templates 乍看下非常類似（Jinja2 模仿 Django template），兩者最大的差別是在 Jinja2 裡能很自由的使用 Python function，不過 Django 靠的是 template tag 以及&amp;nbsp;filter。我們的例子兩者是沒差多少。&lt;/p&gt;
 &lt;p&gt;一樣先把 &lt;code&gt;base.html&lt;/code&gt; 以及 &lt;code&gt;home.html&lt;/code&gt; 做出來。我們也先把 Form 寫上了，暫時先用 &lt;span class="caps"&gt;GET&lt;/span&gt;。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;{# draw_member/templates/draw_member/base.html #}&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c"&gt;{# draw_member/templates/draw_member/base.html #}&lt;/span&gt;
 &lt;span class="cp"&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/span&gt;
-&lt;span class="nt"&gt;&amp;lt;html&lt;/span&gt; &lt;span class="na"&gt;lang=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;en&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
-&lt;span class="nt"&gt;&amp;lt;head&amp;gt;&lt;/span&gt;
-  &lt;span class="nt"&gt;&amp;lt;meta&lt;/span&gt; &lt;span class="na"&gt;charset=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;UTF-8&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
-  &lt;span class="nt"&gt;&amp;lt;meta&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;viewport&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;content=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;width=device-width&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
-  &lt;span class="nt"&gt;&amp;lt;title&amp;gt;&lt;/span&gt;&lt;span class="cp"&gt;{%&lt;/span&gt; &lt;span class="k"&gt;block&lt;/span&gt; &lt;span class="nv"&gt;title&lt;/span&gt; &lt;span class="cp"&gt;%}&lt;/span&gt;抽籤系統&lt;span class="cp"&gt;{%&lt;/span&gt; &lt;span class="k"&gt;endblock&lt;/span&gt; &lt;span class="nv"&gt;title&lt;/span&gt; &lt;span class="cp"&gt;%}&lt;/span&gt;&lt;span class="nt"&gt;&amp;lt;/title&amp;gt;&lt;/span&gt;
-&lt;span class="nt"&gt;&amp;lt;/head&amp;gt;&lt;/span&gt;
-&lt;span class="nt"&gt;&amp;lt;body&amp;gt;&lt;/span&gt;
+&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;html&lt;/span&gt; &lt;span class="na"&gt;lang&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;en&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;head&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;meta&lt;/span&gt; &lt;span class="na"&gt;charset&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;UTF-8&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;meta&lt;/span&gt; &lt;span class="na"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;viewport&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;content&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;width=device-width&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;title&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;&lt;span class="cp"&gt;{%&lt;/span&gt; &lt;span class="k"&gt;block&lt;/span&gt; &lt;span class="nv"&gt;title&lt;/span&gt; &lt;span class="cp"&gt;%}&lt;/span&gt;抽籤系統&lt;span class="cp"&gt;{%&lt;/span&gt; &lt;span class="k"&gt;endblock&lt;/span&gt; &lt;span class="nv"&gt;title&lt;/span&gt; &lt;span class="cp"&gt;%}&lt;/span&gt;&lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;title&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;head&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;body&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
 &lt;span class="cp"&gt;{%&lt;/span&gt; &lt;span class="k"&gt;block&lt;/span&gt; &lt;span class="nv"&gt;content&lt;/span&gt; &lt;span class="cp"&gt;%}{%&lt;/span&gt; &lt;span class="k"&gt;endblock&lt;/span&gt; &lt;span class="nv"&gt;content&lt;/span&gt; &lt;span class="cp"&gt;%}&lt;/span&gt;
-&lt;span class="nt"&gt;&amp;lt;hr&amp;gt;&lt;/span&gt;
-&lt;span class="nt"&gt;&amp;lt;h3&amp;gt;&lt;/span&gt;功能列&lt;span class="nt"&gt;&amp;lt;/h3&amp;gt;&lt;/span&gt;
-&lt;span class="nt"&gt;&amp;lt;ul&amp;gt;&lt;/span&gt;
-  &lt;span class="nt"&gt;&amp;lt;li&amp;gt;&amp;lt;a&lt;/span&gt; &lt;span class="na"&gt;href=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="cp"&gt;{%&lt;/span&gt; &lt;span class="k"&gt;url&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;home&amp;#39;&lt;/span&gt; &lt;span class="cp"&gt;%}&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;首頁（抽籤）&lt;span class="nt"&gt;&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;&lt;/span&gt;
-  &lt;span class="nt"&gt;&amp;lt;li&amp;gt;&amp;lt;a&lt;/span&gt; &lt;span class="na"&gt;href=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="cp"&gt;{%&lt;/span&gt; &lt;span class="k"&gt;url&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;history&amp;#39;&lt;/span&gt; &lt;span class="cp"&gt;%}&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;歷史記錄&lt;span class="nt"&gt;&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;&lt;/span&gt;
-&lt;span class="nt"&gt;&amp;lt;/ul&amp;gt;&lt;/span&gt;
-&lt;span class="nt"&gt;&amp;lt;/body&amp;gt;&lt;/span&gt;
-&lt;span class="nt"&gt;&amp;lt;/html&amp;gt;&lt;/span&gt;
+&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;hr&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;h3&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;功能列&lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;h3&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;ul&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;li&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;a&lt;/span&gt; &lt;span class="na"&gt;href&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="cp"&gt;{%&lt;/span&gt; &lt;span class="k"&gt;url&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;home&amp;#39;&lt;/span&gt; &lt;span class="cp"&gt;%}&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;首頁（抽籤）&lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;a&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;li&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;li&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;a&lt;/span&gt; &lt;span class="na"&gt;href&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="cp"&gt;{%&lt;/span&gt; &lt;span class="k"&gt;url&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;history&amp;#39;&lt;/span&gt; &lt;span class="cp"&gt;%}&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;歷史記錄&lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;a&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;li&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;ul&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;body&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;html&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;{# draw_member/templates/draw_member/home.html #}&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c"&gt;{# draw_member/templates/draw_member/home.html #}&lt;/span&gt;
 &lt;span class="cp"&gt;{%&lt;/span&gt; &lt;span class="k"&gt;extends&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;draw_member/base.html&amp;#39;&lt;/span&gt; &lt;span class="cp"&gt;%}&lt;/span&gt;
 
 &lt;span class="cp"&gt;{%&lt;/span&gt; &lt;span class="k"&gt;block&lt;/span&gt; &lt;span class="nv"&gt;content&lt;/span&gt; &lt;span class="cp"&gt;%}&lt;/span&gt;
-  &lt;span class="nt"&gt;&amp;lt;h1&amp;gt;&lt;/span&gt;來抽出快樂的夥伴吧！&lt;span class="nt"&gt;&amp;lt;/h1&amp;gt;&lt;/span&gt;
-  &lt;span class="nt"&gt;&amp;lt;p&amp;gt;&lt;/span&gt;選擇要被抽的團體&lt;span class="nt"&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
-  &lt;span class="nt"&gt;&amp;lt;form&lt;/span&gt; &lt;span class="na"&gt;action=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="cp"&gt;{%&lt;/span&gt; &lt;span class="k"&gt;url&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;draw&amp;#39;&lt;/span&gt; &lt;span class="cp"&gt;%}&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;method=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;get&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
-    &lt;span class="nt"&gt;&amp;lt;label&lt;/span&gt; &lt;span class="na"&gt;for=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;group_name&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;團隊名稱：&lt;span class="nt"&gt;&amp;lt;/label&amp;gt;&lt;/span&gt;
-    &lt;span class="nt"&gt;&amp;lt;input&lt;/span&gt; &lt;span class="na"&gt;type=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;radio&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;group_name&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;value=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;μ&amp;#39;s&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;μ&amp;#39;s
-    &lt;span class="nt"&gt;&amp;lt;input&lt;/span&gt; &lt;span class="na"&gt;type=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;radio&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;group_name&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;value=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;K-ON!&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;K-ON!
-    &lt;span class="nt"&gt;&amp;lt;input&lt;/span&gt; &lt;span class="na"&gt;type=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;radio&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;group_name&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;value=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;ALL&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;checked&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;（全）
-    &lt;span class="nt"&gt;&amp;lt;input&lt;/span&gt; &lt;span class="na"&gt;type=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;submit&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;value=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Submit&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
-  &lt;span class="nt"&gt;&amp;lt;/form&amp;gt;&lt;/span&gt;
+  &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;h1&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;來抽出快樂的夥伴吧！&lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;h1&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;p&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;選擇要被抽的團體&lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;p&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;form&lt;/span&gt; &lt;span class="na"&gt;action&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="cp"&gt;{%&lt;/span&gt; &lt;span class="k"&gt;url&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;draw&amp;#39;&lt;/span&gt; &lt;span class="cp"&gt;%}&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;method&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;get&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;label&lt;/span&gt; &lt;span class="na"&gt;for&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;group_name&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;團隊名稱：&lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;label&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;input&lt;/span&gt; &lt;span class="na"&gt;type&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;radio&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;group_name&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;value&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;μ&amp;#39;s&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;μ&amp;#39;s
+    &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;input&lt;/span&gt; &lt;span class="na"&gt;type&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;radio&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;group_name&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;value&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;K-ON!&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;K-ON!
+    &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;input&lt;/span&gt; &lt;span class="na"&gt;type&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;radio&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;group_name&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;value&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;ALL&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;checked&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;（全）
+    &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;input&lt;/span&gt; &lt;span class="na"&gt;type&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;submit&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;value&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Submit&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;form&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
 &lt;span class="cp"&gt;{%&lt;/span&gt; &lt;span class="k"&gt;endblock&lt;/span&gt; &lt;span class="nv"&gt;content&lt;/span&gt; &lt;span class="cp"&gt;%}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;整體的概念應該很好理解。&lt;code&gt;{% url 'xxxx' %}&lt;/code&gt; 就是 &lt;span class="caps"&gt;URL&lt;/span&gt; resolver，還記得在 &lt;code&gt;urls.py&lt;/code&gt; 的設定時有給個 &lt;code&gt;name&lt;/code&gt; 參數嗎，這邊就會根據那個名字回傳正確的網址。&lt;/p&gt;
 &lt;p&gt;順便更新一下 &lt;span class="caps"&gt;URL&lt;/span&gt; 把這些 view 先加好，不然等下 runserver&amp;nbsp;會說找不到這些網址。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# draw_members/urls.py&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# draw_members/urls.py&lt;/span&gt;
 &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.conf.urls&lt;/span&gt; &lt;span class="k"&gt;import&lt;/span&gt; &lt;span class="n"&gt;include&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;url&lt;/span&gt;
 &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;.views&lt;/span&gt; &lt;span class="k"&gt;import&lt;/span&gt; &lt;span class="n"&gt;home&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;draw&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;history&lt;/span&gt;
 
 &lt;span class="n"&gt;urlpatterns&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
-    &lt;span class="n"&gt;url&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;r&amp;#39;^$&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;home&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;home&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
-    &lt;span class="n"&gt;url&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;r&amp;#39;^draw/$&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;draw&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;draw&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
-    &lt;span class="n"&gt;url&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;r&amp;#39;^history/$&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;history&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;history&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;url&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;r&amp;#39;^$&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;home&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;home&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+    &lt;span class="n"&gt;url&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;r&amp;#39;^draw/$&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;draw&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;draw&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+    &lt;span class="n"&gt;url&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;r&amp;#39;^history/$&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;history&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;history&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="p"&gt;]&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# draw_members/views.py&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# draw_members/views.py&lt;/span&gt;
 &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.shortcuts&lt;/span&gt; &lt;span class="k"&gt;import&lt;/span&gt; &lt;span class="n"&gt;render&lt;/span&gt;
 &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.http&lt;/span&gt; &lt;span class="k"&gt;import&lt;/span&gt; &lt;span class="n"&gt;HttpResponse&lt;/span&gt;
 
 
 &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;home&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;HttpResponse&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&amp;lt;p&amp;gt;Hello World!&amp;lt;/p&amp;gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;HttpResponse&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&amp;lt;p&amp;gt;Hello World!&amp;lt;/p&amp;gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
 
 &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;draw&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;HttpResponse&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&amp;lt;p&amp;gt;Draw&amp;lt;/p&amp;gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;HttpResponse&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&amp;lt;p&amp;gt;Draw&amp;lt;/p&amp;gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
 
 &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;history&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;HttpResponse&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&amp;lt;p&amp;gt;History&amp;lt;/p&amp;gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;HttpResponse&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&amp;lt;p&amp;gt;History&amp;lt;/p&amp;gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;緊接著改寫我們的首頁，讓它用上 &lt;code&gt;home.html&lt;/code&gt;。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;home&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;render&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;draw_member/home.html&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;home&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;render&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;draw_member/home.html&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -1084,7 +1084,7 @@ sudo systemctl status qcluster
 &lt;p&gt;我們把最重要的抽籤功能實作出來吧。&lt;/p&gt;
 &lt;p&gt;這邊需要理解的就是，Django 會把傳到 &lt;span class="caps"&gt;GET&lt;/span&gt; / &lt;span class="caps"&gt;POST&lt;/span&gt; 的參數以 dict 存在 &lt;code&gt;request.GET&lt;/code&gt; / &lt;code&gt;request.POST&lt;/code&gt; 裡面，&lt;code&gt;@require_GET&lt;/code&gt; 限制只能使用 &lt;span class="caps"&gt;GET&lt;/span&gt;&amp;nbsp;去溝通。&lt;/p&gt;
 &lt;p&gt;其他的邏輯都是照抄以前的。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;random&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;random&lt;/span&gt;
 &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.shortcuts&lt;/span&gt; &lt;span class="k"&gt;import&lt;/span&gt; &lt;span class="n"&gt;render&lt;/span&gt;
 &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.http&lt;/span&gt; &lt;span class="k"&gt;import&lt;/span&gt; &lt;span class="n"&gt;HttpResponse&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;Http404&lt;/span&gt;
 &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.views.decorators.http&lt;/span&gt; &lt;span class="k"&gt;import&lt;/span&gt; &lt;span class="n"&gt;require_GET&lt;/span&gt;
@@ -1092,23 +1092,23 @@ sudo systemctl status qcluster
 
 &lt;span class="nd"&gt;@require_GET&lt;/span&gt;
 &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;draw&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-    &lt;span class="c"&gt;# Retrieve all related members&lt;/span&gt;
-    &lt;span class="n"&gt;group_name&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;GET&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;group_name&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;ALL&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;group_name&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;ALL&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="c1"&gt;# Retrieve all related members&lt;/span&gt;
+    &lt;span class="n"&gt;group_name&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;GET&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;group_name&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;ALL&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;group_name&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;ALL&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
         &lt;span class="n"&gt;valid_members&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Member&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;objects&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;all&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
     &lt;span class="k"&gt;else&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
         &lt;span class="n"&gt;valid_members&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Member&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;objects&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;filter&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;group_name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;group_name&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-    &lt;span class="c"&gt;# Raise 404 if no members are found given the group name&lt;/span&gt;
+    &lt;span class="c1"&gt;# Raise 404 if no members are found given the group name&lt;/span&gt;
     &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="ow"&gt;not&lt;/span&gt; &lt;span class="n"&gt;valid_members&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;exists&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
-        &lt;span class="k"&gt;raise&lt;/span&gt; &lt;span class="n"&gt;Http404&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;No member in group &amp;#39;%s&amp;#39;&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="n"&gt;group_name&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-    &lt;span class="c"&gt;# Lucky draw&lt;/span&gt;
+        &lt;span class="k"&gt;raise&lt;/span&gt; &lt;span class="n"&gt;Http404&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;No member in group &amp;#39;&lt;/span&gt;&lt;span class="si"&gt;%s&lt;/span&gt;&lt;span class="s2"&gt;&amp;#39;&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="n"&gt;group_name&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="c1"&gt;# Lucky draw&lt;/span&gt;
     &lt;span class="n"&gt;lucky_member&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;random&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;choice&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;valid_members&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-    &lt;span class="c"&gt;# Update history&lt;/span&gt;
+    &lt;span class="c1"&gt;# Update history&lt;/span&gt;
     &lt;span class="n"&gt;draw_history&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;History&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;member&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;lucky_member&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
     &lt;span class="n"&gt;draw_history&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;save&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;HttpResponse&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
-        &lt;span class="s"&gt;&amp;quot;&amp;lt;p&amp;gt;{0.name}（團體：{0.group_name}）&amp;lt;/p&amp;gt;&amp;quot;&lt;/span&gt;
+        &lt;span class="s2"&gt;&amp;quot;&amp;lt;p&amp;gt;&lt;/span&gt;&lt;span class="si"&gt;{0.name}&lt;/span&gt;&lt;span class="s2"&gt;（團體：&lt;/span&gt;&lt;span class="si"&gt;{0.group_name}&lt;/span&gt;&lt;span class="s2"&gt;）&amp;lt;/p&amp;gt;&amp;quot;&lt;/span&gt;
         &lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;format&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;lucky_member&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
     &lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -1116,47 +1116,47 @@ sudo systemctl status qcluster
 
 &lt;p&gt;用 &lt;span class="caps"&gt;ORM&lt;/span&gt; 寫起來比 raw &lt;span class="caps"&gt;SQL&lt;/span&gt; 乾淨多了，不過一開始要把對應的 function 都記起來就是。
 馬上測試一下，一樣偷懶先不去寫&amp;nbsp;template。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="gp"&gt;$&lt;/span&gt; curl -XGET &lt;span class="s2"&gt;&amp;quot;localhost:8000/draw/?group=ALL&amp;quot;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp"&gt;$&lt;/span&gt; curl -XGET &lt;span class="s2"&gt;&amp;quot;localhost:8000/draw/?group=ALL&amp;quot;&lt;/span&gt;
 &lt;span class="go"&gt;&amp;lt;p&amp;gt;小泉 花陽（團體：μ&amp;#39;s）&amp;lt;/p&amp;gt;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;如果是從首頁去點的，觀察一下網址的變化。例如：&lt;code&gt;http://localhost:8000/draw/?group_name=K-ON!&lt;/code&gt;，可以看到 form 的選項直接寫在網址列。這是使用 &lt;span class="caps"&gt;POST&lt;/span&gt; 與 &lt;span class="caps"&gt;GET&lt;/span&gt;&amp;nbsp;最大的不同。&lt;/p&gt;
 &lt;p&gt;再來把歷史記錄的部份也寫一下，也把 template&amp;nbsp;都補上。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;{# draw_member/templates/history.html #}&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c"&gt;{# draw_member/templates/history.html #}&lt;/span&gt;
 &lt;span class="cp"&gt;{%&lt;/span&gt; &lt;span class="k"&gt;extends&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;draw_member/base.html&amp;#39;&lt;/span&gt; &lt;span class="cp"&gt;%}&lt;/span&gt;
 
 &lt;span class="cp"&gt;{%&lt;/span&gt; &lt;span class="k"&gt;block&lt;/span&gt; &lt;span class="nv"&gt;title&lt;/span&gt; &lt;span class="cp"&gt;%}&lt;/span&gt;抽籤歷史&lt;span class="cp"&gt;{%&lt;/span&gt; &lt;span class="k"&gt;endblock&lt;/span&gt; &lt;span class="nv"&gt;title&lt;/span&gt; &lt;span class="cp"&gt;%}&lt;/span&gt;
 
 &lt;span class="cp"&gt;{%&lt;/span&gt; &lt;span class="k"&gt;block&lt;/span&gt; &lt;span class="nv"&gt;content&lt;/span&gt; &lt;span class="cp"&gt;%}&lt;/span&gt;
-  &lt;span class="nt"&gt;&amp;lt;h1&amp;gt;&lt;/span&gt;抽籤歷史（最近 10 筆）&lt;span class="nt"&gt;&amp;lt;/h1&amp;gt;&lt;/span&gt;
-  &lt;span class="nt"&gt;&amp;lt;table&amp;gt;&lt;/span&gt;
-    &lt;span class="nt"&gt;&amp;lt;thead&amp;gt;&lt;/span&gt;
-    &lt;span class="nt"&gt;&amp;lt;tr&amp;gt;&lt;/span&gt;
-      &lt;span class="nt"&gt;&amp;lt;th&amp;gt;&lt;/span&gt;名字&lt;span class="nt"&gt;&amp;lt;/th&amp;gt;&lt;/span&gt;
-      &lt;span class="nt"&gt;&amp;lt;th&amp;gt;&lt;/span&gt;團體&lt;span class="nt"&gt;&amp;lt;/th&amp;gt;&lt;/span&gt;
-      &lt;span class="nt"&gt;&amp;lt;th&amp;gt;&lt;/span&gt;抽中時間&lt;span class="nt"&gt;&amp;lt;/th&amp;gt;&lt;/span&gt;
-    &lt;span class="nt"&gt;&amp;lt;/tr&amp;gt;&lt;/span&gt;
-    &lt;span class="nt"&gt;&amp;lt;/thead&amp;gt;&lt;/span&gt;
-    &lt;span class="nt"&gt;&amp;lt;tbody&amp;gt;&lt;/span&gt;
+  &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;h1&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;抽籤歷史（最近 10 筆）&lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;h1&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;table&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;thead&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;tr&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+      &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;th&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;名字&lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;th&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+      &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;th&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;團體&lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;th&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+      &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;th&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;抽中時間&lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;th&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;tr&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;thead&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;tbody&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
     &lt;span class="cp"&gt;{%&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="nv"&gt;history&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="nv"&gt;recent_histories&lt;/span&gt; &lt;span class="cp"&gt;%}&lt;/span&gt;
-      &lt;span class="nt"&gt;&amp;lt;tr&amp;gt;&lt;/span&gt;
-        &lt;span class="nt"&gt;&amp;lt;td&amp;gt;&lt;/span&gt;&lt;span class="cp"&gt;{{&lt;/span&gt; &lt;span class="nv"&gt;history.member.name&lt;/span&gt; &lt;span class="cp"&gt;}}&lt;/span&gt;&lt;span class="nt"&gt;&amp;lt;/td&amp;gt;&lt;/span&gt;
-        &lt;span class="nt"&gt;&amp;lt;td&amp;gt;&lt;/span&gt;&lt;span class="cp"&gt;{{&lt;/span&gt; &lt;span class="nv"&gt;history.member.group_name&lt;/span&gt; &lt;span class="cp"&gt;}}&lt;/span&gt;&lt;span class="nt"&gt;&amp;lt;/td&amp;gt;&lt;/span&gt;
-        &lt;span class="nt"&gt;&amp;lt;td&amp;gt;&lt;/span&gt;&lt;span class="cp"&gt;{{&lt;/span&gt; &lt;span class="nv"&gt;history.time&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="nf"&gt;date&lt;/span&gt;&lt;span class="s2"&gt;:&amp;quot;r&amp;quot;&lt;/span&gt;&lt;span class="cp"&gt;}}&lt;/span&gt;&lt;span class="nt"&gt;&amp;lt;/td&amp;gt;&lt;/span&gt;
-      &lt;span class="nt"&gt;&amp;lt;/tr&amp;gt;&lt;/span&gt;
+      &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;tr&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;td&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;&lt;span class="cp"&gt;{{&lt;/span&gt; &lt;span class="nv"&gt;history.member.name&lt;/span&gt; &lt;span class="cp"&gt;}}&lt;/span&gt;&lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;td&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;td&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;&lt;span class="cp"&gt;{{&lt;/span&gt; &lt;span class="nv"&gt;history.member.group_name&lt;/span&gt; &lt;span class="cp"&gt;}}&lt;/span&gt;&lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;td&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;td&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;&lt;span class="cp"&gt;{{&lt;/span&gt; &lt;span class="nv"&gt;history.time&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="nf"&gt;date&lt;/span&gt;&lt;span class="s2"&gt;:&amp;quot;r&amp;quot;&lt;/span&gt;&lt;span class="cp"&gt;}}&lt;/span&gt;&lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;td&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+      &lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;tr&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
     &lt;span class="cp"&gt;{%&lt;/span&gt; &lt;span class="k"&gt;endfor&lt;/span&gt; &lt;span class="cp"&gt;%}&lt;/span&gt;
-    &lt;span class="nt"&gt;&amp;lt;/tbody&amp;gt;&lt;/span&gt;
-  &lt;span class="nt"&gt;&amp;lt;/table&amp;gt;&lt;/span&gt;
+    &lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;tbody&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;table&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
 &lt;span class="cp"&gt;{%&lt;/span&gt; &lt;span class="k"&gt;endblock&lt;/span&gt; &lt;span class="nv"&gt;content&lt;/span&gt; &lt;span class="cp"&gt;%}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;history.html 與本來 Flask 不一樣的地方，在用上了 &lt;code&gt;date:"r"&lt;/code&gt; 的 filter，傳的參數接在 &lt;code&gt;:&lt;/code&gt; 之後。也更新對應 view&amp;nbsp;的動作，&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;history&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-    &lt;span class="n"&gt;recent_draws&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;History&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;objects&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;order_by&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;-time&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;all&lt;/span&gt;&lt;span class="p"&gt;()[:&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
-    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;render&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;draw_member/history.html&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-        &lt;span class="s"&gt;&amp;#39;recent_histories&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;recent_draws&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;history&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="n"&gt;recent_draws&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;History&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;objects&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;order_by&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;-time&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;all&lt;/span&gt;&lt;span class="p"&gt;()[:&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;render&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;draw_member/history.html&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="s1"&gt;&amp;#39;recent_histories&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;recent_draws&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
     &lt;span class="p"&gt;})&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
@@ -1166,11 +1166,11 @@ sudo systemctl status qcluster
 &lt;/div&gt;
 
 &lt;p&gt;可以看到預設用的是 &lt;span class="caps"&gt;UTC&lt;/span&gt; 時區，時區的轉換細節放到文末吧。我們可以在 view&amp;nbsp;裡更改要呈現的時區，&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.utils.timezone&lt;/span&gt; &lt;span class="k"&gt;import&lt;/span&gt; &lt;span class="n"&gt;activate&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.utils.timezone&lt;/span&gt; &lt;span class="k"&gt;import&lt;/span&gt; &lt;span class="n"&gt;activate&lt;/span&gt;
 
 &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;history&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-    &lt;span class="n"&gt;activate&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;Asia/Taipei&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-    &lt;span class="c"&gt;# ...&lt;/span&gt;
+    &lt;span class="n"&gt;activate&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Asia/Taipei&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="c1"&gt;# ...&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -1182,48 +1182,48 @@ sudo systemctl status qcluster
 &lt;h3 id="django-form"&gt;Django&amp;nbsp;Form&lt;/h3&gt;
 &lt;p&gt;直接把 form 寫在 template 裡面也是可以，有時候 form 可能跟 model 息息相關，而且 form input 多了之後每個欄位都要自己讀寫也太不直覺。想要驗証使用者的 input&amp;nbsp;的話就更複雜了。&lt;/p&gt;
 &lt;p&gt;於是就有了 Django&amp;nbsp;Form。馬上來看用起來是怎麼樣。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# draw_member/forms.py&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# draw_member/forms.py&lt;/span&gt;
 &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;forms&lt;/span&gt;
 
 &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;DrawForm&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;forms&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Form&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
     &lt;span class="n"&gt;GROUP_CHOICES&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
-        &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;μ&amp;#39;s&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;μ&amp;#39;s&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
-        &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;K-ON!&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;K-ON!&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
-        &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;ALL&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;（全）&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+        &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;μ&amp;#39;s&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;μ&amp;#39;s&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+        &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;K-ON!&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;K-ON!&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+        &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;ALL&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;（全）&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
     &lt;span class="p"&gt;]&lt;/span&gt;
     &lt;span class="n"&gt;group&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;forms&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ChoiceField&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
         &lt;span class="n"&gt;choices&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;GROUP_CHOICES&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-        &lt;span class="n"&gt;label&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;團隊名稱&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-        &lt;span class="n"&gt;label_suffix&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;：&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="n"&gt;label&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;團隊名稱&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="n"&gt;label_suffix&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;：&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
         &lt;span class="n"&gt;widget&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;forms&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;RadioSelect&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-        &lt;span class="n"&gt;initial&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;ALL&amp;#39;&lt;/span&gt;
+        &lt;span class="n"&gt;initial&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;ALL&amp;#39;&lt;/span&gt;
     &lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;建了一個新的 form class，像 Model 一樣，裡面規定了每個欄位的屬性。我們這邊只有一個 &lt;code&gt;group&lt;/code&gt; 是個單選的 ChoiceField，&lt;code&gt;choices&lt;/code&gt; 是個 list of two-item&amp;nbsp;tuples，第一個是內部的值，第二個是顯示的字。其他的都是細節的調整。&lt;/p&gt;
 &lt;p&gt;把這個 form 用到 view 裡面。新建一個 form object &lt;code&gt;form&lt;/code&gt;，然後把這個變數 &lt;code&gt;form&lt;/code&gt; 傳進 template&amp;nbsp;裡面。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;.forms&lt;/span&gt; &lt;span class="k"&gt;import&lt;/span&gt; &lt;span class="n"&gt;DrawForm&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;.forms&lt;/span&gt; &lt;span class="k"&gt;import&lt;/span&gt; &lt;span class="n"&gt;DrawForm&lt;/span&gt;
 
 &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;home&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
     &lt;span class="n"&gt;form&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;DrawForm&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;render&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;draw_member/home.html&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-        &lt;span class="s"&gt;&amp;#39;form&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;form&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;render&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;draw_member/home.html&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="s1"&gt;&amp;#39;form&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;form&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
     &lt;span class="p"&gt;})&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;再來修改 template，就不用自己寫 form 的內容了，改成 &lt;code&gt;{{ form }}&lt;/code&gt; Django&amp;nbsp;就會自動產生。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;{# draw_member/home.html #}&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c"&gt;{# draw_member/home.html #}&lt;/span&gt;
 &lt;span class="cp"&gt;{%&lt;/span&gt; &lt;span class="k"&gt;extends&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;draw_member/base.html&amp;#39;&lt;/span&gt; &lt;span class="cp"&gt;%}&lt;/span&gt;
 
 &lt;span class="cp"&gt;{%&lt;/span&gt; &lt;span class="k"&gt;block&lt;/span&gt; &lt;span class="nv"&gt;content&lt;/span&gt; &lt;span class="cp"&gt;%}&lt;/span&gt;
-  &lt;span class="nt"&gt;&amp;lt;h1&amp;gt;&lt;/span&gt;來抽出快樂的夥伴吧！&lt;span class="nt"&gt;&amp;lt;/h1&amp;gt;&lt;/span&gt;
-  &lt;span class="nt"&gt;&amp;lt;p&amp;gt;&lt;/span&gt;選擇要被抽的團體&lt;span class="nt"&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
-  &lt;span class="nt"&gt;&amp;lt;form&lt;/span&gt; &lt;span class="na"&gt;action=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="cp"&gt;{%&lt;/span&gt; &lt;span class="k"&gt;url&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;draw&amp;#39;&lt;/span&gt; &lt;span class="cp"&gt;%}&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;method=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;get&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;h1&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;來抽出快樂的夥伴吧！&lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;h1&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;p&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;選擇要被抽的團體&lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;p&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;form&lt;/span&gt; &lt;span class="na"&gt;action&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="cp"&gt;{%&lt;/span&gt; &lt;span class="k"&gt;url&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;draw&amp;#39;&lt;/span&gt; &lt;span class="cp"&gt;%}&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;method&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;get&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
     &lt;span class="cp"&gt;{{&lt;/span&gt; &lt;span class="nv"&gt;form&lt;/span&gt; &lt;span class="cp"&gt;}}&lt;/span&gt;
-    &lt;span class="nt"&gt;&amp;lt;input&lt;/span&gt; &lt;span class="na"&gt;type=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;submit&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;value=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Submit&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
-  &lt;span class="nt"&gt;&amp;lt;/form&amp;gt;&lt;/span&gt;
+    &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;input&lt;/span&gt; &lt;span class="na"&gt;type&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;submit&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;value&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Submit&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;form&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
 &lt;span class="cp"&gt;{%&lt;/span&gt; &lt;span class="k"&gt;endblock&lt;/span&gt; &lt;span class="nv"&gt;content&lt;/span&gt; &lt;span class="cp"&gt;%}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
@@ -1233,58 +1233,58 @@ sudo systemctl status qcluster
 &lt;/div&gt;
 
 &lt;p&gt;不過這個長得跟我們原本的 form 不一樣嘛。好在 Django form 是很彈性的，form 在被 render 成 &lt;span class="caps"&gt;HTML&lt;/span&gt; 時可以提供細節的調整，大家可以參考&lt;a href="https://docs.djangoproject.com/en/1.8/topics/forms/#form-rendering-options"&gt;官網 Form rendering options&lt;/a&gt;&amp;nbsp;調整。我直接給調好的結果吧。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;  &lt;span class="nt"&gt;&amp;lt;form&lt;/span&gt; &lt;span class="na"&gt;action=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="cp"&gt;{%&lt;/span&gt; &lt;span class="k"&gt;url&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;draw&amp;#39;&lt;/span&gt; &lt;span class="cp"&gt;%}&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;method=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;get&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;  &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;form&lt;/span&gt; &lt;span class="na"&gt;action&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="cp"&gt;{%&lt;/span&gt; &lt;span class="k"&gt;url&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;draw&amp;#39;&lt;/span&gt; &lt;span class="cp"&gt;%}&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;method&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;get&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
     &lt;span class="cp"&gt;{{&lt;/span&gt; &lt;span class="nv"&gt;form.group.label_tag&lt;/span&gt; &lt;span class="cp"&gt;}}&lt;/span&gt;
     &lt;span class="cp"&gt;{%&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="nv"&gt;radio&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="nv"&gt;form.group&lt;/span&gt; &lt;span class="cp"&gt;%}&lt;/span&gt;
       &lt;span class="cp"&gt;{{&lt;/span&gt; &lt;span class="nv"&gt;radio.tag&lt;/span&gt; &lt;span class="cp"&gt;}}{{&lt;/span&gt; &lt;span class="nv"&gt;radio.choice_label&lt;/span&gt; &lt;span class="cp"&gt;}}&lt;/span&gt;
     &lt;span class="cp"&gt;{%&lt;/span&gt; &lt;span class="k"&gt;endfor&lt;/span&gt; &lt;span class="cp"&gt;%}&lt;/span&gt;
-    &lt;span class="nt"&gt;&amp;lt;input&lt;/span&gt; &lt;span class="na"&gt;type=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;submit&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;value=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Submit&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
-  &lt;span class="nt"&gt;&amp;lt;/form&amp;gt;&lt;/span&gt;
+    &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;input&lt;/span&gt; &lt;span class="na"&gt;type&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;submit&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;value&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Submit&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;form&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;用結果去對照每個 &lt;code&gt;{{ ... }}&lt;/code&gt; 部件對應的 &lt;span class="caps"&gt;HTML&lt;/span&gt;&amp;nbsp;元素吧。&lt;/p&gt;
 &lt;h4 id="more-django-form-in-view"&gt;More Django form in&amp;nbsp;view&lt;/h4&gt;
 &lt;p&gt;Form 的功能可不只這樣，可以在創建 DrawForm 時直接把 &lt;code&gt;request.GET&lt;/code&gt; 傳入。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# draw_member/views.py&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# draw_member/views.py&lt;/span&gt;
 &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;draw&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-    &lt;span class="c"&gt;# Retrieve all related members&lt;/span&gt;
+    &lt;span class="c1"&gt;# Retrieve all related members&lt;/span&gt;
     &lt;span class="n"&gt;form&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;DrawForm&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;GET&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
     &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;form&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;is_valid&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
-        &lt;span class="n"&gt;group_name&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;form&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;cleaned_data&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;group&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
-        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;group_name&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;ALL&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="n"&gt;group_name&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;form&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;cleaned_data&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;group&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;group_name&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;ALL&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
             &lt;span class="n"&gt;valid_members&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Member&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;objects&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;all&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
         &lt;span class="k"&gt;else&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
             &lt;span class="n"&gt;valid_members&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Member&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;objects&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;filter&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;group_name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;group_name&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
     &lt;span class="k"&gt;else&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
-        &lt;span class="c"&gt;# Raise 404 if no members are found given the group name&lt;/span&gt;
-        &lt;span class="k"&gt;raise&lt;/span&gt; &lt;span class="n"&gt;Http404&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;No member in group &amp;#39;%s&amp;#39;&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt;
-                      &lt;span class="n"&gt;form&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;group&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
-    &lt;span class="c"&gt;# Lucky draw&lt;/span&gt;
+        &lt;span class="c1"&gt;# Raise 404 if no members are found given the group name&lt;/span&gt;
+        &lt;span class="k"&gt;raise&lt;/span&gt; &lt;span class="n"&gt;Http404&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;No member in group &amp;#39;&lt;/span&gt;&lt;span class="si"&gt;%s&lt;/span&gt;&lt;span class="s2"&gt;&amp;#39;&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt;
+                      &lt;span class="n"&gt;form&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;group&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+    &lt;span class="c1"&gt;# Lucky draw&lt;/span&gt;
     &lt;span class="n"&gt;lucky_member&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;random&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;choice&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;valid_members&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-    &lt;span class="c"&gt;# ...&lt;/span&gt;
+    &lt;span class="c1"&gt;# ...&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;用 &lt;code&gt;form.is_valid()&lt;/code&gt; 可以驗証每個欄位的資料是不是正確的。&lt;/p&gt;
 &lt;p&gt;我們也順便把 /draw 加上 template&amp;nbsp;吧。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;{# draw_member/draw.html #}&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c"&gt;{# draw_member/draw.html #}&lt;/span&gt;
 &lt;span class="cp"&gt;{%&lt;/span&gt; &lt;span class="k"&gt;extends&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;draw_member/base.html&amp;#39;&lt;/span&gt; &lt;span class="cp"&gt;%}&lt;/span&gt;
 
 &lt;span class="cp"&gt;{%&lt;/span&gt; &lt;span class="k"&gt;block&lt;/span&gt; &lt;span class="nv"&gt;title&lt;/span&gt; &lt;span class="cp"&gt;%}&lt;/span&gt;抽籤結果&lt;span class="cp"&gt;{%&lt;/span&gt; &lt;span class="k"&gt;endblock&lt;/span&gt; &lt;span class="nv"&gt;title&lt;/span&gt; &lt;span class="cp"&gt;%}&lt;/span&gt;
 
 &lt;span class="cp"&gt;{%&lt;/span&gt; &lt;span class="k"&gt;block&lt;/span&gt; &lt;span class="nv"&gt;content&lt;/span&gt; &lt;span class="cp"&gt;%}&lt;/span&gt;
-&lt;span class="nt"&gt;&amp;lt;h1&amp;gt;&lt;/span&gt;抽籤結果&lt;span class="nt"&gt;&amp;lt;/h1&amp;gt;&lt;/span&gt;
-&lt;span class="nt"&gt;&amp;lt;p&amp;gt;&lt;/span&gt;&lt;span class="cp"&gt;{{&lt;/span&gt; &lt;span class="nv"&gt;lucky_member.name&lt;/span&gt; &lt;span class="cp"&gt;}}&lt;/span&gt;（團體：&lt;span class="cp"&gt;{{&lt;/span&gt; &lt;span class="nv"&gt;lucky_member.group_name&lt;/span&gt; &lt;span class="cp"&gt;}}&lt;/span&gt;）&lt;span class="nt"&gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
+&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;h1&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;抽籤結果&lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;h1&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;p&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;&lt;span class="cp"&gt;{{&lt;/span&gt; &lt;span class="nv"&gt;lucky_member.name&lt;/span&gt; &lt;span class="cp"&gt;}}&lt;/span&gt;（團體：&lt;span class="cp"&gt;{{&lt;/span&gt; &lt;span class="nv"&gt;lucky_member.group_name&lt;/span&gt; &lt;span class="cp"&gt;}}&lt;/span&gt;）&lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;p&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
 &lt;span class="cp"&gt;{%&lt;/span&gt; &lt;span class="k"&gt;endblock&lt;/span&gt; &lt;span class="nv"&gt;content&lt;/span&gt; &lt;span class="cp"&gt;%}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# draw_member/views.py&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# draw_member/views.py&lt;/span&gt;
 &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;draw&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
-    &lt;span class="c"&gt;# ...&lt;/span&gt;
-    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;render&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;draw_member/draw.html&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-        &lt;span class="s"&gt;&amp;#39;lucky_member&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;lucky_member&lt;/span&gt;
+    &lt;span class="c1"&gt;# ...&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;render&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;draw_member/draw.html&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="s1"&gt;&amp;#39;lucky_member&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;lucky_member&lt;/span&gt;
     &lt;span class="p"&gt;})&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
@@ -1304,11 +1304,11 @@ sudo systemctl status qcluster
 &lt;h4 id="raw-sql"&gt;Raw &lt;span class="caps"&gt;SQL&lt;/span&gt;&lt;/h4&gt;
 &lt;p&gt;在介紹 Django Model 的時候直接用了 &lt;span class="caps"&gt;ORM&lt;/span&gt;，但實際上 Django 是可以寫 raw &lt;span class="caps"&gt;SQL&lt;/span&gt; 了，而且還有「聰明版」的 raw &lt;span class="caps"&gt;SQL&lt;/span&gt; 能夠拿回對應的 model&amp;nbsp;object。馬上來看怎麼回事。&lt;/p&gt;
 &lt;p&gt;先來看聰明版的 raw &lt;span class="caps"&gt;SQL&lt;/span&gt;，使用 &lt;code&gt;Model.objects.raw&lt;/code&gt; 拿回所有團體是 K-&lt;span class="caps"&gt;ON&lt;/span&gt;&amp;nbsp;類的成員。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="gp"&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class="nb"&gt;list&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Member&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;objects&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;raw&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
-&lt;span class="gp"&gt;... &lt;/span&gt;&lt;span class="s"&gt;SELECT id, name, group_name&lt;/span&gt;
-&lt;span class="gp"&gt;... &lt;/span&gt;&lt;span class="s"&gt;FROM draw_member_member&lt;/span&gt;
-&lt;span class="gp"&gt;... &lt;/span&gt;&lt;span class="s"&gt;WHERE group_name LIKE &amp;#39;K-ON&lt;/span&gt;&lt;span class="si"&gt;%%&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;&lt;/span&gt;
-&lt;span class="gp"&gt;... &lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp"&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class="nb"&gt;list&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Member&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;objects&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;raw&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+&lt;span class="gp"&gt;... &lt;/span&gt;&lt;span class="s2"&gt;SELECT id, name, group_name&lt;/span&gt;
+&lt;span class="gp"&gt;... &lt;/span&gt;&lt;span class="s2"&gt;FROM draw_member_member&lt;/span&gt;
+&lt;span class="gp"&gt;... &lt;/span&gt;&lt;span class="s2"&gt;WHERE group_name LIKE &amp;#39;K-ON&lt;/span&gt;&lt;span class="si"&gt;%%&lt;/span&gt;&lt;span class="s2"&gt;&amp;#39;&lt;/span&gt;
+&lt;span class="gp"&gt;... &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
 &lt;span class="go"&gt;[&amp;lt;Member: 平沢 唯 of K-ON!&amp;gt;,&lt;/span&gt;
 &lt;span class="go"&gt; &amp;lt;Member: 秋山 澪 of K-ON!&amp;gt;,&lt;/span&gt;
 &lt;span class="go"&gt; &amp;lt;Member: 田井中 律 of K-ON!&amp;gt;,&lt;/span&gt;
@@ -1319,14 +1319,14 @@ sudo systemctl status qcluster
 
 &lt;p&gt;會回傳一個 RawQuerySet，裡面其實也是 Member objects，這是靠 Django 去認對應的 primary key，也就是說在 raw() &lt;span class="caps"&gt;SQL&lt;/span&gt; query 裡一定要放 primary key。注意那個 &lt;code&gt;%&lt;/code&gt; 需要被 escape 因為 raw() 的 &lt;span class="caps"&gt;SQL&lt;/span&gt; query 是能放參數的（就像 Python 內建 str&amp;nbsp;%-formatting）。&lt;/p&gt;
 &lt;p&gt;不過我們怎麼知道 Member 是存在哪個 table 呢？預設是 &lt;code&gt;&amp;lt;app&amp;gt;_&amp;lt;model&amp;gt;&lt;/code&gt;，但資訊在 meta options 裡的 &lt;code&gt;db_table&lt;/code&gt;，也能被覆寫。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="gp"&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class="n"&gt;Member&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;_meta&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;db_table&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp"&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class="n"&gt;Member&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;_meta&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;db_table&lt;/span&gt;
 &lt;span class="go"&gt;&amp;#39;draw_member_member&amp;#39;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;因為 Member 裡面有像 name、group_name 等欄位，在下 query 的時候不一定都會寫在 &lt;span class="caps"&gt;SELECT&lt;/span&gt; 裡面把拿值回來，那麼這些欄位就是 deferred 狀態，只有在真的拿值時才會去跟 database&amp;nbsp;要。一般使用不會有感覺兩者的差異。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="gp"&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;list&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Member&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;objects&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;raw&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
-&lt;span class="gp"&gt;... &lt;/span&gt;    &lt;span class="s"&gt;&amp;quot;SELECT id FROM draw_member_member&amp;quot;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp"&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;list&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Member&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;objects&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;raw&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+&lt;span class="gp"&gt;... &lt;/span&gt;    &lt;span class="s2"&gt;&amp;quot;SELECT id FROM draw_member_member&amp;quot;&lt;/span&gt;
 &lt;span class="gp"&gt;... &lt;/span&gt;&lt;span class="p"&gt;))[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
 &lt;span class="gp"&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class="nb"&gt;type&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="go"&gt;draw_member.models.Member_Deferred_group_name_name&lt;/span&gt;
@@ -1336,19 +1336,19 @@ sudo systemctl status qcluster
 
 
 &lt;p&gt;但我就是不想用 &lt;span class="caps"&gt;ORM&lt;/span&gt;，速度慢，也沒辦法寫複雜的 query（戰）。這就回歸到最傳統的 database connection, cursor 這些概念，就像沒有 SQLAlchemy 的&amp;nbsp;Flask。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="gp"&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.db&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;connection&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp"&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.db&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;connection&lt;/span&gt;
 &lt;span class="gp"&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;connection&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;cursor&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-&lt;span class="gp"&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class="nb"&gt;list&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;execute&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
-&lt;span class="gp"&gt;... &lt;/span&gt;&lt;span class="s"&gt;SELECT name&lt;/span&gt;
-&lt;span class="gp"&gt;... &lt;/span&gt;&lt;span class="s"&gt;FROM draw_member_member&lt;/span&gt;
-&lt;span class="gp"&gt;... &lt;/span&gt;&lt;span class="s"&gt;WHERE group_name LIKE &lt;/span&gt;&lt;span class="si"&gt;%s&lt;/span&gt;&lt;span class="s"&gt;&lt;/span&gt;
-&lt;span class="gp"&gt;... &lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;K-ON&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;]))&lt;/span&gt;
+&lt;span class="gp"&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class="nb"&gt;list&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;execute&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+&lt;span class="gp"&gt;... &lt;/span&gt;&lt;span class="s2"&gt;SELECT name&lt;/span&gt;
+&lt;span class="gp"&gt;... &lt;/span&gt;&lt;span class="s2"&gt;FROM draw_member_member&lt;/span&gt;
+&lt;span class="gp"&gt;... &lt;/span&gt;&lt;span class="s2"&gt;WHERE group_name LIKE &lt;/span&gt;&lt;span class="si"&gt;%s&lt;/span&gt;&lt;span class="s2"&gt;&lt;/span&gt;
+&lt;span class="gp"&gt;... &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;K-ON&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;]))&lt;/span&gt;
 &lt;span class="go"&gt;[(&amp;#39;平沢 唯&amp;#39;,), (&amp;#39;秋山 澪&amp;#39;,), (&amp;#39;田井中 律&amp;#39;,), (&amp;#39;琴吹 紬&amp;#39;,), (&amp;#39;中野 梓&amp;#39;,)]&lt;/span&gt;
-&lt;span class="gp"&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class="nb"&gt;list&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;execute&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
-&lt;span class="gp"&gt;... &lt;/span&gt;&lt;span class="s"&gt;SELECT member_id, time&lt;/span&gt;
-&lt;span class="gp"&gt;... &lt;/span&gt;&lt;span class="s"&gt;FROM draw_member_history&lt;/span&gt;
-&lt;span class="gp"&gt;... &lt;/span&gt;&lt;span class="s"&gt;LIMIT 3&lt;/span&gt;
-&lt;span class="gp"&gt;... &lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;span class="gp"&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class="nb"&gt;list&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;execute&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+&lt;span class="gp"&gt;... &lt;/span&gt;&lt;span class="s2"&gt;SELECT member_id, time&lt;/span&gt;
+&lt;span class="gp"&gt;... &lt;/span&gt;&lt;span class="s2"&gt;FROM draw_member_history&lt;/span&gt;
+&lt;span class="gp"&gt;... &lt;/span&gt;&lt;span class="s2"&gt;LIMIT 3&lt;/span&gt;
+&lt;span class="gp"&gt;... &lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
 &lt;span class="go"&gt;[(8, datetime.datetime(2015, 10, 5, 17, 36, 41, 608078, tzinfo=&amp;lt;UTC&amp;gt;)),&lt;/span&gt;
 &lt;span class="go"&gt; (11, datetime.datetime(2015, 10, 5, 17, 37, 26, 164830, tzinfo=&amp;lt;UTC&amp;gt;)),&lt;/span&gt;
 &lt;span class="go"&gt; (11, datetime.datetime(2015, 10, 5, 17, 37, 37, 483697, tzinfo=&amp;lt;UTC&amp;gt;))]&lt;/span&gt;
@@ -1361,42 +1361,42 @@ sudo systemctl status qcluster
 &lt;p&gt;這時候就可以把常用的 query 變成一個 method，例如最近 10 次抽籤記錄就只要用 &lt;code&gt;History.objects.recent(10)&lt;/code&gt; 就可以了。&lt;/p&gt;
 &lt;p&gt;這其實有很多做法，像是寫一個 classmethod、Override default Manager、Override default QuerySet。哪個方法比較好呢？在 &lt;a href="http://stackoverflow.com/a/2213341"&gt;StackOverflow&lt;/a&gt;、&lt;a href="https://groups.google.com/forum/#!topic/django-users/0WSdnWFTuUg"&gt;mail list&lt;/a&gt; 都有討論。基本上都能達到相同的效果，但後兩者的做法是比較偏好的，因為 Manager(or QuerySet for Django 1.7+) 負責處理 model 對應到的 database table 等級的操作，但 classmethod 應該是處理已經從 table row 中拿出的一個 model object 相關的操作。如果把同樣性質的 code 放在一起，就應該使用&amp;nbsp;Manager(QuerySet)。&lt;/p&gt;
 &lt;p&gt;而且 &lt;span class="caps"&gt;TP&lt;/span&gt; 也在 Gitter 上開示了，就是這樣（結案）。來改寫&amp;nbsp;model。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# draw_member/models.py&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# draw_member/models.py&lt;/span&gt;
 &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;MemberQuerySet&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;QuerySet&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
 
     &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;unique_groups&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;values_list&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;group_name&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;flat&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="k"&gt;True&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;distinct&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;values_list&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;group_name&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;flat&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;True&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;distinct&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 
 
 &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;HistoryQuerySet&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;QuerySet&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
 
     &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;recent&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;order_by&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;-time&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)[:&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;order_by&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;-time&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)[:&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
 
 
 &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Member&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Model&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-    &lt;span class="c"&gt;# ...&lt;/span&gt;
+    &lt;span class="c1"&gt;# ...&lt;/span&gt;
     &lt;span class="n"&gt;objects&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;MemberQuerySet&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;as_manager&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 
 
 &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;History&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;models&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Model&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-    &lt;span class="c"&gt;# ...&lt;/span&gt;
+    &lt;span class="c1"&gt;# ...&lt;/span&gt;
     &lt;span class="n"&gt;objects&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;HistoryQuerySet&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;as_manager&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;在 Member 我們定義了一個 &lt;code&gt;unique_groups&lt;/code&gt; 拿回所有團體的名稱；在 History 定義了 &lt;code&gt;recent&lt;/code&gt; 拿出按時間排序最前面 n 個。新定義的 &lt;code&gt;QuerySet.as_manager()&lt;/code&gt; 就取代掉本來的 &lt;code&gt;Model.objects&lt;/code&gt;。&lt;/p&gt;
 &lt;p&gt;接著來改寫 view 把之前寫的 query&amp;nbsp;換掉。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;#draw_member/views.py&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;#draw_member/views.py&lt;/span&gt;
 &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;history&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-    &lt;span class="c"&gt;# ...&lt;/span&gt;
+    &lt;span class="c1"&gt;# ...&lt;/span&gt;
     &lt;span class="n"&gt;recent_draws&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;History&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;objects&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;recent&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-    &lt;span class="c"&gt;# ...&lt;/span&gt;
+    &lt;span class="c1"&gt;# ...&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;這樣就簡潔一點。再來順便把 form&amp;nbsp;改得比較彈性，不要把團體名寫死。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;#draw_member/forms.py&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;#draw_member/forms.py&lt;/span&gt;
 &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;.models&lt;/span&gt; &lt;span class="k"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Member&lt;/span&gt;
 
 
@@ -1405,14 +1405,14 @@ sudo systemctl status qcluster
     &lt;span class="n"&gt;choices&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[]&lt;/span&gt;
     &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;grp&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;valid_groups&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
         &lt;span class="n"&gt;choices&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;append&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;grp&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;grp&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
-    &lt;span class="n"&gt;choices&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;append&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;ALL&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;（全）&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+    &lt;span class="n"&gt;choices&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;append&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;ALL&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;（全）&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;choices&lt;/span&gt;
 
 
 &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;DrawForm&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;forms&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Form&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
     &lt;span class="n"&gt;group&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;forms&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ChoiceField&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
         &lt;span class="n"&gt;choices&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;member_group_choices&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-        &lt;span class="c"&gt;# ...&lt;/span&gt;
+        &lt;span class="c1"&gt;# ...&lt;/span&gt;
     &lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
@@ -1421,39 +1421,39 @@ sudo systemctl status qcluster
 &lt;p&gt;感覺最近一直在寫&lt;a href="../../09/datetime-sqlite/"&gt;時區相關的東西&lt;/a&gt;啊。基本上 server 記錄的時間都用 &lt;span class="caps"&gt;UTC&lt;/span&gt;&amp;nbsp;問題就少很多，但最後還是要呈現一個使用者用的時區。&lt;/p&gt;
 &lt;p&gt;但問題是 &lt;span class="caps"&gt;HTTP&lt;/span&gt; header 裡面並沒有這樣的資訊，所以一來用 geoip 去猜，二來用寫個 javascript 在使用者載入的時候去判斷時區，總之是個要另外記錄的東西。細節&lt;a href="https://docs.djangoproject.com/en/1.8/topics/i18n/timezones/#selecting-the-current-time-zone"&gt;官網上也有說明&lt;/a&gt;。&lt;/p&gt;
 &lt;p&gt;在文中是使用 &lt;code&gt;activate('Aisa/Taipei')&lt;/code&gt; 把時區改成 &lt;span class="caps"&gt;UTC&lt;/span&gt;+8。這邊介紹另一個方式，是寫在 template&amp;nbsp;裡面的。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;{# draw_member/templates/draw_member/history.html #}&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c"&gt;{# draw_member/templates/draw_member/history.html #}&lt;/span&gt;
 &lt;span class="cp"&gt;{%&lt;/span&gt; &lt;span class="k"&gt;block&lt;/span&gt; &lt;span class="nv"&gt;content&lt;/span&gt; &lt;span class="cp"&gt;%}&lt;/span&gt;
   &lt;span class="cp"&gt;{%&lt;/span&gt; &lt;span class="k"&gt;load&lt;/span&gt; &lt;span class="nv"&gt;tz&lt;/span&gt; &lt;span class="cp"&gt;%}&lt;/span&gt;
-  &lt;span class="nt"&gt;&amp;lt;h1&amp;gt;&lt;/span&gt;抽籤歷史（最近 10 筆）&lt;span class="nt"&gt;&amp;lt;/h1&amp;gt;&lt;/span&gt;
-  &lt;span class="nt"&gt;&amp;lt;table&amp;gt;&lt;/span&gt;
+  &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;h1&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;抽籤歷史（最近 10 筆）&lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;h1&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;table&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
   &lt;span class="c"&gt;{# ... #}&lt;/span&gt;
-    &lt;span class="nt"&gt;&amp;lt;tbody&amp;gt;&lt;/span&gt;
+    &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;tbody&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
     &lt;span class="cp"&gt;{%&lt;/span&gt; &lt;span class="k"&gt;timezone&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;Asia/Taipei&amp;#39;&lt;/span&gt; &lt;span class="cp"&gt;%}&lt;/span&gt;
     &lt;span class="cp"&gt;{%&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="nv"&gt;history&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="nv"&gt;recent_histories&lt;/span&gt; &lt;span class="cp"&gt;%}&lt;/span&gt;
-      &lt;span class="nt"&gt;&amp;lt;tr&amp;gt;&lt;/span&gt;&lt;span class="c"&gt;{# ... #}&lt;/span&gt;&lt;span class="nt"&gt;&amp;lt;/tr&amp;gt;&lt;/span&gt;
+      &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;tr&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;&lt;span class="c"&gt;{# ... #}&lt;/span&gt;&lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;tr&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
     &lt;span class="cp"&gt;{%&lt;/span&gt; &lt;span class="k"&gt;endfor&lt;/span&gt; &lt;span class="cp"&gt;%}&lt;/span&gt;
     &lt;span class="cp"&gt;{%&lt;/span&gt; &lt;span class="k"&gt;endtimezone&lt;/span&gt; &lt;span class="cp"&gt;%}&lt;/span&gt;
-    &lt;span class="nt"&gt;&amp;lt;/tbody&amp;gt;&lt;/span&gt;
-  &lt;span class="nt"&gt;&amp;lt;/table&amp;gt;&lt;/span&gt;
+    &lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;tbody&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;table&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
 &lt;span class="cp"&gt;{%&lt;/span&gt; &lt;span class="k"&gt;endblock&lt;/span&gt; &lt;span class="nv"&gt;content&lt;/span&gt; &lt;span class="cp"&gt;%}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h4 id="post-form-and-csrf"&gt;&lt;span class="caps"&gt;POST&lt;/span&gt; form and &lt;span class="caps"&gt;CSRF&lt;/span&gt;&lt;/h4&gt;
 &lt;p&gt;忘記講了，我們的 form 目前是用 &lt;code&gt;action="get"&lt;/code&gt;，當然可以改回用 &lt;span class="caps"&gt;POST&lt;/span&gt;，也很簡單，就 &lt;span class="caps"&gt;GET&lt;/span&gt; 換成 &lt;span class="caps"&gt;POST&lt;/span&gt;&amp;nbsp;就好了。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# draw_site/views.py&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# draw_site/views.py&lt;/span&gt;
 &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.views.decorators.http&lt;/span&gt; &lt;span class="k"&gt;import&lt;/span&gt; &lt;span class="n"&gt;require_POST&lt;/span&gt;
 
 &lt;span class="nd"&gt;@require_POST&lt;/span&gt;
 &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;draw&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-    &lt;span class="c"&gt;# Retrieve all related members&lt;/span&gt;
+    &lt;span class="c1"&gt;# Retrieve all related members&lt;/span&gt;
     &lt;span class="n"&gt;form&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;DrawForm&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;POST&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-    &lt;span class="c"&gt;# ...&lt;/span&gt;
+    &lt;span class="c1"&gt;# ...&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;{# draw_site/templates/home.html #}&lt;/span&gt;
-  &lt;span class="nt"&gt;&amp;lt;form&lt;/span&gt; &lt;span class="na"&gt;action=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="cp"&gt;{%&lt;/span&gt; &lt;span class="k"&gt;url&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;draw&amp;#39;&lt;/span&gt; &lt;span class="cp"&gt;%}&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;method=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;post&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c"&gt;{# draw_site/templates/home.html #}&lt;/span&gt;
+  &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;form&lt;/span&gt; &lt;span class="na"&gt;action&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="cp"&gt;{%&lt;/span&gt; &lt;span class="k"&gt;url&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;draw&amp;#39;&lt;/span&gt; &lt;span class="cp"&gt;%}&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;method&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;post&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -1465,10 +1465,10 @@ sudo systemctl status qcluster
 
 &lt;p&gt;拿到了一個 403 Forbidden &amp;ldquo;&lt;span class="caps"&gt;CSRF&lt;/span&gt; verification failed.&amp;rdquo;。&lt;span class="caps"&gt;CSRF&lt;/span&gt; (Cross Site Request Forgery) 在 &lt;a href="https://zh.wikipedia.org/wiki/%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0"&gt;wiki&lt;/a&gt; 有比較完整的介紹，這是一種攻擊手法，在使用者登入網站之後（session 為登入狀態），偽造一個跟網站上一樣的 form 來偽裝使用者的行為。例如購票系統買票，如果沒檢查的話，我可以拿使用者的 session&amp;nbsp;去網站上隨便買票，網站都會認為是使用者在操作。&lt;/p&gt;
 &lt;p&gt;因此 &lt;a href="https://docs.djangoproject.com/en/1.8/ref/csrf/"&gt;&lt;span class="caps"&gt;CSRF&lt;/span&gt; token&lt;/a&gt; 用來防範這個偽造，在產生 form 的時候，網站會再產生一個欄位的值，這個欄位的值每次都會改變，這樣就能確定這個 form 是從網站上拿到的。Django 處理 &lt;span class="caps"&gt;CSRF&lt;/span&gt; protection 是透過 &lt;a href="https://docs.djangoproject.com/en/1.8/topics/http/middleware/"&gt;Middleware&lt;/a&gt;，一個以前沒有提到的概念，表示他是比較底層的東西。相對而言，也不用改我們的 code，在這個例子就只要把 &lt;code&gt;{% csrf_token %}&lt;/code&gt; 加到 form&amp;nbsp;裡面就可以了。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;{# draw_site/templates/home.html #}&lt;/span&gt;
-  &lt;span class="nt"&gt;&amp;lt;form&lt;/span&gt; &lt;span class="na"&gt;action=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="cp"&gt;{%&lt;/span&gt; &lt;span class="k"&gt;url&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;draw&amp;#39;&lt;/span&gt; &lt;span class="cp"&gt;%}&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;method=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;post&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c"&gt;{# draw_site/templates/home.html #}&lt;/span&gt;
+  &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;form&lt;/span&gt; &lt;span class="na"&gt;action&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="cp"&gt;{%&lt;/span&gt; &lt;span class="k"&gt;url&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;draw&amp;#39;&lt;/span&gt; &lt;span class="cp"&gt;%}&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;method&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;post&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
     &lt;span class="c"&gt;{# ... #}&lt;/span&gt;
     &lt;span class="cp"&gt;{%&lt;/span&gt; &lt;span class="k"&gt;csrf_token&lt;/span&gt; &lt;span class="cp"&gt;%}&lt;/span&gt;
-    &lt;span class="nt"&gt;&amp;lt;input&lt;/span&gt; &lt;span class="na"&gt;type=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;submit&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;value=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Submit&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
-  &lt;span class="nt"&gt;&amp;lt;/form&amp;gt;&lt;/span&gt;
+    &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;input&lt;/span&gt; &lt;span class="na"&gt;type&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;submit&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;value&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Submit&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;form&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;</summary><category term="zh"></category><category term="django"></category><category term="sqlite"></category><category term="python"></category></entry></feed>

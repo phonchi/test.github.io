@@ -70,12 +70,12 @@
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;So we need to convert the alignment result as BedGraph format, which can be done by &lt;a href="http://bedtools.readthedocs.org/en/latest/content/tools/genomecov.html"&gt;BEDTools&amp;rsquo; genomecov&lt;/a&gt; command. On BEDTools&amp;rsquo; documentation, it notes that the &lt;span class="caps"&gt;BAM&lt;/span&gt; file should be&amp;nbsp;sorted. &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;bedtools genomecov -bg -ibam myseq.bam &amp;gt; myseq.bedGraph
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;bedtools genomecov -bg -ibam myseq.bam &amp;gt; myseq.bedGraph
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;The plain text BedGraph can be huge, pipe&amp;rsquo;d with gzip will reduce file size to around 30% of the&amp;nbsp;original.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;bedtools genomecov -bg -ibam myseq.bam &lt;span class="p"&gt;|&lt;/span&gt; gzip &amp;gt; myseq.bedGraph.gz
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;bedtools genomecov -bg -ibam myseq.bam &lt;span class="p"&gt;|&lt;/span&gt; gzip &amp;gt; myseq.bedGraph.gz
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -83,7 +83,7 @@
 &lt;p&gt;R packages of human genome annotations (&lt;a href="http://bioconductor.org/packages/release/data/annotation/html/Homo.sapiens.html"&gt;Homo.sapiens&lt;/a&gt;) and &lt;a href="https://bioconductor.org/packages/release/bioc/html/Gviz.html"&gt;Gviz&lt;/a&gt; itself are required. Also, &lt;a href="https://cran.r-project.org/web/packages/data.table/index.html"&gt;data.table&lt;/a&gt; gives an impressed speed at reading text tables so is recommended to use. During the analysis, I happened to know that data.table supports &lt;a href="https://github.com/Rdatatable/data.table/issues/717"&gt;reading gzip&amp;rsquo;d file through pipe&lt;/a&gt;, which makes it more&amp;nbsp;awesome.&lt;/p&gt;
 &lt;h3 id="first-gviz-track"&gt;First Gviz&amp;nbsp;track&lt;/h3&gt;
 &lt;p&gt;We should first start at reading our sequencing depth as BedGraph format and plot&amp;nbsp;it.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;library&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;data.table&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;library&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;data.table&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="kn"&gt;library&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;Gviz&lt;span class="p"&gt;)&lt;/span&gt;
 
 bedgraph_dt &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; fread&lt;span class="p"&gt;(&lt;/span&gt;
@@ -118,7 +118,7 @@ plotTracks&lt;span class="p"&gt;(&lt;/span&gt;
 &lt;h3 id="add-genome-axis"&gt;Add genome&amp;nbsp;axis&lt;/h3&gt;
 &lt;p&gt;The figure is a bit weird and lack of information without the genomic&amp;nbsp;location. &lt;/p&gt;
 &lt;p&gt;Adding genomic location can be done automatically by Gviz through a new track &lt;code&gt;GenomeAxisTrack&lt;/code&gt;. Also, we&amp;rsquo;d like to show which region of chromosome we are at. This can be done by adding another track, &lt;code&gt;IdeogramTrack&lt;/code&gt;, to show the chromosome ideogram. Note that the latter track will download cytoband data from &lt;span class="caps"&gt;UCSC&lt;/span&gt; so the given genome must have a valid&amp;nbsp;name.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;itrack &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; IdeogramTrack&lt;span class="p"&gt;(&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;itrack &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; IdeogramTrack&lt;span class="p"&gt;(&lt;/span&gt;
     genome &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;hg19&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; chromosome &lt;span class="o"&gt;=&lt;/span&gt; thechr
 &lt;span class="p"&gt;)&lt;/span&gt;
 gtrack &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; GenomeAxisTrack&lt;span class="p"&gt;()&lt;/span&gt;
@@ -138,7 +138,7 @@ plotTracks&lt;span class="p"&gt;(&lt;/span&gt;
 &lt;h3 id="add-annotation"&gt;Add&amp;nbsp;annotation&lt;/h3&gt;
 &lt;p&gt;Since we are using exome sequencing, the curve of sequencing depth only makes senses when combined with the transcript&amp;nbsp;annotations. &lt;/p&gt;
 &lt;p&gt;Gviz has &lt;code&gt;GeneRegionTrack&lt;/code&gt; to extract annotation from the R annotation packages. Package Homo.sapiens includes the gene annotation package using &lt;span class="caps"&gt;UCSC&lt;/span&gt; knownGene database. Adding this new track and we will have annotation on our&amp;nbsp;plot.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;library&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;TxDb.Hsapiens.UCSC.hg19.knownGene&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;library&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;TxDb.Hsapiens.UCSC.hg19.knownGene&lt;span class="p"&gt;)&lt;/span&gt;
 txdb &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; TxDb.Hsapiens.UCSC.hg19.knownGene
 
 grtrack &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; GeneRegionTrack&lt;span class="p"&gt;(&lt;/span&gt;
@@ -175,7 +175,7 @@ plotTracks&lt;span class="p"&gt;(&lt;/span&gt;
 &lt;li&gt;Query the transcript locations by their&amp;nbsp;IDs&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;Getting transcript IDs given their gene symbol is a &lt;code&gt;select()&lt;/code&gt; on OrganismDb&amp;nbsp;object,&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;# Get all transcript IDs of gene BRCA1&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# Get all transcript IDs of gene BRCA1&lt;/span&gt;
 BRCA1_txnames &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; select&lt;span class="p"&gt;(&lt;/span&gt;
     Homo.sapiens&lt;span class="p"&gt;,&lt;/span&gt;
     keys &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;BRCA1&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; keytype &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;SYMBOL&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
@@ -184,7 +184,7 @@ BRCA1_txnames &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; select&lt;span class=
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="gp"&gt;&amp;gt; &lt;/span&gt;BRCA1_txnames
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp"&gt;&amp;gt; &lt;/span&gt;BRCA1_txnames
 &lt;span class="go"&gt; [1] &amp;quot;uc010whl.2&amp;quot; &amp;quot;uc002icp.4&amp;quot; &amp;quot;uc010whm.2&amp;quot; &amp;quot;uc002icu.3&amp;quot;&lt;/span&gt;
 &lt;span class="go"&gt; [5] &amp;quot;uc010cyx.3&amp;quot; &amp;quot;uc002icq.3&amp;quot; &amp;quot;uc002ict.3&amp;quot; &amp;quot;uc010whn.2&amp;quot;&lt;/span&gt;
 &lt;span class="go"&gt; [9] &amp;quot;uc010who.3&amp;quot; &amp;quot;uc010whp.2&amp;quot; &amp;quot;uc010whq.1&amp;quot; &amp;quot;uc002idc.1&amp;quot;&lt;/span&gt;
@@ -196,7 +196,7 @@ BRCA1_txnames &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; select&lt;span class=
 &lt;p&gt;Look like it has plenty of&amp;nbsp;isoforms!&lt;/p&gt;
 &lt;h4 id="via-transcripts"&gt;via &lt;code&gt;transcripts()&lt;/code&gt;&lt;/h4&gt;
 &lt;p&gt;For the transcript location, the easiest way will be querying the txDb via &lt;code&gt;transcript()&lt;/code&gt;,&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;BRCA1_txs &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; transcripts&lt;span class="p"&gt;(&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;BRCA1_txs &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; transcripts&lt;span class="p"&gt;(&lt;/span&gt;
     Homo.sapiens&lt;span class="p"&gt;,&lt;/span&gt;
     vals&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kt"&gt;list&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;tx_name &lt;span class="o"&gt;=&lt;/span&gt; BRCA1_txnames&lt;span class="p"&gt;),&lt;/span&gt;
     columns&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kt"&gt;c&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;TXNAME&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;SYMBOL&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;EXONID&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -204,7 +204,7 @@ BRCA1_txnames &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; select&lt;span class=
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="gp"&gt;&amp;gt; &lt;/span&gt;BRCA1_txs
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp"&gt;&amp;gt; &lt;/span&gt;BRCA1_txs
 &lt;span class="go"&gt;GRanges object with 20 ranges and 3 metadata columns:&lt;/span&gt;
 &lt;span class="go"&gt;       seqnames               ranges strand   |                   EXONID          TXNAME          SYMBOL&lt;/span&gt;
 &lt;span class="go"&gt;          &amp;lt;Rle&amp;gt;            &amp;lt;IRanges&amp;gt;  &amp;lt;Rle&amp;gt;   |            &amp;lt;IntegerList&amp;gt; &amp;lt;CharacterList&amp;gt; &amp;lt;CharacterList&amp;gt;&lt;/span&gt;
@@ -225,7 +225,7 @@ BRCA1_txnames &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; select&lt;span class=
 
 
 &lt;p&gt;Then get the genomic range of these transcripts by &lt;code&gt;seqnames()&lt;/code&gt;, &lt;code&gt;start()&lt;/code&gt; and &lt;code&gt;end()&lt;/code&gt; functions on the &lt;code&gt;GRanages&lt;/code&gt; object,&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;thechr &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;as.character&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kp"&gt;unique&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;thechr &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;as.character&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kp"&gt;unique&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
     seqnames&lt;span class="p"&gt;(&lt;/span&gt;BRCA1_txs&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="p"&gt;))&lt;/span&gt;
 st &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;min&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;start&lt;span class="p"&gt;(&lt;/span&gt;BRCA1_txs&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="m"&gt;2e4&lt;/span&gt;
@@ -234,21 +234,21 @@ en &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;max&lt;/s
 
 
 &lt;p&gt;Some space are added at both ends so the plot won&amp;rsquo;t tightly fit all transcripts and leave some room for the transcript&amp;nbsp;names. &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="gp"&gt;&amp;gt; &lt;/span&gt;&lt;span class="kt"&gt;c&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;thechr&lt;span class="p"&gt;,&lt;/span&gt; st&lt;span class="p"&gt;,&lt;/span&gt; en&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp"&gt;&amp;gt; &lt;/span&gt;&lt;span class="kt"&gt;c&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;thechr&lt;span class="p"&gt;,&lt;/span&gt; st&lt;span class="p"&gt;,&lt;/span&gt; en&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="go"&gt;[1] &amp;quot;chr17&amp;quot;    &amp;quot;41176312&amp;quot; &amp;quot;41323420&amp;quot;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;h4 id="via-exonsby"&gt;via &lt;code&gt;exonsBy()&lt;/code&gt;&lt;/h4&gt;
 &lt;p&gt;Another way to obtain the genomic range is getting the exact range of &lt;span class="caps"&gt;CDS&lt;/span&gt; (e.g. exons and UTRs) for each transcript via &lt;code&gt;exonsBy()&lt;/code&gt;. &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;BRCA1_cds_by_tx &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; exonsBy&lt;span class="p"&gt;(&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;BRCA1_cds_by_tx &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; exonsBy&lt;span class="p"&gt;(&lt;/span&gt;
     Homo.sapiens&lt;span class="p"&gt;,&lt;/span&gt; by&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;tx&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; use.names&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;TRUE&lt;/span&gt;
 &lt;span class="p"&gt;)[&lt;/span&gt;BRCA1_txnames&lt;span class="p"&gt;]&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;The function returns a &lt;code&gt;GRangesList&lt;/code&gt; object, a list of &lt;code&gt;GRanges&lt;/code&gt; that each &lt;code&gt;GRanges&lt;/code&gt; object corresponds to a transcript&amp;nbsp;respectively.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="gp"&gt;&amp;gt; &lt;/span&gt;BRCA1_cds_by_tx
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp"&gt;&amp;gt; &lt;/span&gt;BRCA1_cds_by_tx
 &lt;span class="go"&gt;GRangesList object of length 20:&lt;/span&gt;
 &lt;span class="go"&gt;$uc010whl.2 &lt;/span&gt;
 &lt;span class="go"&gt;GRanges object with 22 ranges and 3 metadata columns:&lt;/span&gt;
@@ -274,7 +274,7 @@ en &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;max&lt;/s
 
 
 &lt;p&gt;&lt;code&gt;GRangesList&lt;/code&gt; is not merely a R list structure, which can correctly propagate the GRanges-related functions to all the GRanges it&amp;nbsp;contain.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="gp"&gt;&amp;gt; &lt;/span&gt;start&lt;span class="p"&gt;(&lt;/span&gt;BRCA1_cds_by_tx&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp"&gt;&amp;gt; &lt;/span&gt;start&lt;span class="p"&gt;(&lt;/span&gt;BRCA1_cds_by_tx&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="go"&gt;IntegerList of length 20&lt;/span&gt;
 &lt;span class="go"&gt;[[&amp;quot;uc010whl.2&amp;quot;]] 41276034 41267743 41258473 ... 41201138 41199660 41196312&lt;/span&gt;
 &lt;span class="go"&gt;[[&amp;quot;uc002icp.4&amp;quot;]] 41277199 41276034 41267743 ... 41201138 41199660 41196312&lt;/span&gt;
@@ -283,7 +283,7 @@ en &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;max&lt;/s
 
 
 &lt;p&gt;Here we only cares about the widest range, so the hierarchical structure is not useful. It would be better to flatten the &lt;code&gt;GRangesList&lt;/code&gt; first,&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="gp"&gt;&amp;gt; &lt;/span&gt;BRCA1_cds_flatten &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;unlist&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;BRCA1_cds_by_tx&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp"&gt;&amp;gt; &lt;/span&gt;BRCA1_cds_flatten &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;unlist&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;BRCA1_cds_by_tx&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="gp"&gt;&amp;gt; &lt;/span&gt;BRCA1_cds_flatten
 &lt;span class="go"&gt;GRanges object with 284 ranges and 3 metadata columns:&lt;/span&gt;
 &lt;span class="go"&gt;             seqnames               ranges strand   |   exon_id   exon_name exon_rank&lt;/span&gt;
@@ -307,7 +307,7 @@ en &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;max&lt;/s
 &lt;p&gt;We have the &lt;span class="caps"&gt;BRCA1&lt;/span&gt; genomic region, rest of the plotting is the&amp;nbsp;same.&lt;/p&gt;
 &lt;h3 id="show-only-the-annotations-of-certain-genes"&gt;Show only the annotations of certain&amp;nbsp;genes&lt;/h3&gt;
 &lt;p&gt;Before we start to create our own annotation subset, we first take a look at what Gviz generated. The &lt;code&gt;GeneRegionTrack&lt;/code&gt; track store its annotation data at slot &lt;code&gt;range&lt;/code&gt;.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="gp"&gt;&amp;gt; &lt;/span&gt;grtrack&lt;span class="o"&gt;@&lt;/span&gt;&lt;span class="kp"&gt;range&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp"&gt;&amp;gt; &lt;/span&gt;grtrack&lt;span class="o"&gt;@&lt;/span&gt;&lt;span class="kp"&gt;range&lt;/span&gt;
 &lt;span class="go"&gt;GRanges object with 459 ranges and 7 metadata columns:&lt;/span&gt;
 &lt;span class="go"&gt;        seqnames               ranges strand   |     feature          id         exon  transcript        gene      symbol   density&lt;/span&gt;
 &lt;span class="go"&gt;           &amp;lt;Rle&amp;gt;            &amp;lt;IRanges&amp;gt;  &amp;lt;Rle&amp;gt;   | &amp;lt;character&amp;gt; &amp;lt;character&amp;gt;  &amp;lt;character&amp;gt; &amp;lt;character&amp;gt; &amp;lt;character&amp;gt; &amp;lt;character&amp;gt; &amp;lt;numeric&amp;gt;&lt;/span&gt;
@@ -328,7 +328,7 @@ en &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;max&lt;/s
 
 
 &lt;p&gt;So we filter out unrelated ranges by checking if the value of metadata column &lt;code&gt;transcript&lt;/code&gt; is one of &lt;em&gt;&lt;span class="caps"&gt;BRCA1&lt;/span&gt;&lt;/em&gt;&amp;lsquo;s transcript&amp;nbsp;IDs,&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;BRCA_only_range &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; grtrack&lt;span class="o"&gt;@&lt;/span&gt;&lt;span class="kp"&gt;range&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;BRCA_only_range &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; grtrack&lt;span class="o"&gt;@&lt;/span&gt;&lt;span class="kp"&gt;range&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;
     mcols&lt;span class="p"&gt;(&lt;/span&gt;grtrack&lt;span class="o"&gt;@&lt;/span&gt;&lt;span class="kp"&gt;range&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;$&lt;/span&gt;transcript &lt;span class="o"&gt;%in%&lt;/span&gt; BRCA1_txnames
 &lt;span class="p"&gt;]&lt;/span&gt;
 grtrack&lt;span class="o"&gt;@&lt;/span&gt;range &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; BRCA_only_range
@@ -336,7 +336,7 @@ grtrack&lt;span class="o"&gt;@&lt;/span&gt;range &lt;span class="o"&gt;&amp;lt;-
 
 
 &lt;p&gt;or by less hacky way that use the new range to construct another &lt;code&gt;GeneRegionTrack&lt;/code&gt;,&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;grtrack_BRCA_only &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; GeneRegionTrack&lt;span class="p"&gt;(&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;grtrack_BRCA_only &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; GeneRegionTrack&lt;span class="p"&gt;(&lt;/span&gt;
     BRCA_only_range&lt;span class="p"&gt;,&lt;/span&gt;
     chromosome &lt;span class="o"&gt;=&lt;/span&gt; thechr&lt;span class="p"&gt;,&lt;/span&gt; start &lt;span class="o"&gt;=&lt;/span&gt; st&lt;span class="p"&gt;,&lt;/span&gt; end &lt;span class="o"&gt;=&lt;/span&gt; en&lt;span class="p"&gt;,&lt;/span&gt;
     showId &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kc"&gt;TRUE&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
@@ -356,7 +356,7 @@ plotTracks&lt;span class="p"&gt;(&lt;/span&gt;
 &lt;h3 id="display-gene-symbols-at-annotation-track"&gt;Display gene symbols at annotation&amp;nbsp;track&lt;/h3&gt;
 &lt;p&gt;It&amp;rsquo;s more obvious now about how Gviz stores the annotation. All we need is to replace the symbol name with whatever we&amp;nbsp;desire.&lt;/p&gt;
 &lt;p&gt;First, we extract the metadata of the &lt;code&gt;GeneRegionTrack&lt;/code&gt;, and query for their gene symbols. Using either the transcript &lt;span class="caps"&gt;ID&lt;/span&gt; or Entrez &lt;span class="caps"&gt;ID&lt;/span&gt; will&amp;nbsp;do. &lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;grtrack_range &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; grtrack&lt;span class="o"&gt;@&lt;/span&gt;&lt;span class="kp"&gt;range&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;grtrack_range &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; grtrack&lt;span class="o"&gt;@&lt;/span&gt;&lt;span class="kp"&gt;range&lt;/span&gt;
 range_mapping &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; select&lt;span class="p"&gt;(&lt;/span&gt;
     Homo.sapiens&lt;span class="p"&gt;,&lt;/span&gt;
     keys &lt;span class="o"&gt;=&lt;/span&gt; mcols&lt;span class="p"&gt;(&lt;/span&gt;grtrack_range&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;$&lt;/span&gt;symbol&lt;span class="p"&gt;,&lt;/span&gt;
@@ -366,7 +366,7 @@ range_mapping &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; select&lt;span class=
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="gp"&gt;&amp;gt; &lt;/span&gt;&lt;span class="kp"&gt;head&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;range_mapping&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp"&gt;&amp;gt; &lt;/span&gt;&lt;span class="kp"&gt;head&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;range_mapping&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="go"&gt;      TXNAME SYMBOL ENTREZID&lt;/span&gt;
 &lt;span class="go"&gt;1 uc002icn.3   RND2     8153&lt;/span&gt;
 &lt;span class="go"&gt;2 uc002icn.3   RND2     8153&lt;/span&gt;
@@ -378,7 +378,7 @@ range_mapping &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; select&lt;span class=
 
 
 &lt;p&gt;Then we concatenate the information of transcript &lt;span class="caps"&gt;ID&lt;/span&gt; and gene symbol using &lt;a href="https://cran.r-project.org/web/packages/stringr/index.html"&gt;stringr&lt;/a&gt;.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;library&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;stringr&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;library&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;stringr&lt;span class="p"&gt;)&lt;/span&gt;
 new_symbols &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;with&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
     range_mapping&lt;span class="p"&gt;,&lt;/span&gt;
     str_c&lt;span class="p"&gt;(&lt;/span&gt;SYMBOL&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot; (&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; TXNAME&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;)&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; sep &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -386,14 +386,14 @@ new_symbols &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="gp"&gt;&amp;gt; &lt;/span&gt;&lt;span class="kp"&gt;head&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kp"&gt;unique&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;new_symbols&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp"&gt;&amp;gt; &lt;/span&gt;&lt;span class="kp"&gt;head&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kp"&gt;unique&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;new_symbols&lt;span class="p"&gt;))&lt;/span&gt;
 &lt;span class="go"&gt;[1] &amp;quot;RND2 (uc002icn.3)&amp;quot; &amp;quot;NBR2 (uc002idf.3)&amp;quot; &amp;quot;NBR2 (uc010czb.2)&amp;quot;&lt;/span&gt;
 &lt;span class="go"&gt;[4] &amp;quot;NBR2 (uc002idg.3)&amp;quot; &amp;quot;NBR2 (uc002idh.3)&amp;quot; &amp;quot;NBR1 (uc010czd.3)&amp;quot;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;Like how we extract &lt;em&gt;&lt;span class="caps"&gt;BRCA1&lt;/span&gt;&lt;/em&gt;-only annotations, we construct a new &lt;code&gt;GeneRegionTrack&lt;/code&gt;.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;grtrack_symbol &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; GeneRegionTrack&lt;span class="p"&gt;(&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;grtrack_symbol &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; GeneRegionTrack&lt;span class="p"&gt;(&lt;/span&gt;
     grtrack&lt;span class="o"&gt;@&lt;/span&gt;&lt;span class="kp"&gt;range&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
     chromosome &lt;span class="o"&gt;=&lt;/span&gt; thechr&lt;span class="p"&gt;,&lt;/span&gt; start &lt;span class="o"&gt;=&lt;/span&gt; st&lt;span class="p"&gt;,&lt;/span&gt; end &lt;span class="o"&gt;=&lt;/span&gt; en&lt;span class="p"&gt;,&lt;/span&gt;
     showId &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kc"&gt;TRUE&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
@@ -416,7 +416,7 @@ plotTracks&lt;span class="p"&gt;(&lt;/span&gt;
 &lt;p&gt;Really glad I&amp;rsquo;ve tried it&amp;nbsp;:)&lt;/p&gt;
 &lt;h2 id="supplementary-plot-bam-files-directly"&gt;Supplementary - Plot &lt;span class="caps"&gt;BAM&lt;/span&gt; files&amp;nbsp;directly&lt;/h2&gt;
 &lt;p&gt;We will start by replacing &lt;code&gt;DataTrack&lt;/code&gt; with &lt;code&gt;AlignmentsTrack&lt;/code&gt;. Also we select a smaller region this time so the read mapping can be clearly&amp;nbsp;seen.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;st &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="m"&gt;41.196e6L&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;st &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="m"&gt;41.196e6L&lt;/span&gt;
 en &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="m"&gt;41.202e6L&lt;/span&gt;
 gtrack &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; GenomeAxisTrack&lt;span class="p"&gt;(&lt;/span&gt;cex &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;  &lt;span class="c1"&gt;# set the font size larger&lt;/span&gt;
 altrack &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; AlignmentsTrack&lt;span class="p"&gt;(&lt;/span&gt;
@@ -434,7 +434,7 @@ plotTracks&lt;span class="p"&gt;(&lt;/span&gt;
 &lt;/div&gt;
 
 &lt;p&gt;To plot only the coverage, set the type as &lt;code&gt;coverage&lt;/code&gt;.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;altrack &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; AlignmentsTrack&lt;span class="p"&gt;(&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;altrack &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; AlignmentsTrack&lt;span class="p"&gt;(&lt;/span&gt;
     &lt;span class="s"&gt;&amp;quot;myseq.bam&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; type &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;coverage&amp;quot;&lt;/span&gt;
 &lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -447,7 +447,7 @@ plotTracks&lt;span class="p"&gt;(&lt;/span&gt;
 &lt;h3 id="fancier-alignment-display"&gt;Fancier alignment&amp;nbsp;display&lt;/h3&gt;
 &lt;p&gt;Spend some time reading the documentation, the alignment can be much more&amp;nbsp;fancier. &lt;/p&gt;
 &lt;p&gt;For example, when looking at a much smaller genome region, we many want to see the sequence and read mismatches. It could be done by adding a new track &lt;code&gt;SequenceTrack&lt;/code&gt; to include the genome&amp;nbsp;sequence,&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;small_st &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="m"&gt;41267.735e3L&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;small_st &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="m"&gt;41267.735e3L&lt;/span&gt;
 small_en &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="m"&gt;41267.805e3L&lt;/span&gt;
 
 &lt;span class="kn"&gt;library&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;BSgenome.Hsapiens.UCSC.hg19&lt;span class="p"&gt;)&lt;/span&gt;
@@ -460,7 +460,7 @@ strack &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; SequenceTrack&lt;span class=
 
 
 &lt;p&gt;We tweak other tracks as well to make sure the figure won&amp;rsquo;t explode by too much information. Gene annotations are collapsed down to one liner. Also, aligned read&amp;rsquo;s height is increased to fit in individual letters (e.g., &lt;span class="caps"&gt;ATCG&lt;/span&gt;).&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;grtrack_small &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; GeneRegionTrack&lt;span class="p"&gt;(&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;grtrack_small &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; GeneRegionTrack&lt;span class="p"&gt;(&lt;/span&gt;
    grtrack&lt;span class="o"&gt;@&lt;/span&gt;&lt;span class="kp"&gt;range&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
    chromosome &lt;span class="o"&gt;=&lt;/span&gt; thechr&lt;span class="p"&gt;,&lt;/span&gt;
    start &lt;span class="o"&gt;=&lt;/span&gt; small_st&lt;span class="p"&gt;,&lt;/span&gt; end &lt;span class="o"&gt;=&lt;/span&gt; small_en&lt;span class="p"&gt;,&lt;/span&gt;
