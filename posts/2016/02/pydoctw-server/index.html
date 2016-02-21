@@ -89,7 +89,8 @@
   </header>
   <div>
     <p><em><span class="caps">TL</span>;<span class="caps">DR</span></em> 可至 <a href="http://docs.python.org.tw">http://docs.python.org.tw</a> 看線上自動更新的<a href="http://docs.python.org.tw/3/">中文化的文件</a>和 <a href="http://docs.python.org.tw/_build/">build server</a>。</p>
-<p><span class="caps">EDIT</span> 2016-02-16: 加上 language code、git sshconfig、swap&nbsp;的設定；文句潤飾。</p>
+<p><span class="caps">EDIT</span> 2016-02-16: 加上 language code、git sshconfig、swap 的設定；文句潤飾。<br>
+<span class="caps">EDIT</span> 2016-02-20: 加上 tmpfiles.d&nbsp;的設定。</p>
 <div class="toc">
 <ul>
 <li><a href="#python">Python 說明文件中文翻譯計畫</a><ul>
@@ -112,6 +113,7 @@
 <li><a href="#postgresql">資料庫&nbsp;PostgreSQL</a></li>
 <li><a href="#swap">Swap</a></li>
 <li><a href="#git-repo-ssh-config">Git repo ssh&nbsp;config</a></li>
+<li><a href="#tmpfilesd">tmpfiles.d</a></li>
 </ul>
 </li>
 <li><a href="#django-stack-nginx-uwsgi">Django Stack &ndash; nginx + uWSGI</a><ul>
@@ -302,6 +304,12 @@ ssh-keygen -t rsa -f ~/.ssh/id_rsa.cpython_tw
 
 
 <p>這樣兩個 repo 會透過給定的 ssh key 連線。GitHub 會顯示每個 key 最近使用的時間，檢查時間就能確認設定正確與否（而且改 host&nbsp;沒設定對應該直接連不上）。</p>
+<h4 id="tmpfilesd">tmpfiles.d</h4>
+<p>之後 nginx 和 uwsgi 溝通用的 socket 打算放在 <code>/run/django/xxxx.sock</code> <sup id="fnref:/run"><a class="footnote-ref" href="#fn:/run" rel="footnote">6</a></sup>。因為只需要非 root 的權限，修改 <a href="https://www.freedesktop.org/software/systemd/man/tmpfiles.d.html">tmpfiles.d</a> 的設定，讓這個資料夾能在開機時自動建立。增加設定檔 <code>/etc/tmpfiles.d/pydoc_autobuild.conf</code></p>
+<div class="highlight"><pre><span></span>d /run/django 0755 pydoc www-data
+</pre></div>
+
+
 <h3 id="django-stack-nginx-uwsgi">Django Stack &ndash; nginx +&nbsp;uWSGI</h3>
 <p>在本地開發都用 <code>python manage.py runserver</code> 啟動 Django。但上線時內建的 runserver 就無法同時間服務太多人。因此需要像 nginx、uWSGI&nbsp;等工具來協助。</p>
 <p>參照 uWSGI <a href="http://uwsgi-docs.readthedocs.org/en/latest/tutorials/Django_and_nginx.html"><em>Setting up Django and your web server with uWSGI and nginx</em></a> 一文以及 <span class="caps">TP</span> 寫的 《為程式人寫的 Django Tutorial》系列文中 <a href="https://github.com/uranusjr/django-tutorial-for-programmers/blob/master/25-deploy-to-ubuntu-server.md"><em>Day 27 - Deploy to Ubuntu server</em></a>&nbsp;關於部署的文章。</p>
@@ -313,7 +321,7 @@ ssh-keygen -t rsa -f ~/.ssh/id_rsa.cpython_tw
 <p>整理上述的需求，寫個 nginx 設定檔在 <code>/etc/nginx/sites-available/pydoc_autobuild.conf</code>：</p>
 <div class="highlight"><pre><span></span><span class="c1"># Upstream Django setting; the socket nginx connects to</span>
 <span class="k">upstream</span> <span class="s">django</span> <span class="p">{</span>
-    <span class="kn">server</span> <span class="s">unix:///var/run/django/pydoc_autobuild.sock</span><span class="p">;</span>
+    <span class="kn">server</span> <span class="s">unix:///run/django/pydoc_autobuild.sock</span><span class="p">;</span>
 <span class="p">}</span>
 
 <span class="k">server</span> <span class="p">{</span>
@@ -383,7 +391,7 @@ sudo systemctl reload nginx
 <span class="c1"># maximum number of worker processes</span>
 <span class="na">processes</span>    <span class="o">=</span> <span class="s">4</span>
 <span class="c1"># the socket (use the full path to be safe</span>
-<span class="na">socket</span>       <span class="o">=</span> <span class="s">/var/run/django/pydoc_autobuild.sock</span>
+<span class="na">socket</span>       <span class="o">=</span> <span class="s">/run/django/pydoc_autobuild.sock</span>
 <span class="c1"># ... with appropriate permissions - may be needed</span>
 <span class="na">chmod-socket</span> <span class="o">=</span> <span class="s">664</span>
 <span class="na">uid</span>          <span class="o">=</span> <span class="s">pydoc</span>
@@ -494,6 +502,9 @@ sudo systemctl status qcluster
 </li>
 <li id="fn:ec2-nano">
 <p>吐嘈一下，t2.nano vCPU 真的時快時慢，有時 build doc 幾分鐘就搞定了，有時要幾十分鐘，有一天超慢，然後又被 web crawler 抓到，讓 task queue timeout 陷入了 timeout、restart、timeout 的無限地獄……&#160;<a class="footnote-backref" href="#fnref:ec2-nano" rev="footnote" title="Jump back to footnote 5 in the text">&#8617;</a></p>
+</li>
+<li id="fn:/run">
+<p>/var/run = /run，這個路徑是個 tmpfs 所以每次重開機就會清空，目錄要記得重建。&#160;<a class="footnote-backref" href="#fnref:/run" rev="footnote" title="Jump back to footnote 6 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>

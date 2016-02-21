@@ -101,9 +101,9 @@
 </ul>
 </div>
 <h3 id="_1">參考資料</h3>
-<p>我不是網路安全相關的專家，所以設定都是參考網路上的說明整理而成。<span class="caps">LE</span> certificate 的設定參考 <a href="https://robmclarty.com/blog/how-to-secure-your-web-app-using-https-with-letsencrypt"><em>How to Secure Your Web App Using <span class="caps">HTTPS</span> With Letsencrypt</em></a> by Rob McLarty&nbsp;這篇文章。</p>
+<p>我不是網路安全相關的專家，設定都是參考網路上的說明整理而成。<span class="caps">LE</span> certificate 的設定參考 <a href="https://robmclarty.com/blog/how-to-secure-your-web-app-using-https-with-letsencrypt"><em>How to Secure Your Web App Using <span class="caps">HTTPS</span> With Letsencrypt</em></a> by Rob McLarty&nbsp;這篇文章。</p>
 <h3 id="lets-encrypt-certificate">Let&rsquo;s Encrypt&nbsp;Certificate</h3>
-<p>沒有使用 <span class="caps">LE</span> 官方的 client，而是用 <a href="https://daylightpirates.org/">Daniel Roesler</a> 所寫的 <a href="https://github.com/diafygi/acme-tiny/">acme-tiny</a>。這是一個不到 200 行的 Python&nbsp;script，可以自行檢查它有沒有做任何奇怪的事。</p>
+<p>沒有使用 <span class="caps">LE</span> 官方的 client，而是用 <a href="https://daylightpirates.org/">Daniel Roesler</a> 所寫的 <a href="https://github.com/diafygi/acme-tiny/">acme-tiny</a>。這是一個不到 200 行的 Python script，可以自行檢查它有沒有做任何奇怪的事。<a href="https://github.com/diafygi/acme-tiny/">acme-tiny</a> 的 <span class="caps">README</span>&nbsp;也有個設定教學，應該是大同小異。</p>
 <p>基本上都是照著 <a href="https://robmclarty.com/blog/how-to-secure-your-web-app-using-https-with-letsencrypt"><em>How to Secure Your Web App Using <span class="caps">HTTPS</span> With Letsencrypt</em></a>&nbsp;該篇文章做，不過有調整了以下的東西：</p>
 <ol>
 <li>建立 letsencrypt 帳號時，禁止使用 password login。<br>
@@ -164,7 +164,7 @@ journalctl -e -u renew_cert
 
 <p>重點只有 <code>[Timer]</code> 這 directive。<code>Unit=</code> 表示要啟動的 service。<code>OnCalendar=</code><sup id="fnref:calendar"><a class="footnote-ref" href="#fn:calendar" rel="footnote">1</a></sup> 則是設定這 timer 根據指定的時間點 (<span class="caps">UTC</span> 時間<sup id="fnref:utc"><a class="footnote-ref" href="#fn:utc" rel="footnote">2</a></sup>)&nbsp;啟動。</p>
 <p>以這邊寫的時間 <code>*-1/2-1 16:00:00</code> 為例，代表每年的 1+2n 月 1 日 16:00 <span class="caps">UTC</span> 更新 certificate，即臺灣時間 1、3、5、……月 2&nbsp;日凌晨更新。</p>
-<p>啟用 timer，它需要被 enable&nbsp;確保開機都能被執行。</p>
+<p>啟用 timer，它需要被 enable&nbsp;確保重開機時被執行。</p>
 <div class="highlight"><pre><span></span>systemctl enable renew_cert.timer
 systemctl start renew_cert.timer
 </pre></div>
@@ -178,7 +178,7 @@ systemctl start renew_cert.timer
 
 
 <h3 id="nginx-http-redirect-to-https">nginx <span class="caps">HTTP</span> redirect to <span class="caps">HTTPS</span></h3>
-<p>（這邊設定我比較沒信心，有更好的設定方法歡迎告訴我 &gt;&nbsp;&lt;）</p>
+<p>（這邊設定我沒信心，有更好的設定方法歡迎告訴我 &gt;&nbsp;&lt;）</p>
 <p>要解決的問題為，<span class="caps">ACME</span> challenge 是透過 <span class="caps">HTTP</span>，其餘的連線都轉到 <span class="caps">HTTPS</span>。</p>
 <p>在 nginx 中把主要的設定檔中拿掉 <code>listen 80;</code> 與 <span class="caps">ACM</span> challenge 的部份。把它們移成新的 server&nbsp;block： </p>
 <div class="highlight"><pre><span></span><span class="k">server</span> <span class="p">{</span>
@@ -211,7 +211,8 @@ systemctl start renew_cert.timer
 </div>
 
 <h3 id="_2">心得</h3>
-<p>總結來說，使用 <a href="https://letsencrypt.org/">Let&rsquo;s Encrypt</a> 不難，但也沒到非常簡單。如果你願意把 root 和 private key 權限給它的話，用 <code>letsencrypt-auto</code> 步驟能更少。覺得 <a href="https://github.com/diafygi/acme-tiny/">acme-tiny</a> 指令太複雜的話，原作者也寫了一個 <a href="https://gethttpsforfree.com/">Get <span class="caps">HTTPS</span> for free!</a>&nbsp;服務，用網頁的方式協助整個註冊流程。</p>
+<p>總結來說，使用 <a href="https://letsencrypt.org/">Let&rsquo;s Encrypt</a>&nbsp;不難，但也沒到非常簡單。</p>
+<p>如果你願意把 root 和 private key 權限給它的話，用官方 client 提供的 <code>letsencrypt-auto</code> 步驟能更少，用 Apache 它聲稱能全自動設定。覺得 <a href="https://github.com/diafygi/acme-tiny/">acme-tiny</a> 指令太複雜的話，原作者也寫了一個 <a href="https://gethttpsforfree.com/">Get <span class="caps">HTTPS</span> for free!</a>&nbsp;服務，用網頁的方式協助整個註冊流程。</p>
 <p>要注意目前 public beta 階段，相同 domain 在 7 天只能被簽署 5&nbsp;次，測試的時候不要太衝動不然就要等一週了。</p>
 <h3 id="misc">Misc.</h3>
 <p>建立 <span class="caps">CSR</span> (Certificate Signing Request) 檔時，可以加入自己的 email 地址，不然預設是 <code>webmaster@&lt;domain&gt;</code>：</p>
@@ -226,7 +227,7 @@ systemctl start renew_cert.timer
 <hr />
 <ol>
 <li id="fn:calendar">
-<p>除了 <code>OnCalendar</code> 還有很多設定 timer 的方式，如 <code>OnUnitActiveSec</code>。不過其他的時間算法都會受有沒有開機影響時間的計算。&#160;<a class="footnote-backref" href="#fnref:calendar" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+<p>除了 <code>OnCalendar</code> 還有很多設定 timer 的方式，如 <code>OnUnitActiveSec</code>。不過其他的時間算法，都會受有沒有開機，影響時間的計算。&#160;<a class="footnote-backref" href="#fnref:calendar" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
 </li>
 <li id="fn:utc">
 <p>Debian Jessie 的 <a href="https://www.freedesktop.org/software/systemd/man/systemd.time.html#Calendar%20Events">systemd.time (7)</a> Calendar Events 裡並沒有指定時區的方式，所以加上時區會有 parse error。但新版的 systemd 似乎支援時區。總之應該用 <code>systemctl list-timers</code> 確定執行的時間。&#160;<a class="footnote-backref" href="#fnref:utc" rev="footnote" title="Jump back to footnote 2 in the text">&#8617;</a></p>
