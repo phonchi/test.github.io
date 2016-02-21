@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_TW"/>
 <meta property="og:url" content="//blog.liang2.tw"/>
 <meta property="og:image" content="//blog.liang2.tw/pics/headpic.jpg">
-  <title>Tag: deploy &ndash; Liang2's blog</title>
+  <title>Tag: https &ndash; Liang2's blog</title>
 </head>
 <body>
   <aside>
@@ -64,16 +64,32 @@
 
 <article>
   <header>
-    <h2><a href="//blog.liang2.tw/posts/2016/02/pydoctw-server/#pydoctw-server">設定 Python 官方文件中文化自動更新&nbsp;Server</a></h2>
+    <h2><a href="//blog.liang2.tw/posts/2016/02/pydoctw-https/#pydoctw-https">Python 官方文件中文化 Server <span class="caps">HTTPS</span> 使用 Let&#8217;s&nbsp;Encrypt</a></h2>
     <p>
-      Posted on Feb 14, 2016 in <a href="//blog.liang2.tw/category/coding.html">Coding</a>
+      Posted on Feb 21, 2016 in <a href="//blog.liang2.tw/category/coding.html">Coding</a>
       &#8226; Tagged with
-      <a href="//blog.liang2.tw/tag/zh.html">zh</a>,      <a href="//blog.liang2.tw/tag/pydoctw.html">pydoctw</a>,      <a href="//blog.liang2.tw/tag/python.html">python</a>,      <a href="//blog.liang2.tw/tag/django.html">django</a>,      <a href="//blog.liang2.tw/tag/postgresql.html">postgresql</a>,      <a href="//blog.liang2.tw/tag/deploy.html">deploy</a>,      <a href="//blog.liang2.tw/tag/debian.html">debian</a>,      <a href="//blog.liang2.tw/tag/systemd.html">systemd</a>,      <a href="//blog.liang2.tw/tag/nginx.html">nginx</a>,      <a href="//blog.liang2.tw/tag/uwsgi.html">uwsgi</a>      &#8226; <a href="//blog.liang2.tw/posts/2016/02/pydoctw-server/#disqus_thread">Leave a comment</a>
+      <a href="//blog.liang2.tw/tag/zh.html">zh</a>,      <a href="//blog.liang2.tw/tag/pydoctw.html">pydoctw</a>,      <a href="//blog.liang2.tw/tag/https.html">https</a>,      <a href="//blog.liang2.tw/tag/letsencrypt.html">letsencrypt</a>      &#8226; <a href="//blog.liang2.tw/posts/2016/02/pydoctw-https/#disqus_thread">Leave a comment</a>
     </p>
   </header>
   <div>
-      <p>設定一個自動更新 Python 說明文件中文翻譯並且 host 中文化網頁版文件的 server。使用 Django 作 web server、Django-Q 做為 task queue，deploy stack 用 nginx、uWSGI，host 於 Amazon <span class="caps">EC2</span> (Debian Jessie)，資料庫用 PostgreSQL，並用 systemd 管理相關的&nbsp;process。</p>
-      <a class="btn btn-cont-read" href="//blog.liang2.tw/posts/2016/02/pydoctw-server/#pydoctw-server">Continue reading</a>
+      <p>整理了 server 從 <span class="caps">HTTP</span> 到 <span class="caps">HTTPS</span>&nbsp;相關設定的調整。</p>
+      <a class="btn btn-cont-read" href="//blog.liang2.tw/posts/2016/02/pydoctw-https/#pydoctw-https">Continue reading</a>
+  </div>
+  <hr />
+</article>
+<article>
+  <header>
+    <h2><a href="//blog.liang2.tw/posts/2016/01/blog-https/#blog-https">Blog defaults to <span class="caps">HTTPS</span></a></h2>
+    <p>
+      Posted on Jan 06, 2016 in <a href="//blog.liang2.tw/category/coding.html">Coding</a>
+      &#8226; Tagged with
+      <a href="//blog.liang2.tw/tag/zh.html">zh</a>,      <a href="//blog.liang2.tw/tag/blog.html">blog</a>,      <a href="//blog.liang2.tw/tag/pelican.html">pelican</a>,      <a href="//blog.liang2.tw/tag/https.html">https</a>      &#8226; <a href="//blog.liang2.tw/posts/2016/01/blog-https/#disqus_thread">Leave a comment</a>
+    </p>
+  </header>
+  <div>
+      <p>簡言之，現在 blog 使用 https。一般的 http 連線會被重新導向至&nbsp;https。</p>
+<p>Blog 本來就是架在 <a href="https://github.com/ccwang002/ccwang002.github.io">GitHub Pages</a> 上，其實預設有 https，但在網址改成自訂 domain 之後 https 自然就失效了。在 GitHub 上有開 ...</p>
+      <a class="btn btn-cont-read" href="//blog.liang2.tw/posts/2016/01/blog-https/#blog-https">Continue reading</a>
   </div>
 </article>
 
