@@ -101,8 +101,7 @@
 
 
 <p>which is very convenient for code&nbsp;copy-pasting.</p>
-<p>However, the functionality is currently failed on the official Python doc (given by <a href="https://docs.python.org/3/_static/copybutton.js"><code>copybutton.js</code></a>) because the jQuery updates break previous <span class="caps">API</span> behavior. I&rsquo;ve filed <a href="http://bugs.python.org/issue26246">issue 26246</a> on the Python issue tracker for this&nbsp;problem.</p>
-<p>Anyway, you can find a <a href="http://docs.python.org.tw/3/tutorial/controlflow.html">workable example</a> from Taiwan&rsquo;s doc translation (I&rsquo;m involved in it so I already fixed it) and its functional <a href="http://docs.python.org.tw/3/_static/copybutton.js">copybutton.js</a>&nbsp;file.</p>
+<p><del>However, the functionality is currently failed on the official Python doc (given by <a href="https://docs.python.org/3/_static/copybutton.js"><code>copybutton.js</code></a>) because the jQuery updates break previous <span class="caps">API</span> behavior. I&rsquo;ve filed <a href="http://bugs.python.org/issue26246">issue 26246</a> on the Python issue tracker for this problem.</del> (<span class="caps">EDIT</span> 2016-02-27: the patch has been&nbsp;merged.)</p>
 <h3 id="code-output-toggle-in-pelican">Code output toggle in&nbsp;Pelican</h3>
 <p>After I fixed the copybutton.js, I wished to add this functionality to my&nbsp;blog. </p>
 <p>Code highlighting in Pelican markdown files is handled by its <a href="https://pythonhosted.org/Markdown/extensions/code_hilite.html">CodeHilite</a> extension. To my surprise, I found CodeHilite does not express the language name specified for each code&nbsp;block.</p>
