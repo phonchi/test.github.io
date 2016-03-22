@@ -102,13 +102,13 @@
 &lt;p&gt;擔心的話就直接在有 &lt;code&gt;$USER&lt;/code&gt; 的地方打出帳號即可。先確認一下，&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp"&gt;vm@vm-debian:~$ echo $&lt;/span&gt;USER
 &lt;span class="go"&gt;vm&lt;/span&gt;
-&lt;span class="gp"&gt;vm@vm-debian:~$&lt;/span&gt; sudo -u postgres &lt;span class="nb"&gt;echo&lt;/span&gt; $USER
+&lt;span class="gp"&gt;vm@vm-debian:~$&lt;/span&gt; sudo -u postgres &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="nv"&gt;$USER&lt;/span&gt;
 &lt;span class="go"&gt;vm&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;建立使用者是透過 &lt;code&gt;createuser&lt;/code&gt; 這指令。這是使用者帳號就不給太多權限。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp"&gt;$&lt;/span&gt; sudo -u postgres createuser --interactive $USER
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp"&gt;$&lt;/span&gt; sudo -u postgres createuser --interactive &lt;span class="nv"&gt;$USER&lt;/span&gt;
 &lt;span class="go"&gt;Shall the new role be a superuser? (y/n) n&lt;/span&gt;
 &lt;span class="go"&gt;Shall the new role be allowed to create databases? (y/n) n&lt;/span&gt;
 &lt;span class="go"&gt;Shall the new role be allowed to create more new roles? (y/n) n&lt;/span&gt;
@@ -128,12 +128,12 @@
 
 &lt;h3 id="database_1"&gt;建立與帳號同名稱的&amp;nbsp;database&lt;/h3&gt;
 &lt;p&gt;透過 &lt;code&gt;createdb&lt;/code&gt; 這指令。把與帳號同名 database 的 owner&amp;nbsp;設定成該帳號。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp"&gt;$&lt;/span&gt; sudo -u postgres createdb --owner&lt;span class="o"&gt;=&lt;/span&gt;$USER $USER
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp"&gt;$&lt;/span&gt; sudo -u postgres createdb --owner&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nv"&gt;$USER&lt;/span&gt; &lt;span class="nv"&gt;$USER&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;要多建別的 database 給這帳號也沒問題，例如名為 &lt;code&gt;vm_database&lt;/code&gt; 的&amp;nbsp;database，&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp"&gt;$&lt;/span&gt; sudo -u postgres createdb --owner&lt;span class="o"&gt;=&lt;/span&gt;$USER vm_database
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp"&gt;$&lt;/span&gt; sudo -u postgres createdb --owner&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nv"&gt;$USER&lt;/span&gt; vm_database
 &lt;/pre&gt;&lt;/div&gt;
 
 

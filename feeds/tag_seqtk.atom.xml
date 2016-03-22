@@ -18,7 +18,7 @@ $ sed -n &lt;span class="s1"&gt;&amp;#39;1~4s/^@/&amp;gt;/p;2~4p&amp;#39;&lt;/sp
 &lt;h3 id="seqtk"&gt;Seqtk&lt;/h3&gt;
 &lt;p&gt;So &lt;a href="https://github.com/lh3/seqtk"&gt;seqtk&lt;/a&gt; comes into rescue. It is written in C and &lt;span class="caps"&gt;MIT&lt;/span&gt; licensed. &lt;a href="https://www.biostars.org/p/85929/#86082"&gt;A quick comparison&lt;/a&gt; shows it is generally faster than other &lt;span class="caps"&gt;UNIX&lt;/span&gt;-based solutions, let alone implementations based on scripting&amp;nbsp;languages.&lt;/p&gt;
 &lt;p&gt;Seqtk bundles many other operations, but I&amp;rsquo;ll just mention those I frequently&amp;nbsp;use.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$seqtk
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nv"&gt;$seqtk&lt;/span&gt;
 
 Usage:   seqtk &amp;lt;command&amp;gt; &amp;lt;arguments&amp;gt;
 Version: 1.0-r77-dirty
