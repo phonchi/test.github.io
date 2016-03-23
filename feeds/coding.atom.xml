@@ -53,7 +53,7 @@ You can also use widgets to &lt;strong&gt;synchronize stateful and stateless inf
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;只要修改 &lt;code&gt;p.vaule&lt;/code&gt; 前面的進度條的狀態就會自動更新（不用重跑 &lt;code&gt;display(p)&lt;/code&gt;）：&lt;/p&gt;
+&lt;p&gt;只要修改 &lt;code&gt;p.value&lt;/code&gt; 前面的進度條的狀態就會自動更新（不用重跑 &lt;code&gt;display(p)&lt;/code&gt;）：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;value&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;50&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
