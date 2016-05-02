@@ -34,7 +34,7 @@ MD_EXTENSIONS = [
 ]
 
 # Static path
-STATIC_PATHS = ['pics', 'B233544E.pub.asc', 'CNAME']
+STATIC_PATHS = ['pics']
 
 # Find blog post dirs based on regular expression
 ARTICLE_PATHS = []
@@ -71,7 +71,7 @@ JINJA_FILTERS = {
 SITETITLE = "phonchi's Blog"
 SITESUBTITLE = "Code / Stat / Bioinfo"
 SITEDESCRIPTION = SITETITLE
-SITELOGO = "/pics/STAR_logo.png"
+SITELOGO = "/pics/STAR_logo.PNG"
 MAIN_MENU = True
 MENUITEMS = [
     ('Archives', '/archives.html'),
