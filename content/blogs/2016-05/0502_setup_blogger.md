@@ -1,5 +1,5 @@
 ---
-Title: Setting Up Blogs With Pelican and GitHub Pages
+Title: Setting Up Blog With Pelican and GitHub Pages
 Slug: Setup-blogs
 Date: 2016-05-02 22:00
 Tags: zh, Pelican, Git
@@ -46,26 +46,41 @@ apt-get install git
 
 > Server會random產生challenge並用你的public key加密，收到加密的challenge後可以用private key解回來然後回傳給server，server藉由比對你回傳的challenge和當時的challenge來認證你(單方認證)
 
-#### Key Git Command
+#### Key Git Commands
 記錄一些主要的command，比較常見的做法是創建兩個repository一個當source一個link到轉檔之後的output，後者必須依據你的使用者名稱來當名字
 
 ```
 git config --global user.name "John Cena"
 git config --global user.email johncena@example.com
 git config --global core.editor vi
-git clone git@github.com:username/username.github.io-src ghpages
+git clone git@github.com:username/username.github.io-src ghpages # or git checkout
 git remote -v
+git status
 git submodule add git@github.com:username/username.github.io.git output
 ```
 
-有時可以用來處理檔案exist的問題
+有時可以用來處理檔案exists的問題
 ```
 git init
 git rm --cached [file]
 ```
 
 ### Set up the blog with Pelican
+主架構大概長這樣，類似Sphinx，sourcr在content下，提供各總自動畫腳本轉成靜態網頁輸出再`output/`資料夾
 
+```
+ghpages/
+├── content/
+│   ├── blog_post1.md
+│   └── blog_post2.rst
+├── output/
+├── develop_server.sh*
+├── Makefile
+├── fabfile.py
+├── pelicanconf.py
+├── publishconf.py
+└── requirements.txt
+```
 
 #### Installation
 
@@ -117,7 +132,8 @@ git push -u origin master
 
 然後在http://username.github.io 下就可以看到囉~
 
-
+### Others
+留言系統 Disqus等之後再看看吧XD
 
 [Save]: https://www.facebook.com/RSR.lol/videos/vb.1587235684873434/1693237897606545/?type=2&theater
 [Gittutorial]: http://dylandy.github.io/Easy-Git-Tutorial/
