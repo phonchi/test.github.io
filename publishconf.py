@@ -10,7 +10,7 @@ import sys
 sys.path.append(os.curdir)
 from pelicanconf import *
 
-SITEURL = '//blog.liang2.tw'
+SITEURL = 'http://phonchi.github.io'
 SITELOGO = SITEURL + SITELOGO
 RELATIVE_URLS = False
 
@@ -19,9 +19,9 @@ CATEGORY_FEED_ATOM = 'feeds/%s.atom.xml'
 TAG_FEED_ATOM = 'feeds/tag_%s.atom.xml'
 FEED_MAX_ITEMS = 100
 
-DELETE_OUTPUT_DIRECTORY = True
+DELETE_OUTPUT_DIRECTORY = False
 
 # Following items are often useful when publishing
 
-#DISQUS_SITENAME = "liang2"
+DISQUS_SITENAME = "phonchi"
 #GOOGLE_ANALYTICS = ""
