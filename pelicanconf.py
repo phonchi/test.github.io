@@ -69,7 +69,7 @@ JINJA_FILTERS = {
 
 # Flex Theme setting
 SITETITLE = "phonchi's Blog"
-SITESUBTITLE = "Code / Stat / Bioinfo"
+SITESUBTITLE = "Code / Crypto / ML"
 SITEDESCRIPTION = SITETITLE
 SITELOGO = "/pics/STAR_logo.PNG"
 MAIN_MENU = True
