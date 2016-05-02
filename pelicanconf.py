@@ -5,8 +5,8 @@ from pathlib import Path
 import re
 
 
-AUTHOR = 'Liang2'
-SITENAME = "Liang2's blog"
+AUTHOR = 'phonchi'
+SITENAME = "phonchi's blog"
 SITEURL = ''
 
 PATH = 'content'
@@ -34,7 +34,7 @@ MD_EXTENSIONS = [
 ]
 
 # Static path
-STATIC_PATHS = ['pics', 'B233544E.pub.asc', 'CNAME', 'CV.pdf']
+STATIC_PATHS = ['pics', 'B233544E.pub.asc', 'CNAME']
 
 # Find blog post dirs based on regular expression
 ARTICLE_PATHS = []
@@ -60,7 +60,7 @@ THEME = "./theme-flex"
 def sort_by_len(value, len_key=-1, reversed=False):
     return sorted(
         value,
-        key=lambda t: (-len(t[len_key]), *t),
+        key=lambda t: (-len(t[len_key]), t),
         reverse=reversed,
     )
 JINJA_FILTERS = {
@@ -68,10 +68,10 @@ JINJA_FILTERS = {
 }
 
 # Flex Theme setting
-SITETITLE = "Liang2's Blog"
+SITETITLE = "phonchi's Blog"
 SITESUBTITLE = "Code / Stat / Bioinfo"
 SITEDESCRIPTION = SITETITLE
-SITELOGO = "/pics/headpic.jpg"
+SITELOGO = "/pics/STAR_logo.png"
 MAIN_MENU = True
 MENUITEMS = [
     ('Archives', '/archives.html'),
@@ -102,12 +102,8 @@ AUTHOR_FEED_RSS = None
 
 # Social widget
 SOCIAL = (
-    ('twitter', 'https://twitter.com/ccwang002'),
-    ('facebook', 'https://www.facebook.com/lbwang.2'),
-    ('github', 'https://github.com/ccwang002'),
-    ('bitbucket', 'https://bitbucket.org/ccwang002'),
-    ('envelope-o', 'mailto:me+blog@liang2.tw'),
-    ('linkedin', 'http://tw.linkedin.com/in/liangbowang/'),
+    ('facebook', 'https://www.facebook.com/twSecure/?fref=ts'),
+    ('github', 'https://github.com/phonchi'),
 )
 
 SUMMARY_MAX_LENGTH = 24

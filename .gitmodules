@@ -4,3 +4,6 @@
 [submodule "theme-flex"]
 	path = theme-flex
 	url = git@github.com:ccwang002/Flex.git
+[submodule "output"]
+	path = output
+	url = git@github.com:phonchi/phonchi.github.io.git
